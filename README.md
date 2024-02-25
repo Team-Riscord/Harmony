@@ -1,8 +1,8 @@
 # <p style="text-align: center; margin-bottom: 0;">Discord-Clone Project</p>
 
----
-
 This project follows the Test-Driven Development approach. The listed features/functionalities of the app components are tested.
+
+<br />
 
 ## Components Of The App
 
