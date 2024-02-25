@@ -1,5 +1,7 @@
 import './Login.css';
 
+import Riscord from './Riscord';
+
 import db from '../utils/firebase';
 import { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
@@ -13,6 +15,8 @@ export default function Login() {
 
     const [emailOrUsernameErrorText, setEmailOrUsernameErrorText] = useState('');
     const [passwordErrorText, setPasswordErrorText] = useState('');
+
+    const [userFound, setUserFound] = useState(false);
 
     const validateEmail = (email) => {
         return String(email)
@@ -31,11 +35,11 @@ export default function Login() {
         if (emailOrUsername === '' || password === '') {
             if (emailOrUsername === '') {
                 setEmailOrUsernameError(true);
-                setEmailOrUsernameErrorText('* Please enter your email or username');
+                setEmailOrUsernameErrorText('* please enter your email or username');
             }
             if (password === '') {
                 setPasswordError(true);
-                setPasswordErrorText('* Please enter your password');
+                setPasswordErrorText('* please enter your password');
             }
             return;
         }
@@ -45,21 +49,17 @@ export default function Login() {
         if (data.length > 1) {
             if (!validateEmail(emailOrUsername)) {
                 setEmailOrUsernameError(true);
-                setEmailOrUsernameErrorText('* Please enter a valid email');
+                setEmailOrUsernameErrorText('* please enter a valid email');
                 return;
             }
         }
     
         onValue(ref(db, 'users/'), (snapshot) => {
-            let userFound = false;
             snapshot.forEach((childSnapshot) => {
                 const data = childSnapshot.val();
                 if (data) {
                     if ((data.email === emailOrUsername || data.username === emailOrUsername) && data.password === password) {
-                        userFound = true;
-                        
-                        //user logged in
-
+                        setUserFound(true);
                         return;
                     }
                 }
@@ -67,9 +67,9 @@ export default function Login() {
     
             if (!userFound) {
                 setPasswordError(true);
-                setPasswordErrorText('* Incorrect email/username or password');
+                setPasswordErrorText('* incorrect email/username or password');
                 setEmailOrUsernameError(true);
-                setEmailOrUsernameErrorText('* Incorrect email/username or password');
+                setEmailOrUsernameErrorText('* incorrect email/username or password');
             }
         });
     }
@@ -118,6 +118,7 @@ export default function Login() {
                     </div>
                 </div>
             </div>
+            {userFound && <Riscord emailOrUsername={emailOrUsername} />}
         </div>
     )
 }
