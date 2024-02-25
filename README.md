@@ -1,12 +1,8 @@
 # <p style="text-align: center; margin-bottom: 0;">Discord-Clone Project</p>
 
-_<p style="text-align: center; font-weight: bold; margin-bottom: 50px;">Anitej Isaac Sharma</p>_
-
 ---
 
 This project follows the Test-Driven Development approach. The listed features/functionalities of the app components are tested.
-
-####
 
 ## Components Of The App
 
