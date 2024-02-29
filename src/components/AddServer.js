@@ -15,6 +15,9 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
 
     const [userId, setUserId] = useState(null);
 
+    const [showServerNameError, setShowServerNameError] = useState(false);
+    const [showServerImageError, setShowServerImageError] = useState(false);
+
     useEffect(() => {
         const fetchData = () => {
             onValue(ref(db, 'users/'), (snapshot) => {
@@ -32,14 +35,28 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
     }, [emailOrUsername]);
 
     const createServer = () => {
-        push(ref(db, `users/${userId}/serverList/`), {
-            serverName: serverName,
-            serverIcon: selectedImage,
-            serverAdmin: true
-        });
+        if(serverName == '' || selectedImage == null) {
+            if(serverName == '') {
+                setShowServerNameError(true);
+            } else {
+                setShowServerNameError(false);
+            }
 
-        fetchData();
-        onClose();
+            if(selectedImage == null) {
+                setShowServerImageError(true);
+            } else {
+                setShowServerImageError(false);
+            }
+        } else {
+            push(ref(db, `users/${userId}/serverList/`), {
+                serverName: serverName,
+                serverIcon: selectedImage,
+                serverAdmin: true
+            });
+    
+            fetchData();
+            onClose();
+        }
     };
 
     const joinAServer = () => {
@@ -70,13 +87,17 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
             </div>
             <div className='add-server-form'>
                 <div className='add-server-form-image-input'>
+                    <p style={{visibility: showServerImageError ? 'visible' : 'hidden'}}>* please select an icon for your server</p>
                     <label htmlFor='server-image'>
                         {selectedImage ? (<img src={selectedImage} alt='Selected Image' className='add-server-form-image-input-icon add-server-input-image' />) : (<FontAwesomeIcon icon={faUpload} className='add-server-form-image-input-icon add-server-input-icon' />)}
                     </label>
                     <input type="file" id="server-image" name="server-image" accept="image/png, image/jpeg, image/jpg" onChange={handleImageInput} hidden />
                 </div>
                 <div className='add-server-form-name-input'>
-                    <label htmlFor='server-name'>server name</label>
+                    <div className='add-server-form-name-input-label'>
+                        <label htmlFor='server-name'>server name</label>
+                        <p style={{visibility: showServerNameError ? 'visible' : 'hidden'}}>* please enter a name for your server</p>
+                    </div>
                     <input type='text' id='server-name' name='server-name' onChange={(e) => {setServerName(e.target.value)}} />
                 </div>
                 <p>By creating a server, you agree to Riscord's <a href='https://discord.com/guidelines' target='_blank'>Community Guidelines</a>.</p>

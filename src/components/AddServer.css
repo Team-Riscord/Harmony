@@ -82,9 +82,17 @@
 .add-server-form-image-input {
     width: 100%;
     height: auto;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    justify-items: center;
     margin-top: 20px;
+}
+
+.add-server-form-image-input p {
+    color: red;
+    text-transform: lowercase;
+    font-weight: bold;
+    margin-top: -5px;
+    margin-bottom: 5px;
 }
 
 .add-server-form-image-input label {
@@ -121,6 +129,21 @@
     color: rgb(182, 186, 192);
     text-transform: uppercase;
     font-size: 12px;
+    font-weight: bold;
+}
+
+.add-server-form-name-input-label {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 25% 60%;
+    margin: 0;
+    margin-bottom: -10px;
+}
+
+.add-server-form-name-input-label p {
+    color: red;
+    margin-bottom: 5px;
+    text-transform: lowercase;
     font-weight: bold;
 }
 
