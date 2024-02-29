@@ -1,0 +1,178 @@
+.add-server-component {
+    position: fixed;
+    z-index: 1;
+    width: 400px;
+    background-color: rgb(49, 51, 56);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    padding: 15px 15px;
+    border-radius: 5px;
+}
+
+.add-server-close-icon-container {
+    color: rgb(116, 119, 124);
+    font-size: 25px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: right;
+}
+
+#add-server-close-icon {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.add-server-title {
+    width: 100%;
+    height: auto;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.add-server-title h1 {
+    margin: 0;
+    text-transform: capitalize;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.add-server-subtitle {
+    width: 90%;
+    height: auto;
+    color: rgb(182, 186, 192);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.add-server-subtitle p {
+    text-align: center;
+    margin: 0;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.add-server-form {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.add-server-form p {
+    color: rgb(182, 186, 192);
+    margin: 0;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.add-server-form a {
+    color: rgb(74, 160, 237);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.add-server-form-image-input {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.add-server-form-image-input label {
+    cursor: pointer;
+}
+
+.add-server-form-image-input-icon {
+    color: rgb(182, 186, 192);
+    font-size: 50px;
+    border: 5px solid rgb(90, 101, 234);
+    border-radius: 50px;
+}
+
+.add-server-input-icon {
+    color: rgb(182, 186, 192);
+    font-size: 50px;
+    padding: 20px 20px;
+}
+
+.add-server-input-image {
+    width: 100px;
+    height: 100px;
+    border: none;
+}
+
+.add-server-form-name-input {
+    width: 100%;
+    height: auto;
+    display: grid;
+    margin-top: 20px;
+}
+
+.add-server-form-name-input label {
+    color: rgb(182, 186, 192);
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.add-server-form-name-input input {
+    margin-top: 10px;
+    height: 30px;
+    background-color: rgb(30, 31, 34);
+    border: none;
+    outline: none;
+    color: white;
+    padding: 5px 7px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.add-server-button {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px 0;
+}
+
+.add-server-button button {
+    width: 100px;
+    height: 40px;
+    background-color: rgb(90, 101, 234);
+    border: none;
+    color: white;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.add-server-join-invitation {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.add-server-join-invitation p {
+    color: white;
+    font-size: 15px;
+}
+
+.add-server-join-invitation a {
+    color: rgb(74, 160, 237);
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -1,0 +1,65 @@
+.sidebar-component {
+    position: fixed;
+    width: 70px;
+    --sidebar-width: 70px;
+    height: 100vh;
+    background-color: rgb(30, 31, 34);
+    display: block;
+    padding-top: 5px;
+}
+
+.sidebar-icon-container {
+    width: 100%;
+    height: calc(var(--sidebar-width) - 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-icon {
+    width: 70%;
+    height: 80%;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.default-icon {
+    background-color: rgb(49, 51, 56);
+    color: rgb(80, 163, 97);
+    font-size: 20px;
+}
+
+.user-icon img {
+    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+}
+
+.user-icon img:hover {
+    transition: all 0.4s;
+    border-radius: 15px;
+}
+
+#direct-message-icon img {
+    width: 30px;
+    margin-top: 3px;
+}
+
+#direct-message-icon:hover {
+    background-color: rgb(90, 100, 234);
+}
+
+.default-icon:hover {
+    transition: all 0.4s;
+    border-radius: 15px;
+    background-color: rgb(80, 163, 97);
+    color: white;
+}
+
+hr {
+    width: 40%;
+    border: 1px solid rgb(48, 49, 53);
+}
