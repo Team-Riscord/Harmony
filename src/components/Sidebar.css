@@ -63,3 +63,24 @@ hr {
     width: 40%;
     border: 1px solid rgb(48, 49, 53);
 }
+
+.overlay-text {
+    position: absolute;
+    background-color: black;
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.overlay-text p {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+}

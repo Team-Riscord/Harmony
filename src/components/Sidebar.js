@@ -61,10 +61,27 @@ export default function Sidebar({ emailOrUsername }) {
         }
     }
 
+    const showOverlayText = (event) => {
+        const overlayBox = event.currentTarget.parentNode.querySelector('.overlay-text');
+        overlayBox.style.marginLeft = `${overlayBox.offsetWidth + 80}px`;
+        if(overlayBox.offsetWidth > 200) {
+            overlayBox.style.whiteSpace = 'wrap';
+        }
+        overlayBox.style.visibility = 'visible';
+    }
+
+    const hideOverlayText = (event) => {
+        const overlayBox = event.currentTarget.parentNode.querySelector('.overlay-text');
+        overlayBox.style.visibility = 'hidden';
+    }
+
     return (
         <div className='sidebar-component'>
             <div className='sidebar-icon-container'>
-                <div className='sidebar-icon default-icon' id='direct-message-icon' onClick={showWindow}>
+                <div className='overlay-text' style={{visibility: 'hidden'}}>
+                    <p>Direct Messages</p>
+                </div>
+                <div className='sidebar-icon default-icon' id='direct-message-icon' onClick={showWindow} onMouseOver={showOverlayText} onMouseOut={hideOverlayText}>
                     <span><img src={DMIcon} /></span>
                 </div>
             </div>
@@ -73,20 +90,29 @@ export default function Sidebar({ emailOrUsername }) {
 
             {serverList.map((server, index) => (
                 <div className='sidebar-icon-container' key={index}>
-                    <div className='sidebar-icon user-icon' id='user-server-icon' onClick={showWindow}>
+                    <div className='overlay-text' style={{visibility: 'hidden'}}>
+                        <p>{server[0]}</p>
+                    </div>
+                    <div className='sidebar-icon user-icon' id='user-server-icon' onClick={showWindow} onMouseOver={showOverlayText} onMouseOut={hideOverlayText}>
                         <span><img src={server[1]} /></span>
                     </div>
                 </div>
             ))}
 
             <div className='sidebar-icon-container'>
-                <div className='sidebar-icon default-icon' id='add-server-icon' onClick={showWindow}>
+                <div className='overlay-text' style={{visibility: 'hidden'}}>
+                    <p>Add a Server</p>
+                </div>
+                <div className='sidebar-icon default-icon' id='add-server-icon' onClick={showWindow} onMouseOver={showOverlayText} onMouseOut={hideOverlayText}>
                     <span><FontAwesomeIcon icon={faPlus} /></span>
                 </div>
             </div>
 
             <div className='sidebar-icon-container'>
-                <div className='sidebar-icon default-icon' id='explore-servers-icon' onClick={showWindow}>
+                <div className='overlay-text' style={{visibility: 'hidden'}}>
+                    <p>Explore Discoverable Servers</p>
+                </div>
+                <div className='sidebar-icon default-icon' id='explore-servers-icon' onClick={showWindow} onMouseOver={showOverlayText} onMouseOut={hideOverlayText}>
                     <span><FontAwesomeIcon icon={faCompass} /></span>
                 </div>
             </div>
@@ -94,7 +120,10 @@ export default function Sidebar({ emailOrUsername }) {
             <hr />
 
             <div className='sidebar-icon-container'>
-                <div className='sidebar-icon default-icon' id='download-apps-icon' onClick={showWindow}>
+                <div className='overlay-text' style={{visibility: 'hidden'}}>
+                    <p>Download Apps</p>
+                </div>
+                <div className='sidebar-icon default-icon' id='download-apps-icon' onClick={showWindow} onMouseOver={showOverlayText} onMouseOut={hideOverlayText}>
                     <span><FontAwesomeIcon icon={faDownload} /></span>
                 </div>
             </div>
