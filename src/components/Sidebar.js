@@ -1,6 +1,7 @@
 import './Sidebar.css';
 
 import AddServer from './AddServer';
+import DownloadApps from './DownloadApps';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCompass, faDownload } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +14,7 @@ import db from '../utils/firebase';
 
 export default function Sidebar({ emailOrUsername }) {
     const [isAddServerVisible, setIsAddServerVisible] = useState(false);
+    const [isDownloadAppsVisible, setIsDownloadAppsVisible] = useState(false);
     const [serverList, setServerList] = useState([]);
     const [userId, setUserId] = useState(null);
 
@@ -34,16 +36,21 @@ export default function Sidebar({ emailOrUsername }) {
     };
 
     useEffect(() => {
-        if (isAddServerVisible) {
+        if (isAddServerVisible || isDownloadAppsVisible) {
             document.body.style.pointerEvents = 'none';
-            const addServerComponent = document.querySelector('.add-server-component');
-            addServerComponent.style.pointerEvents = 'auto';
+            if(isAddServerVisible) {
+                const addServerComponent = document.querySelector('.add-server-component');
+                addServerComponent.style.pointerEvents = 'auto';
+            } else if (isDownloadAppsVisible) {
+                const downloadAppsComponent = document.querySelector('.download-apps-component');
+                downloadAppsComponent.style.pointerEvents = 'auto';
+            }
         } else {
             document.body.style.pointerEvents = 'auto';
         }
 
         fetchData();
-    }, [emailOrUsername, userId, isAddServerVisible]);
+    }, [emailOrUsername, userId, isAddServerVisible, isDownloadAppsVisible]);
 
 
     const showWindow = (event) => {
@@ -57,6 +64,7 @@ export default function Sidebar({ emailOrUsername }) {
             case 'explore-servers-icon':
                 break;
             case 'download-apps-icon':
+                setIsDownloadAppsVisible(true);
                 break;
         }
     }
@@ -129,6 +137,8 @@ export default function Sidebar({ emailOrUsername }) {
             </div>
 
             {isAddServerVisible && <AddServer emailOrUsername={emailOrUsername} fetchData={fetchData} onClose={() => {setIsAddServerVisible(false)}} /> }
+
+            {isDownloadAppsVisible && <DownloadApps onClose={() => {setIsDownloadAppsVisible(false)}} />}
         </div>
     )
 }

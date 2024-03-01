@@ -1,0 +1,159 @@
+.download-apps-component {
+    position: fixed;
+    z-index: 1;
+    width: 800px;
+    height: auto;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    padding: 15px 15px;
+    border-radius: 5px;
+}
+
+.download-apps-close-icon-container {
+    color: rgb(116, 119, 124);
+    font-size: 25px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: right;
+    margin-top: -5px;
+}
+
+#download-apps-close-icon {
+    cursor: pointer;
+}
+
+#download-apps-close-icon:hover {
+    color: black;
+}
+
+.download-apps-title {
+    width: 100%;
+    height: auto;
+    color: rgb(6, 6, 7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.download-apps-title h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.download-apps-container {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+}
+
+.download-apps-card-container {
+    width: 100%;
+    height: auto;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.DA-container-1 {
+    grid-template-columns: auto auto auto;
+}
+
+.DA-container-2 {
+    grid-template-columns: 63% 10%;
+}
+
+.download-apps-card {
+    border: 2px solid rgb(109, 111, 119);
+    width: 200px;
+    height: 250px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 60% 20% 20%;
+}
+
+.download-apps-card:hover {
+    transition: all 0.5s;
+    border-color: rgb(73, 97, 233);
+    .DA-card-image {
+        transition: all 0.5s;
+        color: rgb(73, 97, 233);
+    }
+    .DA-card-button {
+        transition: all 0.5s;
+        background-color: rgb(73, 97, 233);
+    }
+}
+
+.download-apps-latest-link {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.download-apps-latest-link p {
+    color: black;
+    font-size: 15px;
+}
+
+.download-apps-latest-link a {
+    color: rgb(12, 110, 223);
+    text-decoration: none;
+}
+
+.download-apps-latest-link a:hover {
+    text-decoration: underline;
+}
+
+.download-apps-card div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.download-apps-card div i {
+    color: blue;
+    width: 130px;
+    height: auto;
+}
+
+.DA-card-image {
+    width: 100px;
+    height: auto;
+    color: rgb(109, 111, 119);
+}
+
+.DA-card-title {
+    color: black;
+}
+
+.DA-card-button {
+    width: 90%;
+    height: 35px;
+    border: none;
+    background-color: rgb(109, 111, 119);
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.DA-linux-card {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-items: center;
+    align-items: center;
+    grid-gap: 10px;
+}
+
+.DA-linux-button {
+    width: 40%;
+}
