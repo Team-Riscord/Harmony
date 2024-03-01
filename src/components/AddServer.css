@@ -2,6 +2,7 @@
     position: fixed;
     z-index: 1;
     width: 400px;
+    height: 440px;
     background-color: rgb(49, 51, 56);
     top: 50%;
     left: 50%;
@@ -23,6 +24,10 @@
 #add-server-close-icon {
     margin-right: 10px;
     cursor: pointer;
+}
+
+#add-server-close-icon:hover {
+    color: white;
 }
 
 .add-server-title {
@@ -181,6 +186,14 @@
     cursor: pointer;
 }
 
+.add-server-button button:hover {
+    background-color: rgb(71, 82, 229);
+}
+
+.add-server-button button:active {
+    background-color: rgb(58, 66, 185);
+}
+
 .add-server-join-invitation {
     width: 100%;
     height: auto;
@@ -198,4 +211,8 @@
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
+}
+
+.add-server-join-invitation a:hover {
+    color: rgb(26, 140, 239);
 }

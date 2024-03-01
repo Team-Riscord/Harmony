@@ -9,6 +9,8 @@ import { useState, useEffect } from 'react';
 
 import { ref, onValue, push, set } from 'firebase/database';
 
+import JoinServer from './JoinServer';
+
 export default function AddServer({ emailOrUsername, fetchData, onClose }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [serverName, setServerName] = useState('');
@@ -17,6 +19,7 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
 
     const [showServerNameError, setShowServerNameError] = useState(false);
     const [showServerImageError, setShowServerImageError] = useState(false);
+    const [showJoinServerWindow, setShowJoinServerWindow] = useState(false);
 
     useEffect(() => {
         const fetchData = () => {
@@ -33,6 +36,10 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
         };
         fetchData();
     }, [emailOrUsername]);
+
+    const handleJoinServerBack = () => {
+        setShowJoinServerWindow(false);
+    };
 
     const createServer = () => {
         if(serverName == '' || selectedImage == null) {
@@ -60,7 +67,7 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
     };
 
     const joinAServer = () => {
-        onClose();
+        setShowJoinServerWindow(true);
     }
 
     const handleImageInput = (event) => {
@@ -108,6 +115,8 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
             <div className='add-server-join-invitation'>
                 <p>Have an invite already? <a onClick={joinAServer}>Join a Server</a>!</p>
             </div>
+
+            {showJoinServerWindow && <JoinServer onClose={onClose} onBack={handleJoinServerBack} /> }
         </div>
     )
 }

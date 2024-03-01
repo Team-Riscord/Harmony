@@ -3,7 +3,7 @@ import './Sidebar.css';
 import AddServer from './AddServer';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCompass, faDownload } from '@fortawesome/free-solid-svg-icons';
 import DMIcon from '../images/direct-message-icon.png';
 
 import { useEffect, useState } from 'react';
@@ -54,6 +54,10 @@ export default function Sidebar({ emailOrUsername }) {
                 break;
             case 'direct-message-icon':
                 break;
+            case 'explore-servers-icon':
+                break;
+            case 'download-apps-icon':
+                break;
         }
     }
 
@@ -78,6 +82,20 @@ export default function Sidebar({ emailOrUsername }) {
             <div className='sidebar-icon-container'>
                 <div className='sidebar-icon default-icon' id='add-server-icon' onClick={showWindow}>
                     <span><FontAwesomeIcon icon={faPlus} /></span>
+                </div>
+            </div>
+
+            <div className='sidebar-icon-container'>
+                <div className='sidebar-icon default-icon' id='explore-servers-icon' onClick={showWindow}>
+                    <span><FontAwesomeIcon icon={faCompass} /></span>
+                </div>
+            </div>
+
+            <hr />
+
+            <div className='sidebar-icon-container'>
+                <div className='sidebar-icon default-icon' id='download-apps-icon' onClick={showWindow}>
+                    <span><FontAwesomeIcon icon={faDownload} /></span>
                 </div>
             </div>
 
