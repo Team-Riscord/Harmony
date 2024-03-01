@@ -5,37 +5,19 @@ import db from '../utils/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faUpload } from '@fortawesome/free-solid-svg-icons';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import { ref, onValue, push, set } from 'firebase/database';
+import { ref, push } from 'firebase/database';
 
 import JoinServer from './JoinServer';
 
-export default function AddServer({ emailOrUsername, fetchData, onClose }) {
+export default function AddServer({ userId, fetchData, onClose }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [serverName, setServerName] = useState('');
-
-    const [userId, setUserId] = useState(null);
 
     const [showServerNameError, setShowServerNameError] = useState(false);
     const [showServerImageError, setShowServerImageError] = useState(false);
     const [showJoinServerWindow, setShowJoinServerWindow] = useState(false);
-
-    useEffect(() => {
-        const fetchData = () => {
-            onValue(ref(db, 'users/'), (snapshot) => {
-                snapshot.forEach((childsnapshot) => {
-                    const data = childsnapshot.val();
-                    const userId = childsnapshot.key;
-                    if (data.email === emailOrUsername || data.username === emailOrUsername) {
-                        setUserId(userId);
-                        return;
-                    }
-                });
-            });
-        };
-        fetchData();
-    }, [emailOrUsername]);
 
     const handleJoinServerBack = () => {
         setShowJoinServerWindow(false);
@@ -116,7 +98,7 @@ export default function AddServer({ emailOrUsername, fetchData, onClose }) {
                 <p>Have an invite already? <a onClick={joinAServer}>Join a Server</a>!</p>
             </div>
 
-            {showJoinServerWindow && <JoinServer onClose={onClose} onBack={handleJoinServerBack} /> }
+            {showJoinServerWindow && <JoinServer onClose={onClose} userId={userId} onBack={handleJoinServerBack} /> }
         </div>
     )
 }

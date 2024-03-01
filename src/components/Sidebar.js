@@ -136,7 +136,7 @@ export default function Sidebar({ emailOrUsername }) {
                 </div>
             </div>
 
-            {isAddServerVisible && <AddServer emailOrUsername={emailOrUsername} fetchData={fetchData} onClose={() => {setIsAddServerVisible(false)}} /> }
+            {isAddServerVisible && <AddServer userId={userId} fetchData={fetchData} onClose={() => {setIsAddServerVisible(false)}} /> }
 
             {isDownloadAppsVisible && <DownloadApps onClose={() => {setIsDownloadAppsVisible(false)}} />}
         </div>

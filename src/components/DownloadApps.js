@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faApple, faWindows, faLinux, faGooglePlay, faAppStoreIos } from '@fortawesome/free-brands-svg-icons';
 
-import { useState } from 'react';
-
 export default function DownloadApps({ onClose }) {
 
     return (
