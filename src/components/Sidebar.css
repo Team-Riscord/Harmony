@@ -6,6 +6,8 @@
     background-color: rgb(30, 31, 34);
     display: block;
     padding-top: 5px;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .sidebar-icon-container {
@@ -17,8 +19,9 @@
 }
 
 .sidebar-icon {
-    width: 70%;
-    height: 80%;
+    --sidebar-icon-wh: 50px;
+    width: var(--sidebar-icon-wh);
+    height: var(--sidebar-icon-wh);
     border-radius: 30px;
     cursor: pointer;
     display: flex;
@@ -26,16 +29,26 @@
     align-items: center;
 }
 
+.sidebar-icon-hover-indicator {
+    position: absolute;
+    width: 5px;
+    height: 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: white;
+    left: 0;
+}
+
 .default-icon {
     background-color: rgb(49, 51, 56);
     color: rgb(80, 163, 97);
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .user-icon img {
     border-radius: 30px;
-    width: 50px;
-    height: 50px;
+    width: var(--sidebar-icon-wh);
+    height: var(--sidebar-icon-wh);
 }
 
 .user-icon img:hover {
@@ -43,9 +56,8 @@
     border-radius: 15px;
 }
 
-#direct-message-icon img {
-    width: 30px;
-    margin-top: 3px;
+#direct-message-icon {
+    color: white;
 }
 
 #direct-message-icon:hover {
@@ -65,7 +77,7 @@ hr {
 }
 
 .overlay-text {
-    position: absolute;
+    position: fixed;
     background-color: black;
     height: auto;
     width: auto;
