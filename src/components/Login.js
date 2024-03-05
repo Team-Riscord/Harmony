@@ -5,6 +5,7 @@ import Riscord from './Riscord';
 import db from '../utils/firebase';
 import { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
     const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -15,8 +16,6 @@ export default function Login() {
 
     const [emailOrUsernameErrorText, setEmailOrUsernameErrorText] = useState('');
     const [passwordErrorText, setPasswordErrorText] = useState('');
-
-    const [userFound, setUserFound] = useState(false);
 
     const validateEmail = (email) => {
         return String(email)
@@ -55,17 +54,24 @@ export default function Login() {
         }
     
         onValue(ref(db, 'users/'), (snapshot) => {
+            let found = false;
             snapshot.forEach((childSnapshot) => {
                 const data = childSnapshot.val();
                 if (data) {
                     if ((data.email === emailOrUsername || data.username === emailOrUsername) && data.password === password) {
-                        setUserFound(true);
+                        found = true;
+                        localStorage.setItem('userLoggedIn', true);
+                        localStorage.setItem('userData', JSON.stringify({
+                            "serverKey": childSnapshot.key,
+                            data
+                        }));
+                        window.location.href='/';
                         return;
                     }
                 }
             });
     
-            if (!userFound) {
+            if (!found) {
                 setPasswordError(true);
                 setPasswordErrorText('* incorrect email/username or password');
                 setEmailOrUsernameError(true);
@@ -75,6 +81,7 @@ export default function Login() {
     }
 
     useEffect(() => {
+        localStorage.clear();
         const passwordCheckbox = document.querySelector("#login-form-password-checkbox");
         passwordCheckbox.addEventListener("change", function() {
             const passwordInput = document.querySelector("#login-form-password");
@@ -119,7 +126,7 @@ export default function Login() {
                 </div>
             </div>
             
-            {userFound && <Riscord emailOrUsername={emailOrUsername} />}
+            {/*userFound && <Riscord />*/}
         </div>
     )
 }
