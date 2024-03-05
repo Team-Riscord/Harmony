@@ -61,7 +61,7 @@ export default function AddServer({ userId, fetchData, onClose }) {
             };
             reader.readAsDataURL(file);
         }
-    }
+    }   
 
     return (
         <div className='add-server-component'>

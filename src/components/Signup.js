@@ -86,7 +86,7 @@ export default function Signup() {
                     setEmailErrorText('');
                     setUsernameErrorText('');
 
-                    window.location.href = '/';
+                    window.location.href = '/login';
 
                     return;
                 }).catch((error) => {
@@ -145,7 +145,7 @@ export default function Signup() {
                             <button type='submit' onClick={signupUser}>signup</button>
                         </div>
                         <div className='login-page-link'>
-                            <a href='/'>already have an account? click to login!</a>
+                            <a href='/login'>already have an account? click to login!</a>
                         </div>
                     </div>
                 </div>
