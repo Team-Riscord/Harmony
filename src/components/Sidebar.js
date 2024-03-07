@@ -51,16 +51,17 @@ export default function Sidebar({ username }) {
         } else {
             document.body.style.pointerEvents = 'auto';
 
-            const closedIDs = ['add-server-icon', 'download-apps-icon'];
-            for(const serverId in closedIDs) {
-                const addServerElem = document.getElementById(closedIDs[serverId]);
-                const addServerHoverIndicator = addServerElem.parentElement.querySelector('.sidebar-icon-hover-indicator');
-                addServerElem.style.borderRadius = '30px';
-                addServerElem.style.backgroundColor = 'rgb(49, 51, 56)';
-                addServerElem.style.color = 'rgb(80, 163, 97)';
-                addServerHoverIndicator.style.height = '20px';
-                addServerHoverIndicator.style.visibility = 'hidden';
-            }
+            // const closedIDs = ['add-server-icon', 'download-apps-icon'];
+            // for(const serverId in closedIDs) {
+            //     setActiveIcon(null);
+            //     const addServerElem = document.getElementById(closedIDs[serverId]);
+            //     const addServerHoverIndicator = addServerElem.parentElement.querySelector('.sidebar-icon-hover-indicator');
+            //     addServerElem.style.borderRadius = '30px';
+            //     addServerElem.style.backgroundColor = 'rgb(49, 51, 56)';
+            //     addServerElem.style.color = 'rgb(80, 163, 97)';
+            //     addServerHoverIndicator.style.height = '20px';
+            //     addServerHoverIndicator.style.visibility = 'hidden';
+            // }
         }
 
         fetchData();
@@ -217,7 +218,7 @@ export default function Sidebar({ username }) {
                 </div>
             </div>
 
-            {isAddServerVisible && <AddServer userId={userId} fetchData={fetchData} onClose={() => {setIsAddServerVisible(false)}} /> }
+            {isAddServerVisible && <AddServer userId={userId} fetchData={fetchData} onClose={() => {setIsAddServerVisible(false);}} /> }
 
             {isDownloadAppsVisible && <DownloadApps onClose={() => {setIsDownloadAppsVisible(false)}} />}
         </div>

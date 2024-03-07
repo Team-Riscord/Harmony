@@ -1,11 +1,8 @@
 import './Login.css';
 
-import Riscord from './Riscord';
-
 import db from '../utils/firebase';
 import { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
-import { Navigate } from 'react-router-dom';
 
 export default function Login() {
     const [emailOrUsername, setEmailOrUsername] = useState('');
