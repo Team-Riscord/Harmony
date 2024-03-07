@@ -1,0 +1,203 @@
+.serverbar-component {
+    position: relative;
+    width: 250px;
+    height: 100vh;
+    background-color: rgb(43, 45, 49);
+    display: grid;
+    grid-template-rows: 40px auto 50px;
+}
+
+.serverbar-top {
+    width: 100%;
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid rgb(28, 29, 31);
+    padding-top: 3px;
+}
+
+.serverbar-top button {
+    width: 90%;
+    height: 25px;
+    background-color: rgb(28, 29, 31);
+    border: none;
+    color: rgb(137, 145, 153);
+    text-align: center;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.serverbar-top button:hover {
+    cursor: pointer;
+}
+
+.serverbar-middle {
+    border: 1px solid cyan;
+    width: 100%;
+    grid-row: 2;
+    display: grid;
+    justify-items: center;
+    grid-template-rows: 70px auto;
+}
+
+.serverbar-middle-default-buttons {
+    grid-row: 1;
+    width: 100%;
+    display: block;
+    padding-top: 10px;
+}
+
+.serverbar-middle-default-button {
+    width: 95%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: none;
+    display: grid;
+    grid-template-columns: 50px auto;
+    margin: auto;
+}
+
+.serverbar-middle-default-button:hover {
+    background-color: rgb(64, 66, 72);
+    cursor: pointer;
+    .serverbar-middle-default-button-icon, .serverbar-middle-default-button-title p {
+        color: rgb(220, 222, 225);
+    }
+}
+
+.serverbar-middle-default-button-icon {
+    color: rgb(149, 155, 163);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.serverbar-middle-default-button-title {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.serverbar-middle-default-button-title p {
+    margin: 0;
+    text-transform: capitalize;
+    color: rgb(149, 155, 163);
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.serverbar-middle-DM-buttons {
+    grid-row: 2;
+    border: 1px solid red;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 30px auto;
+}
+
+.serverbar-middle-DM-title {
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 90% 10%;
+}
+
+.serverbar-middle-DM-title-text {
+    grid-column: 1;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.serverbar-middle-DM-title-text p {
+    margin: 0;
+    color: rgb(149, 155, 163);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.serverbar-middle-DM-title-icon {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(149, 155, 163);
+}
+
+.serverbar-middle-DM-title-icon:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.serverbar-middle-DM-title-text:hover p {
+    color: white;
+}
+
+.serverbar-middle-DM-title-overlay-text {
+    position: fixed;
+    background-color: black;
+    height: auto;
+    width: auto;
+    max-width: 200px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    margin-left: 200px;
+    margin-top: -25px;
+}
+
+.serverbar-middle-DM-title-overlay-text p {
+    color: white;
+    font-weight: bold;
+    margin: 0;
+    font-size: 15px;
+}
+
+.serverbar-middle-DM-button-section {
+    border: 1px solid pink;
+    grid-row: 2;
+    display: block;
+    padding-top: 5px;
+}
+
+.serverbar-middle-DM-button {
+    border: 1px solid yellow;
+    width: 95%;
+    height: 40px;
+    margin: auto;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 20% 70% 10%;
+}
+
+.serverbar-middle-DM-button-icon {
+    grid-column: 1;
+    border: 1px solid red;
+}
+
+.serverbar-middle-DM-button-title {
+    grid-column: 2;
+    border: 1px solid red;
+}
+
+.serverbar-middle-DM-button-title p {
+    margin: 0;
+}
+
+.serverbar-middle-DM-button-close {
+    grid-column: 3;
+    border: 1px solid red;
+}
+
+.serverbar-bottom {
+    border: 1px solid greenyellow;
+    grid-row: 3;
+    width: 100%;
+}

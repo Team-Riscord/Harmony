@@ -1,5 +1,5 @@
 .sidebar-component {
-    position: fixed;
+    position: relative;
     width: 70px;
     --sidebar-width: 70px;
     height: 100vh;
