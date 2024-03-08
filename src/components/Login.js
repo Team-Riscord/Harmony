@@ -92,7 +92,7 @@ export default function Login() {
 
     return (
         <div className='login-page'>
-            <div className='login-container'>
+           <div className='login-container'>
                 <div className='login-title'>
                     <h1>welcome back to riscord</h1>
                     <h3>we're so excited to see you!</h3>
@@ -106,7 +106,7 @@ export default function Login() {
                         </div>
                         <div className='login-form-field'>
                             <label htmlFor='login-form-password'>enter your password</label>
-                            <p id='login-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: passwordError ? 'block' : 'none'}}>{passwordErrorText}</p>
+                             <p id='login-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: passwordError ? 'block' : 'none'}}>{passwordErrorText}</p>
                             <input type='password' id='login-form-password' onChange={(e) => {setPassword(e.target.value)}} />
                             <div className='login-form-password-checkbox'>
                                 <input type='checkbox' id='login-form-password-checkbox' />

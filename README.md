@@ -32,3 +32,64 @@ This project follows the Test-Driven Development approach. The listed features/f
     - If the username exists, it displays an error message: _Username already exists_.
   - If all conditions are met, it adds the user to the database and clears the input fields.
 - 'Show Password' checkbox below the password input, which, when checked, shows the password in readable text.
+
+<br />
+
+# Database Schema
+
+- Users
+
+  - id: string
+  - name: string
+  - imageURL: string
+  - email: string
+  - password: string
+  - createdAt: datetime
+  - updatedAt: datetime
+  - friends: [string] (Array of user IDs)
+
+- Servers
+
+  - id: string
+  - name: string
+  - imageURL: string
+  - inviteCode: string
+  - profileID: string (Reference to User)
+  - createdAt: datetime
+  - updatedAt: datetime
+
+- Members
+
+  - id: string
+  - role: enum (ADMIN, MODERATOR, GUEST)
+  - profileID: string (Reference to User)
+  - serverId: string (Reference to Server)
+  - createdAt: datetime
+  - updatedAt: datetime
+
+- Channels
+
+  - id: string
+  - name: string
+  - type: enum (TEXT, AUDIO, VIDEO)
+  - profileId: string (Reference to User)
+  - serverId: string (Reference to Server)
+  - createdAt: datetime
+  - updatedAt: datetime
+
+- ServerMessages
+
+  - id: string
+  - senderId: string (Reference to User)
+  - serverId: string (Reference to Server)
+  - message: string
+  - createdAt: datetime
+  - updatedAt: datetime
+
+- DirectMessages
+  - id: string
+  - senderId: string (Reference to User)
+  - receiverId: string (Reference to User)
+  - message: string
+  - createdAt: datetime
+  - updatedAt: datetime

@@ -3,13 +3,16 @@ import './Signup.css';
 import db from '../utils/firebase';
 import { useState, useEffect } from 'react';
 import { push, ref, onValue } from 'firebase/database';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import defaultProfileImage from '../images/default-profile-image.png';
 
 export default function Signup() {
-
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [profileImage, setProfileImage] = useState('');
 
     const [emailErrorText, setEmailErrorText] = useState('');
     const [usernameErrorText, setUsernameErrorText] = useState('');
@@ -77,12 +80,14 @@ export default function Signup() {
                     fullname: fullname,
                     email: email,
                     username: username,
-                    password: password
+                    password: password,
+                    profileImage: profileImage === '' ? defaultProfileImage : profileImage
                 }).then(() => {
                     setFullname('');
                     setEmail('');
                     setUsername('');
                     setPassword('');
+                    setProfileImage('');
                     setEmailErrorText('');
                     setUsernameErrorText('');
 
@@ -95,6 +100,17 @@ export default function Signup() {
             }
         });
     }
+
+    const handleImageInput = (event) => {
+        const file = event.target.files[0];
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setProfileImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    }  
 
     useEffect(() => {
         const passwordCheckbox = document.querySelector("#signup-form-password-checkbox");
@@ -140,6 +156,13 @@ export default function Signup() {
                                 <input type='checkbox'id='signup-form-password-checkbox' />
                                 <label htmlFor='signup-form-password-checkbox'>show password</label>
                             </div>
+                        </div>
+                        <div className='signup-form-field'>
+                            <h3 htmlFor='signup-form-profileImage'>choose a profile image</h3>
+                            <label htmlFor='signup-form-profileImage' style={{width: '100px', marginLeft: 'auto', marginRight: 'auto'}}>
+                                {profileImage ? (<img src={profileImage} alt='Profile Image' className='signup-form-image-input-icon signup-form-input-image' />) : (<FontAwesomeIcon icon={faUpload} className='signup-form-image-input-icon signup-form-input-icon' />)}
+                            </label>
+                            <input type="file" id="signup-form-profileImage" name="profile-image" accept="image/png, image/jpeg, image/jpg" onChange={handleImageInput} hidden />
                         </div>
                         <div className='signup-form-field' style={{display: 'flex', justifyContent: 'center', alignContent: 'center'}}>
                             <button type='submit' onClick={signupUser}>signup</button>
