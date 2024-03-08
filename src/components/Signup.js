@@ -76,12 +76,18 @@ export default function Signup() {
             });
     
             if (!emailExists && !usernameExists && !emptyFields) {
-                push(ref(db, 'users/'), {
-                    fullname: fullname,
+                const currentDateTime = new Date();
+                var datetime = currentDateTime.getDate() + "/" + (currentDateTime.getMonth()+1)  + "/" + currentDateTime.getFullYear() + " @ "  + currentDateTime.getHours() + ":"  + currentDateTime.getMinutes() + ":" + currentDateTime.getSeconds();
+                
+                push(ref(db, 'Users/'), { // generates a unique user ID under which the following data will be stored
+                    name: fullname,
                     email: email,
                     username: username,
                     password: password,
-                    profileImage: profileImage === '' ? defaultProfileImage : profileImage
+                    profileImage: profileImage === '' ? defaultProfileImage : profileImage,
+                    createdAt: datetime,
+                    updatedAt: datetime,
+                    friends: [] //won't show up in the database at sign up as it is an empty array/list
                 }).then(() => {
                     setFullname('');
                     setEmail('');

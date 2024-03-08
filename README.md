@@ -52,15 +52,14 @@ This project follows the Test-Driven Development approach. The listed features/f
   - id: string
     - name: string
     - serverIcon: string
-    - inviteCode: string
-    - profileID: string (Reference to User id)
+    - serverAdmin: string (Reference to User id)
     - createdAt: datetime
     - updatedAt: datetime
 
 - Members
   - id: string
     - role: enum (ADMIN, MODERATOR, GUEST)
-    - profileID: string (Reference to User id)
+    - userID: string (Reference to User id)
     - serverId: string (Reference to Server id)
     - createdAt: datetime
     - updatedAt: datetime

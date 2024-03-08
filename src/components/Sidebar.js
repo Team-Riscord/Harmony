@@ -13,29 +13,41 @@ import { ref, get } from 'firebase/database';
 
 import db from '../utils/firebase';
 
-export default function Sidebar({ username }) {
+export default function Sidebar() {
     const [isAddServerVisible, setIsAddServerVisible] = useState(false);
     const [isDownloadAppsVisible, setIsDownloadAppsVisible] = useState(false);
     const [serverList, setServerList] = useState([]);
-    const [userId, setUserId] = useState(null);
     const [activeIcon, setActiveIcon] = useState(null);
 
     const fetchData = async () => {
+        const data = JSON.parse(localStorage.getItem('userData'));
+        const userID = data.userKey;
+    
         const tempList = [];
-        const snapshot = await get(ref(db, 'users/'));
-        snapshot.forEach((childSnapshot) => {
-            const data = childSnapshot.val();
-            if (data.username === username) {
-                const userId = childSnapshot.key;
-                setUserId(userId);
-                for (const serverId in data.serverList) {
-                    const serverData = data.serverList[serverId];
-                    tempList.push([serverData.serverName, serverData.serverIcon]);
-                }
+        const memberSnapshot = await get(ref(db, 'Members/'));
+
+        const tempServerIDList = [];
+    
+        const promises = [];
+        memberSnapshot.forEach((memberChildSnapshot) => {
+            const memberData = memberChildSnapshot.val();
+            if (memberData.userID === userID) {
+                const serverId = memberData.serverID;
+                tempServerIDList.push(serverId);
+                const promise = get(ref(db, `Servers/${serverId}`)).then((serverSnapshot) => {
+                    const serverData = serverSnapshot.val();
+                    if (serverData) {
+                        tempList.push([serverData.serverName, serverData.serverIcon]);
+                    }
+                });
+                promises.push(promise);
             }
         });
-        
+    
+        await Promise.all(promises);
+    
         setServerList(tempList);
+        localStorage.setItem('userServerList', tempServerIDList);
     };
 
     useEffect(() => {
@@ -50,22 +62,10 @@ export default function Sidebar({ username }) {
             }
         } else {
             document.body.style.pointerEvents = 'auto';
-
-            // const closedIDs = ['add-server-icon', 'download-apps-icon'];
-            // for(const serverId in closedIDs) {
-            //     setActiveIcon(null);
-            //     const addServerElem = document.getElementById(closedIDs[serverId]);
-            //     const addServerHoverIndicator = addServerElem.parentElement.querySelector('.sidebar-icon-hover-indicator');
-            //     addServerElem.style.borderRadius = '30px';
-            //     addServerElem.style.backgroundColor = 'rgb(49, 51, 56)';
-            //     addServerElem.style.color = 'rgb(80, 163, 97)';
-            //     addServerHoverIndicator.style.height = '20px';
-            //     addServerHoverIndicator.style.visibility = 'hidden';
-            // }
         }
 
         fetchData();
-    }, [username, userId, isAddServerVisible, isDownloadAppsVisible]);
+    }, [isAddServerVisible, isDownloadAppsVisible]);
 
     const sidebarIconClick = (event) => {
         setActiveIcon(event.currentTarget.id);
@@ -159,7 +159,6 @@ export default function Sidebar({ username }) {
         }
     }
     
-
     return (
         <div className='sidebar-component'>
             <div className='sidebar-icon-container'>
@@ -218,7 +217,7 @@ export default function Sidebar({ username }) {
                 </div>
             </div>
 
-            {isAddServerVisible && <AddServer userId={userId} fetchData={fetchData} onClose={() => {setIsAddServerVisible(false);}} /> }
+            {isAddServerVisible && <AddServer fetchData={fetchData} onClose={() => {setIsAddServerVisible(false);}} /> }
 
             {isDownloadAppsVisible && <DownloadApps onClose={() => {setIsDownloadAppsVisible(false)}} />}
         </div>

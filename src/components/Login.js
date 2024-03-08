@@ -50,7 +50,7 @@ export default function Login() {
             }
         }
     
-        onValue(ref(db, 'users/'), (snapshot) => {
+        onValue(ref(db, 'Users/'), (snapshot) => {
             let found = false;
             snapshot.forEach((childSnapshot) => {
                 const data = childSnapshot.val();
@@ -59,7 +59,7 @@ export default function Login() {
                         found = true;
                         localStorage.setItem('userLoggedIn', true);
                         localStorage.setItem('userData', JSON.stringify({
-                            "serverKey": childSnapshot.key,
+                            "userKey": childSnapshot.key,
                             data
                         }));
                         window.location.href='/';

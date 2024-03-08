@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 import db from '../utils/firebase';
 
-import { onValue, ref, set } from 'firebase/database';
+import { onValue, ref, push } from 'firebase/database';
 
 export default function JoinServer({ userId, onClose, onBack }) {
     const [serverInvite, setServerInvite] = useState(null);
@@ -36,41 +36,45 @@ export default function JoinServer({ userId, onClose, onBack }) {
         }
     
         let userAlreadyInServer = false;
-    
-        onValue(ref(db, `users/${userId}/serverList`), (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                const serverKeys = Object.keys(data);
-                if (serverKeys.includes(serverLink)) {
-                    setServerInviteErrorText('* you are already a part of the server');
-                    setShowServerInviteError(true);
-                    userAlreadyInServer = true;
-                    return;
-                }
+
+        const userServerList = localStorage.getItem('userServerList').split(",");
+        for(const userServer in userServerList) {
+            if(userServerList[userServer] == serverLink) {
+                setServerInviteErrorText('* you are already a part of the server');
+                setShowServerInviteError(true);
+                userAlreadyInServer = true;
+                return;
             }
-        });
+        }
     
         if (!userAlreadyInServer) {
             let serverExists = false;
-    
-            onValue(ref(db, 'users/'), (snapshot) => {
+
+            onValue(ref(db, 'Servers/'), (snapshot) => {
                 snapshot.forEach((childsnapshot) => {
-                    const data = childsnapshot.val();
-                    if (data && data.serverList) {
-                        for (const server in data.serverList) {
-                            if (server === serverLink) {
-                                serverExists = true;
-                                set(ref(db, `users/${userId}/serverList/${server}`), {
-                                    serverAdmin: false,
-                                    serverIcon: data.serverList[server]['serverIcon'],
-                                    serverName: data.serverList[server]['serverName']
-                                });
-                                onClose();
-                                return;
-                            }
-                        }
+                    const key = childsnapshot.key;
+                    if(key == serverLink) {
+                        serverExists = true;
+
+                        const currentDateTime = new Date();
+                        var datetime = currentDateTime.getDate() + "/" + (currentDateTime.getMonth()+1)  + "/" + currentDateTime.getFullYear() + " @ "  + currentDateTime.getHours() + ":"  + currentDateTime.getMinutes() + ":" + currentDateTime.getSeconds();
+                        
+                        const userData = JSON.parse(localStorage.getItem('userData'));
+                        push(ref(db, 'Members/'), {
+                            role: 'GUEST',
+                            userID: userData.userKey,
+                            serverID: key,
+                            createdAt: datetime,
+                            updatedAt: datetime
+                        });
+
+                        onClose();
+                        return;
                     }
                 });
+                if(serverExists) {
+                    return;
+                }
             });
     
             if (!serverExists) {

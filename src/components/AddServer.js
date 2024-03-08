@@ -11,7 +11,7 @@ import { ref, push } from 'firebase/database';
 
 import JoinServer from './JoinServer';
 
-export default function AddServer({ userId, fetchData, onClose }) {
+export default function AddServer({ fetchData, onClose }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [serverName, setServerName] = useState('');
 
@@ -37,10 +37,27 @@ export default function AddServer({ userId, fetchData, onClose }) {
                 setShowServerImageError(false);
             }
         } else {
-            push(ref(db, `users/${userId}/serverList/`), {
+            const currentDateTime = new Date();
+            var datetime = currentDateTime.getDate() + "/" + (currentDateTime.getMonth()+1)  + "/" + currentDateTime.getFullYear() + " @ "  + currentDateTime.getHours() + ":"  + currentDateTime.getMinutes() + ":" + currentDateTime.getSeconds();
+
+            const data = JSON.parse(localStorage.getItem('userData'));
+            
+            const newServerRef = push(ref(db, 'Servers/'), { //generates a unique server ID under which the following data will be stored
                 serverName: serverName,
                 serverIcon: selectedImage,
-                serverAdmin: true
+                serverAdmin: data.userKey,
+                createdAt: datetime,
+                updatedAt: datetime
+            });
+
+            const serverId = newServerRef.key;
+
+            push(ref(db, 'Members/'), { //generates a unique member ID under which the following data will be stored
+                role: 'ADMIN',
+                userID: data.userKey,
+                serverID: serverId,
+                createdAt: datetime,
+                updatedAt: datetime
             });
     
             fetchData();
@@ -98,7 +115,7 @@ export default function AddServer({ userId, fetchData, onClose }) {
                 <p>Have an invite already? <a onClick={joinAServer}>Join a Server</a>!</p>
             </div>
 
-            {showJoinServerWindow && <JoinServer onClose={onClose} userId={userId} onBack={handleJoinServerBack} /> }
+            {showJoinServerWindow && <JoinServer onClose={onClose} onBack={handleJoinServerBack} /> }
         </div>
     )
 }
