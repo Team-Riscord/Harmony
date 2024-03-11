@@ -134,7 +134,7 @@ export default function Signup() {
         <div className='signup-page'>
             <div className='signup-container'>
                 <div className='signup-title'>
-                    <h1>welcome to riscord</h1>
+                    <h1>welcome to harmony</h1>
                     <h3>let's get you started!</h3>
                 </div>
                 <div className='signup-form'>

@@ -94,7 +94,7 @@ export default function Login() {
         <div className='login-page'>
            <div className='login-container'>
                 <div className='login-title'>
-                    <h1>welcome back to riscord</h1>
+                    <h1>welcome back to harmony</h1>
                     <h3>we're so excited to see you!</h3>
                 </div>
                 <div className='login-form'>
