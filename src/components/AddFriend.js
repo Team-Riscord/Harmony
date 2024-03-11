@@ -26,35 +26,24 @@ export default function AddFriend({ onClose }) {
 
         try {
             const snapshot = await get(ref(db, 'Users/'));
-            let friendFound = false;
+            let userFound = false;
             snapshot.forEach((childsnapshot) => {
                 const data = childsnapshot.val();
                 if (data.username === friendUsername) {
                     //if the key already exists in the friends list, then say that the friend already exists.
+                    
                     const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'));
-
-                    let alreadyFriends = false;
-                    for(const friend in userDataFromLocalStorage.data.friends) {
-                        if(userDataFromLocalStorage.data.friends[friend] == childsnapshot.key) {
-                            setErrorText("* you are already friends");
-                            alreadyFriends = true;
-                            return;
-                        }
-                    }
-
-                    // if(!alreadyFriends) {
-                    //     const newFriendRef = push(ref(db, `Users/${userData.userKey}/friends`), childsnapshot.key);
-                    //     const newFriendKey = newFriendRef.key;
-                    //     userDataFromLocalStorage.data.friends[newFriendKey] = childsnapshot.key;
-                    //     localStorage.setItem('userData', JSON.stringify(userDataFromLocalStorage));
-                    //     friendFound = true;
-                    //     setErrorText('');
-                    //     onClose();
-                    //     return;
-                    // }
+                    push(ref(db, `Users/${childsnapshot.key}/friendRequests/`), {
+                        userId: userDataFromLocalStorage.userKey
+                    });
+                    
+                    userFound = true;
+                    setErrorText('');
+                    onClose();
+                    return;
                 }
             });
-            if (!friendFound) {
+            if (!userFound) {
                 setErrorText('* User does not exist');
             }
         } catch (error) {

@@ -9,6 +9,7 @@ import db from '../utils/firebase';
 
 import AddFriend from './AddFriend';
 import FriendsList from './FriendsList';
+import FriendRequests from './FriendRequests';
 
 export default function DMServerBar() {
     const [userProfileImage, setUserProfileImage] = useState('');
@@ -16,6 +17,7 @@ export default function DMServerBar() {
     const [isAddFriendVisible, setIsAddFriendVisible] = useState(false);
     const [friendsList, setFriendsList] = useState([]);
     const [isFriendsListVisible, setIsFriendsListVisible] = useState(false);
+    const [isFriendRequestsVisible, setIsFriendRequestsVisible] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -42,7 +44,7 @@ export default function DMServerBar() {
     };
 
     useEffect(() => {
-        if (isAddFriendVisible || isFriendsListVisible) {
+        if (isAddFriendVisible || isFriendsListVisible || isFriendRequestsVisible) {
             document.body.style.pointerEvents = 'none';
             if(isAddFriendVisible) {
                 const addFriendComponent = document.querySelector('.add-friend-component');
@@ -52,12 +54,16 @@ export default function DMServerBar() {
                 const friendsListComponent = document.querySelector('.friends-list-component');
                 friendsListComponent.style.pointerEvents = 'auto';
             }
+            if(isFriendRequestsVisible) {
+                const friendRequestsComponent = document.querySelector('.friend-requests-component');
+                friendRequestsComponent.style.pointerEvents = 'auto';
+            }
         } else {
             document.body.style.pointerEvents = 'auto';
         }
 
         fetchData();
-    }, [isAddFriendVisible, isFriendsListVisible]); 
+    }, [isAddFriendVisible, isFriendsListVisible, isFriendRequestsVisible]); 
 
     const middleButtonClick = () => {
         setIsAddFriendVisible(true);
@@ -91,7 +97,7 @@ export default function DMServerBar() {
                             <p>add friend</p>
                         </div>
                     </div>
-                    <div className='serverbar-middle-default-button' id='serverbar-middle-friend-request-button'>
+                    <div className='serverbar-middle-default-button' id='serverbar-middle-friend-request-button' onClick={() => {setIsFriendRequestsVisible(true)}}>
                         <div className='serverbar-middle-default-button-icon'>
                             <FontAwesomeIcon icon={faBell} />
                         </div>
@@ -149,6 +155,7 @@ export default function DMServerBar() {
             </div>
             {isAddFriendVisible && <AddFriend onClose={handleAddFriendClose} />}
             {isFriendsListVisible && <FriendsList onClose={() => {setIsFriendsListVisible(false)}} />}
+            {isFriendRequestsVisible && <FriendRequests onClose={() => {setIsFriendRequestsVisible(false)}} />}
         </div>
     )
 }

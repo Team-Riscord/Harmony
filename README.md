@@ -47,7 +47,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - createdAt: datetime
     - updatedAt: datetime
     - friends: [string] (Array of user IDs)
-    - DMFriends: [string] (Array of user IDs)
+    - friendRequests: [string] (Array of user IDs)
     - isOnline: boolean
 
 - Servers
