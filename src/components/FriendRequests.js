@@ -40,14 +40,26 @@ export default function FriendRequests({ onClose }) {
         fetchData();
     }, []);
 
-    const declineFriendRequest = (event) => {
+    const declineFriendRequest = async (event) => {
         const requestId = event.currentTarget.parentElement.parentElement.parentElement.id;
-        
+        const friendId = event.currentTarget.parentElement.parentElement.parentElement.querySelector('.friend-requests-button-username p').id;
+
         const updatedFriendRequestsList = friendRequestsList.filter(request => request.id == requestId);
         setFriendRequestsList(updatedFriendRequestsList);
-
+    
         const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'));
         remove(ref(db, `Users/${userDataFromLocalStorage.userKey}/friendRequests/${requestId}`));
+    
+        const sentRequestsSnapshot = await get(ref(db, `Users/${friendId}/sentRequests/`));
+        
+        sentRequestsSnapshot.forEach((childsnapshot) => {
+            const data = childsnapshot.val();
+            
+            if(data.userName == userDataFromLocalStorage.data.username) {
+                remove(ref(db, `Users/${friendId}/sentRequests/${childsnapshot.key}`));
+                return;
+            }
+        });
     }
 
     const acceptFriendRequest = (event) => {

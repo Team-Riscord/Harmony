@@ -14,6 +14,26 @@ export default function AddFriend({ onClose }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
 
     const addFriend = async () => {
+        let requestAlreadySent = false;
+        const sentRequestSnapshot = await get(ref(db, `Users/${userData.userKey}/sentRequests/`));
+        sentRequestSnapshot.forEach((childsnapshot) => {
+            const data = childsnapshot.val();
+            if(data.userName == friendUsername) {
+                setErrorText('* friend request has already been sent...awaiting response ⌛️');
+                requestAlreadySent = true;
+                return;
+            }
+        });
+
+        if(requestAlreadySent) {
+            return;
+        }
+
+        const friendRequestSnapshot = await get(ref(db, `Users/${userData.userKey}/friendRequests/`));
+        friendRequestSnapshot.forEach((childsnapshot) => {
+            const data = childsnapshot.val();
+        });
+
         if (friendUsername === '') {
             setErrorText('* Please enter a username to add as a friend');
             return;
@@ -26,15 +46,19 @@ export default function AddFriend({ onClose }) {
 
         try {
             const snapshot = await get(ref(db, 'Users/'));
+
             let userFound = false;
             snapshot.forEach((childsnapshot) => {
                 const data = childsnapshot.val();
                 if (data.username === friendUsername) {
-                    //if the key already exists in the friends list, then say that the friend already exists.
                     
                     const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'));
                     push(ref(db, `Users/${childsnapshot.key}/friendRequests/`), {
                         userId: userDataFromLocalStorage.userKey
+                    });
+
+                    push(ref(db, `Users/${userDataFromLocalStorage.userKey}/sentRequests/`), {
+                        userName: data.username
                     });
                     
                     userFound = true;
