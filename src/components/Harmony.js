@@ -1,4 +1,4 @@
-import './Riscord.css';
+import './Harmony.css';
 
 import Sidebar from './Sidebar';
 import DMServerBar from './DMServerBar';

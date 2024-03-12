@@ -7,7 +7,6 @@ This project follows the Test-Driven Development approach. The listed features/f
 # Components Of The App
 
 ### Login Page
-
 - Two input fields: _email or username_ and _password_.
 - Login button, which when clicked:
   - Checks if the input fields are empty.
@@ -20,7 +19,6 @@ This project follows the Test-Driven Development approach. The listed features/f
 - 'Show Password' checkbox below the password input, which, when checked, shows the password in readable text.
 
 ### Sign-Up Page
-
 - Four input fields: _fullname_, _email_, _username_, and _password_.
 - Signup button, which when clicked:
   - Checks if any of the input fields are empty.
@@ -33,11 +31,128 @@ This project follows the Test-Driven Development approach. The listed features/f
   - If all conditions are met, it adds the user to the database and clears the input fields.
 - 'Show Password' checkbox below the password input, which, when checked, shows the password in readable text.
 
+### Harmony
+**Features:**
+- Serves as the main component for the Riscord application.
+- Combines the sidebar and direct messaging server bar components into a single page layout.
+
+**Components:**
+- Sidebar: Displays the main functionalities of the Riscord application, such as joining servers and downloading apps.
+- DMServerBar: Facilitates direct messaging and friend management within the application.
+
+### Sidebar
+**Features:**
+- Displays icons representing various functionalities such as adding a server and downloading apps.
+- Dynamically fetches and displays user servers from the database.
+- Supports hover effects and click events for each sidebar icon.
+- Provides visual indicators for active sidebar icons.
+
+**Components:**
+
+- Sidebar Icon Container: Wraps each sidebar icon with hover indicators.
+- Overlay Text: Displays tooltips on hover over the sidebar icons.
+- Sidebar Icon: Represents different functionalities such as adding a server, exploring servers, and downloading apps.
+- Pointer Events Handling: Disables pointer events on the body while add server or download apps components are visible.
+
+### Add Server
+**Features:**
+- Allows users to customize their server by providing a name and an icon.
+- Validates user input for server name and server icon selection.
+- Generates a unique server ID and adds server details to the database upon creation.
+- Assigns the user as the server administrator upon creation.
+- Provides a link to join an existing server if the user already has an invite.
+
+**Components:**
+- Close Icon: Allows users to close the add server window.
+- Title: Displays the title of the add server section.
+- Subtitle: Provides guidance on customizing the server.
+- Server Image Input: Allows users to select an icon for their server, with error handling for missing image selection.
+- Server Name Input: Allows users to input the name of their server, with error handling for missing server name.
+- Create Button: Initiates the server creation process.
+- Join Invitation: Provides a link to join an existing server.
+- Join Server Window: Displays a window to join an existing server if the user chooses to do so.
+
+### Join Server
+**Features:**
+- Enables users to join servers using invite links.
+- Validates the format of the invite link.
+- Checks if the user is already a member of the server.
+- Provides examples of valid invite links.
+- Offers the option to discover servers if the user lacks an invite link.
+
+**Components:**
+- Join Server Form: Contains input field for invite link and error message display.
+- Invite Example Section: Provides examples of valid invite links.
+- Discover Servers Button: Guides users to explore discoverable communities.
+
+### Download Apps
+**Features:**
+- Provides options to download the Discord app for different platforms.
+- Includes direct download links for macOS, Windows, Linux, iOS, and Android.
+- Offers a link to the public test build of the app.
+
+**Components:**
+- Download Apps Title: Displays the title of the download apps section.
+- Download Cards: Represent each platform with an icon, title, and download button.
+- Latest Link Section: Provides a link to the public test build of the app.
+
+### DM Server Bar
+**Features:**
+- Facilitates direct messaging and friend management.
+- Displays the user's profile image, username, and friend list.
+- Allows users to add friends, view friend requests, and initiate direct messages.
+- Provides options to close the add friend, friends list, and friend requests windows.
+
+**Components:**
+- Top Section: Displays the title of the direct messaging section.
+- Middle Section: Contains buttons for adding friends and viewing friend requests, as well as options to create direct messages.
+- Bottom Section: Displays the user's profile image, username, and settings icon.
+- Add Friend Window: Allows users to add friends by entering their usernames.
+- Friends List Window: Displays the user's list of friends and enables direct messaging.
+- Friend Requests Window: Lists incoming friend requests and allows users to accept or decline them.
+
+### Add Friend
+**Features:**
+- Enables users to add friends by entering their usernames.
+- Checks if the entered username is valid and not the user's own username.
+- Sends friend requests to the specified users.
+- Displays error messages for invalid usernames, duplicate requests, and attempts to add oneself as a friend.
+
+**Components:**
+- Close Icon: Allows users to close the add friend window.
+- Title: Displays the title of the add friend section.
+- Subtitle: Provides instructions on adding friends.
+- Username Input: Allows users to input the username of the friend they want to add.
+- Send Request Button: Sends a friend request to the specified user.
+- Error Text: Displays error messages for various scenarios, such as invalid usernames or duplicate requests.
+
+### Friend Requests
+**Features:**
+- Lists incoming friend requests for the user.
+- Allows users to accept or decline friend requests.
+- Removes friend requests from the database upon acceptance or rejection.
+
+**Components:**
+- Friend Requests Title: Displays the title of the friend requests section.
+- Friend Request Button: Represents each incoming friend request, including the requester's profile image and username.
+- Accept and Decline Buttons: Enables users to accept or decline friend requests.
+
+### Friends List
+**Features:**
+- Displays the user's friends list retrieved from the database.
+- Supports chat functionality with friends.
+
+**Components:**
+- Friends List Title: Displays the title of the friends list section.
+- Friend Button: Represents each friend in the list, including their profile image and username.
+- Chat Button: Enables users to initiate chats with friends.
+
 <br />
 
 # Database Schema
 
 - Users
+
   - id: string
     - name: string
     - profileImage: string
@@ -51,6 +166,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - isOnline: boolean
 
 - Servers
+
   - id: string
     - name: string
     - serverIcon: string
@@ -59,6 +175,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - updatedAt: datetime
 
 - Members
+
   - id: string
     - role: enum (ADMIN, MODERATOR, GUEST)
     - userID: string (Reference to User id)
@@ -67,6 +184,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - updatedAt: datetime
 
 - Channels
+
   - id: string
     - name: string
     - type: enum (TEXT, AUDIO, VIDEO)
@@ -76,6 +194,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - updatedAt: datetime
 
 - ServerMessages
+
   - id: string
     - senderId: string (Reference to User id)
     - serverId: string (Reference to Server id)
