@@ -15,58 +15,67 @@ export default function AddFriend({ onClose }) {
 
     const addFriend = async () => {
         let requestAlreadySent = false;
-        const sentRequestSnapshot = await get(ref(db, `Users/${userData.userKey}/sentRequests/`));
-        sentRequestSnapshot.forEach((childsnapshot) => {
+        let requestAlreadyReceived = false;
+    
+        const [sentRequestSnapshot, friendRequestSnapshot, snapshot] = await Promise.all([
+            get(ref(db, `Users/${userData.userKey}/sentRequests/`)),
+            get(ref(db, `Users/${userData.userKey}/friendRequests/`)),
+            get(ref(db, 'Users/'))
+        ]);
+    
+        for (const childsnapshot of sentRequestSnapshot) {
             const data = childsnapshot.val();
-            if(data.userName == friendUsername) {
+            if (data.userName === friendUsername) {
                 setErrorText('* friend request has already been sent...awaiting response ⌛️');
                 requestAlreadySent = true;
-                return;
+                break;
             }
-        });
-
-        if(requestAlreadySent) {
+        }
+    
+        if (requestAlreadySent) {
             return;
         }
-
-        const friendRequestSnapshot = await get(ref(db, `Users/${userData.userKey}/friendRequests/`));
-        friendRequestSnapshot.forEach((childsnapshot) => {
+    
+        for (const childsnapshot of friendRequestSnapshot) {
             const data = childsnapshot.val();
-        });
-
+            const userData = await get(ref(db, `Users/${data.userId}/username`));
+            if (userData.val() === friendUsername) {
+                setErrorText('* please check your friend requests as it appears that your friend has already sent you one');
+                requestAlreadyReceived = true;
+                break;
+            }
+        }
+    
+        if (requestAlreadyReceived) {
+            return;
+        }
+    
         if (friendUsername === '') {
             setErrorText('* Please enter a username to add as a friend');
             return;
         }
-
-        if(friendUsername == userData.data.username) {
+    
+        if (friendUsername === userData.data.username) {
             setErrorText('* you cannot add yourself as friend, but you can be your own friend :)');
             return;
         }
-
+    
         try {
-            const snapshot = await get(ref(db, 'Users/'));
-
             let userFound = false;
-            snapshot.forEach((childsnapshot) => {
+            for (const childsnapshot of snapshot) {
                 const data = childsnapshot.val();
                 if (data.username === friendUsername) {
-                    
                     const userDataFromLocalStorage = JSON.parse(localStorage.getItem('userData'));
-                    push(ref(db, `Users/${childsnapshot.key}/friendRequests/`), {
-                        userId: userDataFromLocalStorage.userKey
-                    });
-
-                    push(ref(db, `Users/${userDataFromLocalStorage.userKey}/sentRequests/`), {
-                        userName: data.username
-                    });
-                    
+                    await Promise.all([
+                        push(ref(db, `Users/${childsnapshot.key}/friendRequests/`), { userId: userDataFromLocalStorage.userKey }),
+                        push(ref(db, `Users/${userDataFromLocalStorage.userKey}/sentRequests/`), { userName: data.username })
+                    ]);
                     userFound = true;
                     setErrorText('');
                     onClose();
-                    return;
+                    break;
                 }
-            });
+            }
             if (!userFound) {
                 setErrorText('* User does not exist');
             }
