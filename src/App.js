@@ -5,7 +5,7 @@ import Signup from './components/Signup';
 import Homepage from './components/Homepage'; // Import the Homepage component
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Riscord from './components/Harmony';
+import Harmony from './components/Harmony';
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
