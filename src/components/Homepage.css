@@ -4,8 +4,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #add8e6; /* Consider a gradient or image background */
-    color: #333;
+    background-color: #0d1117; /* Dark mode background */
+    color: #c9d1d9; /* Light grey text for readability */
     text-align: center;
     padding: 20px;
 }
@@ -18,15 +18,17 @@
 }
 
 .homepage h1 {
-    font-size: 3rem; /* Larger font size */
+    font-size: 3rem;
     font-weight: bold;
     margin: 20px 0;
+    color: #58a6ff; /* Bright blue for headings */
 }
 
 .homepage p {
     font-size: 1.25rem;
     max-width: 600px;
     margin-bottom: 30px;
+    color: #8b949e; /* Lighter grey for paragraph text */
 }
 
 .homepage-buttons {
@@ -43,28 +45,19 @@
     border-radius: 20px;
     border: none;
     transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.signup-btn {
-    background-color: #4caf50;
-    color: white;
-}
-
-.login-btn {
-    background-color: #008cba;
-    color: white;
+    color: #FFFFFF; /* White text for better readability on dark backgrounds */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #287880; /* Darker greenish-blue for main button color */
 }
 
 .signup-btn:hover,
 .login-btn:hover {
-    background-color: #ddd;
-    color: #333;
+    background-color: #1F5F64; /* An even darker shade for hover effect */
     transform: translateY(-3px);
 }
 
 .homepage-icon {
     width: 120px;
     height: auto;
-    border-radius: 50%; 
+    border-radius: 50%; /* Circle shape for the icon */
 }
