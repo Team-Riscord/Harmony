@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Homepage from './components/Homepage'; // Import the Homepage component
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Riscord from './components/Harmony';
@@ -17,9 +18,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index path="/login" element={<Login />} />
+        <Route path="/" element={<Homepage />} /> {/* Set Homepage as the default route */}
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {isUserLoggedIn && <Route path="/" element={<Riscord />} />}
+        {isUserLoggedIn ? <Route path="/harmony" element={<Riscord />} /> : null}
       </Routes>
     </BrowserRouter>
   );
