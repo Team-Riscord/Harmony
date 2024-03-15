@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Riscord from './components/Harmony';
+import Harmony from './components/Harmony';
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route index path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {isUserLoggedIn && <Route path="/" element={<Riscord />} />}
+        {isUserLoggedIn && <Route path="/" element={<Harmony />} />}
       </Routes>
     </BrowserRouter>
   );
