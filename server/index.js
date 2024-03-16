@@ -46,7 +46,7 @@ app.get('/userdata', (req, res) => {
         if(err) return res.status(500).send('Internal Server Error');
         
         if(data.length === 0) {
-            return res.send('No data available');
+            return res.send('No Data Available');
         }
         
         let tableHTML = '<style>' +
