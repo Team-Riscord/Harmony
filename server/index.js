@@ -9,8 +9,35 @@ app.use(cors());
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "AnitejPhambytex@8503",
-    database: "Harmony"
+    password: "[your MySQL root password]"
+});
+
+db.connect(err => {
+    if (err) throw err;
+
+    db.query("create database if not exists Harmony", (err, result) => {
+        if (err) throw err;
+        console.log("Database 'Harmony' created or already exists");
+    });
+
+    db.query("USE Harmony", (err, result) => {
+        if (err) throw err;
+        console.log("Using Harmony database");
+    });
+
+    const createUserTableQuery = `create table if not exists Users (
+        id int not null unique auto_increment primary key,
+        name varchar(100) not null,
+        email varchar(100) not null unique,
+        password varchar(100) not null,
+        username varchar(10) not null unique,
+        image longblob
+    )`;
+
+    db.query(createUserTableQuery, (err, result) => {
+        if (err) throw err;
+        console.log("Users table created or already exists");
+    });
 });
 
 app.get('/userdata', (req, res) => {
