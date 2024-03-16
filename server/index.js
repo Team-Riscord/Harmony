@@ -111,5 +111,5 @@ app.post("/userdata", (req, res) => {
   });
 
 app.listen(8800, () => {
-    console.log("connected to server 👾");
+    console.log("Connected to Server 👾");
 });
