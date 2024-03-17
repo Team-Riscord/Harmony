@@ -37,8 +37,10 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Combines the sidebar and direct messaging server bar components into a single page layout.
 
 - **Components:**
-  - Sidebar: Displays the main functionalities of the Riscord application, such as joining servers and downloading apps.
-  - DMServerBar: Facilitates direct messaging and friend management within the application.
+  - *Sidebar:*
+    - Displays the main functionalities of the Riscord application, such as joining servers and downloading apps.
+  - *DMServerBar:*
+    - Facilitates direct messaging and friend management within the application.
 
 ### Sidebar
 - **Features:**
@@ -48,10 +50,14 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Provides visual indicators for active sidebar icons.
 
 - **Components:**
-  - Sidebar Icon Container: Wraps each sidebar icon with hover indicators.
-  - Overlay Text: Displays tooltips on hover over the sidebar icons.
-  - Sidebar Icon: Represents different functionalities such as adding a server, exploring servers, and downloading apps.
-  - Pointer Events Handling: Disables pointer events on the body while add server or download apps components are visible.
+  - *Sidebar Icon Container:*
+    - Wraps each sidebar icon with hover indicators.
+  - *Overlay Text:*
+    - Displays tooltips on hover over the sidebar icons.
+  - *Sidebar Icon:*
+    - Represents different functionalities such as adding a server, exploring servers, and downloading apps.
+  - *Pointer Events Handling:*
+    - Disables pointer events on the body while add server or download apps components are visible.
 
 ### Add Server
 - **Features:**
@@ -62,14 +68,22 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Provides a link to join an existing server if the user already has an invite.
 
 - **Components:**
-  - Close Icon: Allows users to close the add server window.
-  - Title: Displays the title of the add server section.
-  - Subtitle: Provides guidance on customizing the server.
-  - Server Image Input: Allows users to select an icon for their server, with error handling for missing image selection.
-  - Server Name Input: Allows users to input the name of their server, with error handling for missing server name.
-  - Create Button: Initiates the server creation process.
-  - Join Invitation: Provides a link to join an existing server.
-  - Join Server Window: Displays a window to join an existing server if the user chooses to do so.
+  - *Close Icon:*
+    - Allows users to close the add server window.
+  - *Title:*
+    - Displays the title of the add server section.
+  - *Subtitle:*
+    - Provides guidance on customizing the server.
+  - *Server Image Input:*
+    - Allows users to select an icon for their server, with error handling for missing image selection.
+  - *Server Name Input:*
+    - Allows users to input the name of their server, with error handling for missing server name.
+  - *Create Button:*
+    - Initiates the server creation process.
+  - *Join Invitation:*
+    - Provides a link to join an existing server.
+  - *Join Server Window:*
+    - Displays a window to join an existing server if the user chooses to do so.
 
 ### Join Server
 - **Features:**
@@ -80,9 +94,12 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Offers the option to discover servers if the user lacks an invite link.
 
 - **Components:**
-  - Join Server Form: Contains input field for invite link and error message display.
-  - Invite Example Section: Provides examples of valid invite links.
-  - Discover Servers Button: Guides users to explore discoverable communities.
+  - *Join Server Form:*
+    - Contains input field for invite link and error message display.
+  - *Invite Example Section:*
+    - Provides examples of valid invite links.
+  - *Discover Servers Button:*
+    - Guides users to explore discoverable communities.
 
 ### Download Apps
 - **Features:**
@@ -91,9 +108,12 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Offers a link to the public test build of the app.
 
 - **Components:**
-  - Download Apps Title: Displays the title of the download apps section.
-  - Download Cards: Represent each platform with an icon, title, and download button.
-  - Latest Link Section: Provides a link to the public test build of the app.
+  - *Download Apps Title:*
+    - Displays the title of the download apps section.
+  - *Download Cards:*
+    - Represent each platform with an icon, title, and download button.
+  - *Latest Link Section:*
+    - Provides a link to the public test build of the app.
 
 ### DM Server Bar
 - **Features:**
@@ -103,12 +123,18 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Provides options to close the add friend, friends list, and friend requests windows.
 
 - **Components:**
-  - Top Section: Displays the title of the direct messaging section.
-  - Middle Section: Contains buttons for adding friends and viewing friend requests, as well as options to create direct messages.
-  - Bottom Section: Displays the user's profile image, username, and settings icon.
-  - Add Friend Window: Allows users to add friends by entering their usernames.
-  - Friends List Window: Displays the user's list of friends and enables direct messaging.
-  - Friend Requests Window: Lists incoming friend requests and allows users to accept or decline them.
+  - *Top Section:*
+    - Displays the title of the direct messaging section.
+  - *Middle Section:*
+    - Contains buttons for adding friends and viewing friend requests, as well as options to create direct messages.
+  - *Bottom Section:*
+    - Displays the user's profile image, username, and settings icon.
+  - *Add Friend Window:*
+    - Allows users to add friends by entering their usernames.
+  - *Friends List Window:*
+    - Displays the user's list of friends and enables direct messaging.
+  - *Friend Requests Window:*
+    - Lists incoming friend requests and allows users to accept or decline them.
 
 ### Add Friend
 - **Features:**
@@ -118,12 +144,18 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Displays error messages for invalid usernames, duplicate requests, and attempts to add oneself as a friend.
 
 - **Components:**
-  - Close Icon: Allows users to close the add friend window.
-  - Title: Displays the title of the add friend section.
-  - Subtitle: Provides instructions on adding friends.
-  - Username Input: Allows users to input the username of the friend they want to add.
-  - Send Request Button: Sends a friend request to the specified user.
-  - Error Text: Displays error messages for various scenarios, such as invalid usernames or duplicate requests.
+  - *Close Icon:*
+    - Allows users to close the add friend window.
+  - *Title:*
+    - Displays the title of the add friend section.
+  - *Subtitle:*
+    - Provides instructions on adding friends.
+  - *Username Input:*
+    - Allows users to input the username of the friend they want to add.
+  - *Send Request Button:*
+    - Sends a friend request to the specified user.
+  - *Error Text:*
+    - Displays error messages for various scenarios, such as invalid usernames or duplicate requests.
 
 ### Friend Requests
 - **Features:**
@@ -132,9 +164,12 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Removes friend requests from the database upon acceptance or rejection.
 
 - **Components:**
-  - Friend Requests Title: Displays the title of the friend requests section.
-  - Friend Request Button: Represents each incoming friend request, including the requester's profile image and username.
-  - Accept and Decline Buttons: Enables users to accept or decline friend requests.
+  - *Friend Requests Title:*
+    - Displays the title of the friend requests section.
+  - *Friend Request Button:*
+    - Represents each incoming friend request, including the requester's profile image and username.
+  - *Accept and Decline Buttons:*
+    - Enables users to accept or decline friend requests.
 
 ### Friends List
 - **Features:**
@@ -142,9 +177,12 @@ This project follows the Test-Driven Development approach. The listed features/f
   - Supports chat functionality with friends.
 
 - **Components:**
-  - Friends List Title: Displays the title of the friends list section.
-  - Friend Button: Represents each friend in the list, including their profile image and username.
-  - Chat Button: Enables users to initiate chats with friends.
+  - *Friends List Title:*
+    - Displays the title of the friends list section.
+  - *Friend Button:*
+    - Represents each friend in the list, including their profile image and username.
+  - *Chat Button:*
+    - Enables users to initiate chats with friends.
 
 <br />
 
