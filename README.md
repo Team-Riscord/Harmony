@@ -150,8 +150,7 @@ This project follows the Test-Driven Development approach. The listed features/f
 
 # Database Schema
 
-- Users
-
+- **Users**
   - id: string
     - name: string
     - profileImage: string
@@ -164,8 +163,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - friendRequests: [string] (Array of user IDs)
     - isOnline: boolean
 
-- Servers
-
+- **Servers**
   - id: string
     - name: string
     - serverIcon: string
@@ -173,8 +171,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - createdAt: datetime
     - updatedAt: datetime
 
-- Members
-
+- **Members**
   - id: string
     - role: enum (ADMIN, MODERATOR, GUEST)
     - userID: string (Reference to User id)
@@ -182,8 +179,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - createdAt: datetime
     - updatedAt: datetime
 
-- Channels
-
+- **Channels**
   - id: string
     - name: string
     - type: enum (TEXT, AUDIO, VIDEO)
@@ -192,8 +188,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - createdAt: datetime
     - updatedAt: datetime
 
-- ServerMessages
-
+- **ServerMessages**
   - id: string
     - senderId: string (Reference to User id)
     - serverId: string (Reference to Server id)
@@ -201,7 +196,7 @@ This project follows the Test-Driven Development approach. The listed features/f
     - createdAt: datetime
     - updatedAt: datetime
 
-- DirectMessages
+- **DirectMessages**
   - id: string
     - senderId: string (Reference to User id)
     - receiverId: string (Reference to User id)
