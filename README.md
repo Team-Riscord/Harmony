@@ -209,3 +209,32 @@ This project follows the Test-Driven Development approach. The listed features/f
     - message: string
     - createdAt: datetime
     - updatedAt: datetime
+
+<br />
+
+# Setup Instructions
+
+The `MySQL_Database_Setup` branch has been updated. Therefore, when you pull the code, you won't need to set up a local database or a table manually, as it will be done for you. All that's required is ensuring you have node, npm, and MySQL installed.
+
+Upon pulling the code, you'll find two folders, client and server. You should open two terminals. Navigate one terminal to the client folder and the other to the server folder. Then, in both terminals, simply type npm start, and everything should function smoothly.
+
+Next, open your browser and launch two tabs. In one tab, navigate to http://localhost:3000, and in the other, to http://localhost:8800/userdata. The tab displaying the app running on port 3000 will initially show a blank screen, while the one displaying the server-side component on port 8800 should show "No Data Available". This indicates that the database and the Users table have been successfully created, though no data has been inserted yet. If you encounter an Internal Server Error, please attempt to log the error into the browser console or your terminal and decode it. If troubleshooting is needed, share a screenshot here, and we'll address it together.
+
+When running the server-side using npm start, you should see the following messages in terminal:
+```
+> nodemon index.js
+
+nodemon starting exter index. j,mjs, cis, son
+
+connected to server
+
+Database 'Harmony' created or already exists
+
+Using Harmony database
+
+Users table created or already exists
+```
+
+To confirm that everything is operational, open your terminal and type mysql -u root -p. Enter your password if prompted, and the MySQL monitor will open. Then, type show databases; to list all local databases. You should see a database called Harmony listed. Select this database by typing use Harmony;. Finally, type show tables; to list all tables within the database. You should observe a table named Users, indicating that the setup is complete.
+
+Now, you're ready to start developing your components in the client folder. 👍
