@@ -233,7 +233,7 @@ Using Harmony database
 Users table created or already exists
 ```
 
-To confirm that everything is operational, open your terminal and type `mysql -u root -p`. Enter your password if prompted, and the `MySQL monitor` will open. Then, type `show databases;` to list all local databases. You should see a database called `Harmony` listed. Select this database by typing `use Harmony;`. Finally, type `show tables;` to list all tables within the database. You should be able to see a table named `Users`, which means that the setup is complete.
+To confirm that everything is operational, open your terminal and type `mysql -u root -p`. Enter your password if prompted, and the `MySQL monitor` will open. Then, type `show databases;` to list all local databases. You should see a database called `Harmony` listed. Select this database by typing `use Harmony;`. Finally, type `show tables;` to list all tables within the database. You should be able to see a table named `Users`, which means that the setup is complete. Please refer to the code block below for more clarity:
 ```
 > MySQL -u root -p
 
@@ -263,6 +263,7 @@ You can turn off this feature to get a quicker startup with -A
 Database changed
 
 mysql> SHOW TABLES;
+
 +-------------------+
 | Tables_in_harmony |
 +-------------------+
