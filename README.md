@@ -234,5 +234,53 @@ Users table created or already exists
 ```
 
 To confirm that everything is operational, open your terminal and type `mysql -u root -p`. Enter your password if prompted, and the `MySQL monitor` will open. Then, type `show databases;` to list all local databases. You should see a database called `Harmony` listed. Select this database by typing `use Harmony;`. Finally, type `show tables;` to list all tables within the database. You should be able to see a table named `Users`, which means that the setup is complete.
+```
+> MySQL -u root -p
+
+Enter password:
+Welcome to the MySQL monitor. Commands end with ';' or '\g'.
+Your MySQL connection id is 122
+Server version: 8.0.36 MySQL Community Server - GPL
+Copyright (c) 2000, 2024, Oracle and/or its affiliates. Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
+
++--------------------+
+| Database           |
++--------------------+
+| Harmony            |
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+
+mysql> USE Harmony;
+
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+Database changed
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_harmony |
++-------------------+
+| Users             |
++-------------------+
+
+mysql> DESC Users;
+
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int          | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(100) | NO   |     | NULL    |                |
+| email    | varchar(100) | NO   | UNI | NULL    |                |
+| password | varchar(100) | NO   |     | NULL    |                |
+| username | varchar(10)  | NO   | UNI | NULL    |                |
+| image    | longblob     | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+```
 
 Now, you're ready to start developing your components in the client folder. 👍
