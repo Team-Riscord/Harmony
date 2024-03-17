@@ -186,61 +186,59 @@ This project follows the Test-Driven Development approach. The listed features/f
 
 <br />
 
-# Database Schema
-
 ### Users
-- **id**: *string*
-- **name**: *string*
-- **profileImage**: *string*
-- **username**: *string*
-- **email**: *string*
-- **password**: *string*
-- **createdAt**: *datetime*
-- **updatedAt**: *datetime*
-- **friends**: *[string] (Array of user IDs)*
-- **friendRequests**: *[string] (Array of user IDs)*
-- **isOnline**: *boolean*
+- **id**: string
+- **name**: string
+- **profileImage**: string
+- **username**: string
+- **email**: string
+- **password**: string
+- **createdAt**: datetime
+- **updatedAt**: datetime
+- **friends**: [string] (Array of user IDs)
+- **friendRequests**: [string] (Array of user IDs)
+- **isOnline**: boolean
 
 ### Servers
-- **id**: *string*
-- **name**: *string*
-- **serverIcon**: *string*
-- **serverAdmin**: *string (Reference to User id)*
-- **createdAt**: *datetime*
-- **updatedAt**: *datetime*
+- **id**: string
+- **name**: string
+- **serverIcon**: string
+- **serverAdmin**: string (Reference to User id)
+- **createdAt**: datetime
+- **updatedAt**: datetime
 
 ### Members
-- **id**: *string*
-- **role**: *enum (ADMIN, MODERATOR, GUEST)*
-- **userID**: *string (Reference to User id)*
-- **serverId**: *string (Reference to Server id)*
-- **createdAt**: *datetime*
-- **updatedAt**: *datetime*
+- **id**: string
+- **role**: enum (ADMIN, MODERATOR, GUEST)
+- **userID**: string (Reference to User id)
+- **serverId**: string (Reference to Server id)
+- **createdAt**: datetime
+- **updatedAt**: datetime
 
 ### Channels
-- **id**: *string*
-- **name**: *string*
-- **type**: *enum (TEXT, AUDIO, VIDEO)*
-- **profileId**: *string (Reference to User id)*
-- **serverId**: *string (Reference to Server id)*
-- **createdAt**: *datetime*
-- **updatedAt**: *datetime*
+- **id**: string
+- **name**: string
+- **type**: enum (TEXT, AUDIO, VIDEO)
+- **profileId**: string (Reference to User id)
+- **serverId**: string (Reference to Server id)
+- **createdAt**: datetime
+- **updatedAt**: datetime
 
 ### ServerMessages
-- **id**: *string*
-- **senderId**: *string (Reference to User id)*
-- **serverId**: *string (Reference to Server id)*
-- **message**: *string*
-- **createdAt**: *datetime*
-- **updatedAt**: *datetime*
+- **id**: string
+- **senderId**: string (Reference to User id)
+- **serverId**: string (Reference to Server id)
+- **message**: string
+- **createdAt**: datetime
+- **updatedAt**: datetime
 
 ### DirectMessages
-- **id**: *string*
-- **senderId**: *string (Reference to User id)*
-- **receiverId**: *string (Reference to User id)*
-- **message**: *string*
-- **createdAt**: *datetime*
-- **updatedAt**: *datetime*
+- **id**: string
+- **senderId**: string (Reference to User id)
+- **receiverId**: string (Reference to User id)
+- **message**: string
+- **createdAt**: datetime
+- **updatedAt**: datetime
 
 <br />
 
