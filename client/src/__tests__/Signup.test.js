@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import axios from "axios";
 import Signup from '../components/Signup/Signup';
 
@@ -78,5 +78,23 @@ describe('Signup Component', () => {
     await waitFor(() => {
       expect(getByText('* username cannot be longer than 10 characters')).toBeInTheDocument();
     });
+  });
+
+  test('toggle show password functionality [Signup]', async () => {
+    const { getByLabelText } = render(<Signup />);
+    const passwordInput = getByLabelText('enter a password');
+    const showPasswordCheckbox = getByLabelText('show password');
+    expect(passwordInput.type).toBe('password');
+    fireEvent.click(showPasswordCheckbox);
+    expect(passwordInput.type).toBe('text');
+    fireEvent.click(showPasswordCheckbox);
+    expect(passwordInput.type).toBe('password');
+  });
+  
+  test('renders link to login page', () => {
+    render(<Signup />);
+    const loginLink = screen.getByRole('link', { name: 'already have an account? click to login!' });
+    expect(loginLink).toBeInTheDocument();
+    expect(loginLink).toHaveAttribute('href', '/login');
   });
 });
