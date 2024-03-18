@@ -93,7 +93,8 @@
 .signup-form-input-image {
     width: 100px;
     height: 100px;
-    border: none;
+    border: 5px solid var(--oxford-blue-7);
+    border-radius: 60px;
 }
 
 .signup-form label, .signup-form h3 {

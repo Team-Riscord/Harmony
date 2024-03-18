@@ -91,23 +91,40 @@ const Signup = () => {
             case 'name':
                 setNameError(value.trim() === '' ? true : false);
                 setNameErrorText(value.trim() === '' ? "* please enter your name" : "");
+                if (value.trim().length > 100) {
+                    setNameError(true);
+                    setNameErrorText("* name cannot be longer than 100 characters");
+                }
                 break;
             case 'email':
                 setEmailError(value.trim() === '' ? true : false);
                 setEmailErrorText(value.trim() === '' ? "* please enter your email" : "");
+                if (value.trim().length > 100) {
+                    setEmailError(true);
+                    setEmailErrorText("* email cannot be longer than 100 characters");
+                }
                 break;
             case 'password':
                 setPasswordError(value.trim() === '' ? true : false);
                 setPasswordErrorText(value.trim() === '' ? "* please enter a password" : "");
+                if (value.trim().length > 100) {
+                    setPasswordError(true);
+                    setPasswordErrorText("* password cannot be longer than 100 characters");
+                }
                 break;
             case 'username':
                 setUsernameError(value.trim() === '' ? true : false);
                 setUsernameErrorText(value.trim() === '' ? "* please choose a username for yourself" : "");
+                if (value.trim().length > 10) {
+                    setUsernameError(true);
+                    setUsernameErrorText("* username cannot be longer than 10 characters");
+                }
                 break;
             default:
                 break;
         }
     }
+
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -191,47 +208,62 @@ const Signup = () => {
                     }
                     
                     if(!existingDetail) {
-                        const updatedUser = { ...user };
-                        // if (!updatedUser.image) {
-                        //     updatedUser.image = defaultProfileImage;
-                        // }
-                        await axios.post("http://localhost:8800/userdata", updatedUser);
-            
-                        window.location.reload();
+                        await axios.post("http://localhost:8800/userdata", {
+                            ...user,
+                            image: profileImage && profileImage.length > 0 ? profileImage : defaultProfileImage
+                        });
+                        console.log(defaultProfileImage);
+                        window.location.href = '/login';
                     }
                 } else {
-                    const updatedUser = { ...user };
-                    if (profileImage === '' || profileImage === null) {
-                        // updatedUser.image = defaultProfileImage;
-                        console.log("profile image is empty");
-                    }
-                    await axios.post("http://localhost:8800/userdata", updatedUser);
-            
-                    // window.location.href = '/login';
+                    await axios.post("http://localhost:8800/userdata", {
+                        ...user,
+                        image: profileImage && profileImage.length > 0 ? profileImage : defaultProfileImage
+                    });
+                    console.log(defaultProfileImage);
+                    window.location.href = '/login';
                 }
             } catch(err) {
                 console.log(err);
             }
         }
     }
-    
 
     const handleImageInput = (event) => {
         const file = event.target.files[0];
         if(file) {
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = () => {
                 const img = new Image();
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    canvas.width = 100;
-                    canvas.height = (100 * img.height) / img.width;
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
+    
+                    const max_width = 500;
+                    const max_height = 500;
+                    let width = img.width;
+                    let height = img.height;
+    
+                    if (width > height) {
+                        if (width > max_width) {
+                            height *= max_width / width;
+                            width = max_width;
+                        }
+                    } else {
+                        if (height > max_height) {
+                            width *= max_height / height;
+                            height = max_height;
+                        }
+                    }
+    
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
                     setProfileImage(compressedDataUrl);
                 };
-                img.src = e.target.result;
+                img.src = reader.result;
             };
             reader.readAsDataURL(file);
         }
@@ -279,6 +311,7 @@ const Signup = () => {
                         </label>
                         <input type='file' id='signup-form-image' name="image" onChange={(event) => {
                             handleImageInput(event);
+                            handleChange(event);
                         }} accept="image/png, image/jpeg, image/jpg" hidden/>
                     </div>
                     <div className="signup-form-button">
