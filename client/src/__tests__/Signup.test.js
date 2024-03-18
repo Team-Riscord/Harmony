@@ -91,15 +91,15 @@ describe('Signup Component', () => {
     expect(passwordInput.type).toBe('password');
   });
   
-  test('renders link to login page', () => {
+  test('renders link to login page [Signup]', () => {
     render(<Signup />);
     const loginLink = screen.getByRole('link', { name: 'already have an account? click to login!' });
     expect(loginLink).toBeInTheDocument();
     expect(loginLink).toHaveAttribute('href', '/login');
   });
 
-  test('displays error message for existing email or username', async () => {
-    axios.get.mockResolvedValueOnce({ data: '<table><tr><td>Email</td><td>Username</td></tr><tr><td>existing@example.com</td><td>existing_user</td></tr></table>' });
+  test('displays error message for existing email or username [Signup]', async () => {
+    axios.get.mockResolvedValueOnce({ data: '<table><tr><td>Email</td><td>Username</td></tr><tr><td>anitejsharmas@gmail.com</td><td>aisaaxs</td></tr></table>' });
   
     const { getByLabelText, getByText } = render(<Signup />);
 
@@ -113,6 +113,32 @@ describe('Signup Component', () => {
     await waitFor(() => {
       expect(getByText('* email already exists')).toBeInTheDocument();
       expect(getByText('* username already exists')).toBeInTheDocument();
+    });
+  });
+
+  delete window.location;
+  window.location = { href: '' };
+
+  test('submits form successfully [Signup]', async () => {
+    axios.post.mockResolvedValueOnce({});
+    const { getByLabelText, getByText } = render(<Signup />);
+    
+    fireEvent.change(getByLabelText('enter your full name'), { target: { value: 'test name' } });
+    fireEvent.change(getByLabelText('enter your email'), { target: { value: 'test@example.com' } });
+    fireEvent.change(getByLabelText('enter a password'), { target: { value: 'test password' } });
+    fireEvent.change(getByLabelText('choose a username'), { target: { value: 'test_user' } });
+    
+    fireEvent.click(getByText('sign up'));
+    
+    await waitFor(() => {
+      expect(axios.post).toHaveBeenCalledWith("http://localhost:8800/userdata", {
+        name: 'test name',
+        email: 'test@example.com',
+        password: 'test password',
+        username: 'test_user',
+        image: 'default-profile-image.png'
+      });
+      expect(window.location.href).toBe('/login');
     });
   });
 });
