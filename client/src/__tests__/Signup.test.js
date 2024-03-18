@@ -97,4 +97,22 @@ describe('Signup Component', () => {
     expect(loginLink).toBeInTheDocument();
     expect(loginLink).toHaveAttribute('href', '/login');
   });
+
+  test('displays error message for existing email or username', async () => {
+    axios.get.mockResolvedValueOnce({ data: '<table><tr><td>Email</td><td>Username</td></tr><tr><td>existing@example.com</td><td>existing_user</td></tr></table>' });
+  
+    const { getByLabelText, getByText } = render(<Signup />);
+
+    fireEvent.change(getByLabelText('enter your full name'), { target: { value: 'test name' } });
+    fireEvent.change(getByLabelText('enter your email'), { target: { value: 'anitejsharmas@gmail.com' } });
+    fireEvent.change(getByLabelText('enter a password'), { target: { value: 'test password' } });
+    fireEvent.change(getByLabelText('choose a username'), { target: { value: 'aisaaxs' } });
+  
+    fireEvent.click(getByText('sign up'));
+  
+    await waitFor(() => {
+      expect(getByText('* email already exists')).toBeInTheDocument();
+      expect(getByText('* username already exists')).toBeInTheDocument();
+    });
+  });
 });
