@@ -1,14 +1,82 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import axios from "axios";
 import Signup from '../components/Signup/Signup';
 
+jest.mock('axios');
+
 describe('Signup Component', () => {
+  beforeEach(() => {
+    axios.get.mockResolvedValue({ data: '<table><tr><td>Existing User Data</td></tr></table>' });
+    axios.post.mockResolvedValueOnce({});
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('renders form elements [Signup]', () => {
     const { getByLabelText, getByText } = render(<Signup />);
     expect(getByLabelText('enter your full name')).toBeInTheDocument();
     expect(getByLabelText('enter your email')).toBeInTheDocument();
-    expect(getByLabelText('enter your password')).toBeInTheDocument();
+    expect(getByLabelText('enter a password')).toBeInTheDocument();
     expect(getByLabelText('choose a username')).toBeInTheDocument();
     expect(getByText('sign up')).toBeInTheDocument();
+  });
+
+  test('displays error messages for empty inputs [Signup]', async () => {
+    const { getByText } = render(<Signup />);
+    fireEvent.click(getByText('sign up'));
+    await waitFor(() => {
+      expect(getByText('* please enter your name')).toBeInTheDocument();
+      expect(getByText('* please enter your email')).toBeInTheDocument();
+      expect(getByText('* please enter a password')).toBeInTheDocument();
+      expect(getByText('* please choose a username for yourself')).toBeInTheDocument();
+    });
+  });
+
+  test('displays error message for invalid email format [Signup]', async () => {
+    const { getByLabelText, getByText } = render(<Signup />);
+    fireEvent.change(getByLabelText('enter your email'), { target: { value: 'invalidemail' } });
+    fireEvent.click(getByText('sign up'));
+    await waitFor(() => {
+      expect(getByText('* please enter a valid email')).toBeInTheDocument();
+    });
+  });
+
+  test('displays error message for name longer than 100 characters [Signup]', async () => {
+    const { getByLabelText, getByText } = render(<Signup />);
+    fireEvent.change(getByLabelText('enter your full name'), { target: { value: 'a'.repeat(101) } });
+    fireEvent.click(getByText('sign up'));
+    await waitFor(() => {
+      expect(getByText('* name cannot be longer than 100 characters')).toBeInTheDocument();
+    });
+  });
+
+  test('displays error message for email longer than 100 characters [Signup]', async () => {
+    const { getByLabelText, getByText } = render(<Signup />);
+    fireEvent.change(getByLabelText('enter your email'), { target: { value: 'a'.repeat(101) + '@gmail.com' } });
+    fireEvent.click(getByText('sign up'));
+    await waitFor(() => {
+      expect(getByText('* email cannot be longer than 100 characters')).toBeInTheDocument();
+    });
+  });
+
+  test('displays error message for password longer than 100 characters [Signup]', async () => {
+    const { getByLabelText, getByText } = render(<Signup />);
+    fireEvent.change(getByLabelText('enter a password'), { target: { value: 'a'.repeat(101) } });
+    fireEvent.click(getByText('sign up'));
+    await waitFor(() => {
+      expect(getByText('* password cannot be longer than 100 characters')).toBeInTheDocument();
+    });
+  });
+
+  test('displays error message for username longer than 10 characters [Signup]', async () => {
+    const { getByLabelText, getByText } = render(<Signup />);
+    fireEvent.change(getByLabelText('choose a username'), { target: { value: 'a'.repeat(11) } });
+    fireEvent.click(getByText('sign up'));
+    await waitFor(() => {
+      expect(getByText('* username cannot be longer than 10 characters')).toBeInTheDocument();
+    });
   });
 });
