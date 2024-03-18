@@ -9,7 +9,7 @@ app.use(cors());
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "[your MySQL root password]"
+    password: "AnitejPhambytex@8503"
 });
 
 db.connect(err => {
@@ -83,7 +83,7 @@ app.get('/userdata', (req, res) => {
             tableHTML += '<tr>';
             Object.keys(row).forEach(key => {
                 if (key === 'image') {
-                    tableHTML += `<td><img src="${Buffer.from(row[key])}" style="width:100px;height:100px;" alt="User Image"/></td>`;
+                    tableHTML += `<td><img src="${Buffer.from(row[key])}" style="width:50px;height:50px;" alt="User Image"/></td>`;
                 } else {
                     tableHTML += '<td>' + row[key] + '</td>';
                 }
