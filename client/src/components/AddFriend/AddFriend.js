@@ -61,7 +61,7 @@ export default function AddFriend({ onClose }) {
       </div>
       <div className="add-friend-subtitle">
         <div style={{ gridRow: "1" }}>
-          <h3>You can add friends with their Riscord username.</h3>
+          <h3>You can add friends with their Harmony username.</h3>
         </div>
         <div style={{ gridRow: "2" }}>
           <p style={{ visibility: errorText === "" ? "hidden" : "visible" }}>
