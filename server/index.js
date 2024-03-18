@@ -9,22 +9,19 @@ app.use(cors());
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "AnitejPhambytex@8503"
+    password: "Ronak123"
 });
 
 db.connect(err => {
     if (err) throw err;
-
     db.query("create database if not exists Harmony", (err, result) => {
         if (err) throw err;
         console.log("Database 'Harmony' created or already exists");
     });
-
     db.query("USE Harmony", (err, result) => {
         if (err) throw err;
         console.log("Using Harmony database");
     });
-
     const createUserTableQuery = `create table if not exists Users (
         id int not null unique auto_increment primary key,
         name varchar(100) not null,
@@ -33,7 +30,6 @@ db.connect(err => {
         username varchar(10) not null unique,
         image text
     )`;
-
     db.query(createUserTableQuery, (err, result) => {
         if (err) throw err;
         console.log("Users table created or already exists");
@@ -43,78 +39,55 @@ db.connect(err => {
 app.get('/userdata', (req, res) => {
     const query = "select * from Users";
     db.query(query, (err, data) => {
-        if(err) return res.status(500).send('Internal Server Error');
-        
-        if(data.length === 0) {
+        if (err) return res.status(500).send('Internal Server Error');
+        if (data.length === 0) {
             return res.send('No Data Available');
         }
-        
-        let tableHTML = '<style>' +
-                        'body {' +
-                        '   background-color: black;' +
-                        '}' +
-                        'table {' +
-                        '    width: 100%;' +
-                        '    border-collapse: collapse;' +
-                        '}' +
-                        'th, td {' +
-                        '    border: 1px solid #dddddd;' +
-                        '    padding: 8px;' +
-                        '    text-align: center;' +
-                        '   color: black' +
-                        '}' +
-                        'td {' +
-                        '   color: white;' +
-                        '}' +
-                        'th {' +
-                        '    background-color: #f2f2f2;' +
-                        '   border: 1px solid black;' +
-                        '}' +
-                        '</style>';
-        
-        tableHTML += '<table>';
-        tableHTML += '<tr>';
+        let tableHTML = '<style>body { background-color: black; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #dddddd; padding: 8px; text-align: center; color: black } td { color: white; } th { background-color: #f2f2f2; border: 1px solid black; }</style>';
+        tableHTML += '<table><tr>';
         Object.keys(data[0]).forEach(key => {
             tableHTML += '<th>' + key + '</th>';
         });
         tableHTML += '</tr>';
-
         data.forEach(row => {
             tableHTML += '<tr>';
             Object.keys(row).forEach(key => {
-                if (key === 'image') {
-                    tableHTML += `<td><img src="${Buffer.from(row[key])}" style="width:50px;height:50px;" alt="User Image"/></td>`;
-                } else {
-                    tableHTML += '<td>' + row[key] + '</td>';
-                }
+                tableHTML += '<td>' + row[key] + '</td>';
             });
             tableHTML += '</tr>';
         });
-
         tableHTML += '</table>';
-        
         res.send(tableHTML);
     });
 });
 
 app.post("/userdata", (req, res) => {
     const query = "insert into Users(`name`, `email`, `password`, `username`, `image`) values (?, ?, ?, ?, ?)";
-
-    const image = req.body.image ? req.body.image : null;
-  
-    const values = [
-      req.body.name,
-      req.body.email,
-      req.body.password,
-      req.body.username,
-      image
-    ];
-  
+    const values = [req.body.name, req.body.email, req.body.password, req.body.username, req.body.image];
     db.query(query, values, (err, data) => {
-      if (err) return res.send(err);
-      return res.json(data);
+        if (err) return res.send(err);
+        return res.json(data);
     });
-  });
+});
+
+app.post('/login', (req, res) => {
+    const { emailOrUsername, password } = req.body;
+    const query = "SELECT * FROM Users WHERE email = ? OR username = ? LIMIT 1";
+    db.query(query, [emailOrUsername, emailOrUsername], (err, results) => {
+        if (err) {
+            return res.status(500).json({ message: "Server error" });
+        }
+        if (results.length === 0) {
+            return res.status(401).json({ message: "Incorrect email/username or password" });
+        }
+        const user = results[0];
+        const isMatch = password === user.password;
+        if (!isMatch) {
+            return res.status(401).json({ message: "Incorrect email/username or password" });
+        }
+        res.json({ message: "Login successful", user });
+    });
+});
 
 app.listen(8800, () => {
     console.log("Connected to Server 👾");

@@ -1,3 +1,90 @@
 .login-component {
-    
+    --oxford-blue: #01133Dff;
+    --blue-green: rgb(11, 166, 209);
+    --oxford-blue-2: #02113Aff;
+    --oxford-blue-3: #030F36ff;
+    --indigo-dye: #154A7Fff;
+    --berkeley-blue: #072D53ff;
+    --oxford-blue-4: #00204Bff;
+    --oxford-blue-5: #01133Aff;
+    --oxford-blue-6: #001943ff;
+    --oxford-blue-7: #030C31ff;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-radial-gradient(circle at center in hsl shorter hue, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.login-container {
+    position: center;
+    width: 400px;
+    border-radius: 8px;
+    background-color: var(--blue-green);
+    border: 10px solid var(--blue-green);
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
+    padding: 20px;
+    padding-top: 0;
+    display: block;
+}
+
+.login-title {
+    width: 100%;
+    display: block;
+    margin-top: 5px;
+}
+
+.login-title h1, .login-title h3 {
+    text-align: center;
+    color: var(--oxford-blue-7);
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-title h3 {
+    margin-top: 10px;
+    text-transform: capitalize;
+    font-size: 30px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form label {
+    margin-top: 10px;
+}
+
+.login-form input {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-error {
+    color: red;
+    margin-top: 10px;
+}
+
+.login-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
 }
