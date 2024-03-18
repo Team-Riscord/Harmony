@@ -1,0 +1,134 @@
+/* .friend-requests-component {
+    position: absolute;
+    z-index: 1;
+    width: 500px;
+    height: 500px;
+    background-color: rgb(30, 31, 34);
+    top: 10px;
+    left: 110%;
+    z-index: 1;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 15% auto;
+}
+
+.friend-requests-title {
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.friend-requests-title-text {
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friend-requests-title-text h1 {
+    color: white;
+    text-transform: capitalize;
+    margin: 0;
+    margin-left: 40px;
+}
+
+.friend-requests-close-icon {
+    grid-column: 2;
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: top;
+    font-size: 20px;
+}
+
+#friend-requests-close-icon {
+    margin-top: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.friend-requests-buttons {
+    grid-row: 2;
+    display: block;
+    overflow-y: scroll;
+}
+
+.friend-requests-button {
+    width: 90%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 15% auto 30%;
+    padding: 10px 0;
+}
+
+.friend-requests-button-image {
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friend-requests-button-image img {
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.friend-requests-button-username {
+    grid-column: 2;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.friend-requests-button-username p {
+    color: white;
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.friend-requests-button-chat {
+    grid-column: 3;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.friend-requests-button-chat div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friend-requests-button-chat button {
+    font-size: 20px;
+    font-weight: bold;
+    width: 80%;
+    height: 70%;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.friend-requests-accept-button button {
+    background-color: green;
+}
+
+.friend-requests-accept-button button:active {
+    background-color: white;
+    color: green;
+}
+
+.friend-requests-decline-button button {
+    background-color: red;
+}
+
+.friend-requests-decline-button button:active {
+    background-color: white;
+    color: red;
+} */
