@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ESLint cache
+.eslintcache
+
+# Cache directories
+.cache/
+client/node_modules/.cache/
+
+# Other typical directories to ignore
+*.log
+*.cache
+*.bak
+*.tmp
