@@ -322,6 +322,7 @@ app.post("/decline-friend-request/:requestId", (req, res) => {
   });
 });
 
+//Friends-list endpoint implementation:
 app.get("/friends-list/:userId", (req, res) => {
   const userId = req.params.userId;
   // Query to fetch friends from the Friends table
