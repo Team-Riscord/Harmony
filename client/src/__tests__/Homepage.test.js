@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import Homepage from '../component/Homepage/Homepage';
+import Homepage from '../components/Homepage/Homepage';
 
 const renderWithRouter = (ui, { route = '/' } = {}) => {
   window.history.pushState({}, 'Test page', route);
