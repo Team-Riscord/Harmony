@@ -31,7 +31,7 @@ db.connect(err => {
         email varchar(100) not null unique,
         password varchar(100) not null,
         username varchar(10) not null unique,
-        image longblob
+        image text
     )`;
 
     db.query(createUserTableQuery, (err, result) => {
@@ -41,7 +41,7 @@ db.connect(err => {
 });
 
 app.get('/userdata', (req, res) => {
-    const query = "SELECT * FROM Users";
+    const query = "select * from Users";
     db.query(query, (err, data) => {
         if(err) return res.status(500).send('Internal Server Error');
         
@@ -81,8 +81,12 @@ app.get('/userdata', (req, res) => {
 
         data.forEach(row => {
             tableHTML += '<tr>';
-            Object.values(row).forEach(value => {
-                tableHTML += '<td>' + value + '</td>';
+            Object.keys(row).forEach(key => {
+                if (key === 'image') {
+                    tableHTML += `<td><img src="${Buffer.from(row[key])}" style="width:50px;height:50px;" alt="User Image"/></td>`;
+                } else {
+                    tableHTML += '<td>' + row[key] + '</td>';
+                }
             });
             tableHTML += '</tr>';
         });
@@ -94,14 +98,16 @@ app.get('/userdata', (req, res) => {
 });
 
 app.post("/userdata", (req, res) => {
-    const query = "INSERT INTO Users(`name`, `email`, `password`, `username`, `image`) VALUES (?, ?, ?, ?, ?)";
+    const query = "insert into Users(`name`, `email`, `password`, `username`, `image`) values (?, ?, ?, ?, ?)";
+
+    const image = req.body.image ? req.body.image : null;
   
     const values = [
       req.body.name,
       req.body.email,
       req.body.password,
       req.body.username,
-      req.body.image
+      image
     ];
   
     db.query(query, values, (err, data) => {
