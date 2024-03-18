@@ -1,12 +1,25 @@
 /* Homepage.css */
+:root {
+    --oxford-blue: #01133D;
+    --blue-green: rgb(11, 166, 209);
+    --oxford-blue-2: #02113A;
+    --oxford-blue-3: #030F36;
+    --indigo-dye: #154A7F;
+    --berkeley-blue: #072D53;
+    --oxford-blue-4: #00204B;
+    --oxford-blue-5: #01133A;
+    --oxford-blue-6: #001943;
+    --oxford-blue-7: #030C31;
+}
+
 .homepage {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #0d1117; /* Dark mode background */
-    color: #c9d1d9; /* Light grey text for readability */
+    background-color: var(--oxford-blue); 
+    color: #c9d1d9; 
     text-align: center;
     padding: 20px;
 }
@@ -22,15 +35,15 @@
     font-size: 3rem;
     font-weight: bold;
     margin: 20px 0;
-    color: #58a6ff; /* Bright blue for headings */
+    color: var(--blue-green); 
 }
 
 .homepage p {
     font-size: 1.25rem;
     max-width: 600px;
     margin-bottom: 30px;
-    color: #8b949e; /* Lighter grey for paragraph text */
-}
+    color: #c9d1d9;
+ }
 
 .homepage-buttons {
     display: flex;
@@ -46,19 +59,20 @@
     border-radius: 20px;
     border: none;
     transition: background-color 0.3s, transform 0.3s;
-    color: #FFFFFF; /* White text for better readability on dark backgrounds */
+    color: var(--oxford-blue); 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    background-color: #287880; /* Darker greenish-blue for main button color */
+    background-color: var(--blue-green); 
 }
 
 .signup-btn:hover,
 .login-btn:hover {
-    background-color: #1F5F64; /* An even darker shade for hover effect */
+    background-color: var(--oxford-blue-3); 
+    color: #FFFFFF; 
     transform: translateY(-3px);
 }
 
 .homepage-icon {
     width: 120px;
     height: auto;
-    border-radius: 50%; /* Circle shape for the icon */
+    border-radius: 60%; 
 }
