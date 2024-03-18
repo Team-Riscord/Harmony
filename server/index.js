@@ -31,7 +31,7 @@ db.connect((err) => {
         email varchar(100) not null unique,
         password varchar(100) not null,
         username varchar(10) not null unique,
-        image longblob
+        image text
     )`;
 
   db.query(createUserTableQuery, (err, result) => {
