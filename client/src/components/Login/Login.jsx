@@ -1,76 +1,124 @@
-import React, { useState } from 'react';
-import './Login.css'; 
-import axios from 'axios';
+import './Login.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Login = () => {
-    const [emailOrUsername, setEmailOrUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State to handle password visibility
-    const [error, setError] = useState('');
+    const [loginData, setLoginData] = useState({
+        emailOrUsername: "",
+        password: ""
+    });
 
-    const loginUser = async () => {
-        setError('');
-        if (!emailOrUsername || !password) {
-            setError('* Please fill in all fields');
-            return;
-        }
+    const [emailUsernameError, setEmailUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
-        try {
-            const response = await axios.post("http://localhost:8800/login", { emailOrUsername, password });
-            if (response.data.message === "Login successful") {
-                localStorage.setItem('userLoggedIn', true);
-                localStorage.setItem('userData', JSON.stringify(response.data.user));
-                window.location.href = '/'; 
-            } else {
-                setError('* Incorrect email/username or password');
-            }
-        } catch (err) {
-            console.error(err);
-            setError('* Failed to log in. Please try again.');
+    const [emailUsernameErrorText, setEmailUsernameErrorText] = useState("");
+    const [passwordErrorText, setPasswordErrorText] = useState("");
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setLoginData({ ...loginData, [name]: value });
+
+        switch (name) {
+            case 'emailOrUsername':
+                setEmailUsernameError(value.trim() === '' ? true : false);
+                setEmailUsernameErrorText(value.trim() === '' ? "* please enter your email or username" : "");
+                break;
+            case 'password':
+                setPasswordError(value.trim() === '' ? true : false);
+                setPasswordErrorText(value.trim() === '' ? "* please enter your password" : "");
+                break;
+            default:
+                break;
         }
     };
 
+    useEffect(() => {
+        localStorage.clear();
+        const passwordCheckbox = document.querySelector("#login-form-password-checkbox");
+        passwordCheckbox.addEventListener("change", function() {
+            const passwordInput = document.querySelector("#login-form-password");
+            if(passwordCheckbox.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+    }, []);
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+
+        let errorExists = false;
+        const requiredFields = ['emailOrUsername', 'password'];
+        for (const field of requiredFields) {
+            if(loginData[field] === null || loginData[field] === "") {
+                if(field === "emailOrUsername") {
+                    setEmailUsernameError(true);
+                    setEmailUsernameErrorText("* please enter your email or username");
+                }
+
+                if(field === "password") {
+                    setPasswordError(true);
+                    setPasswordErrorText("* please enter your password");
+                }
+
+                errorExists = true;
+            }
+        }
+
+        if(!errorExists) {
+            try {
+                const response = await axios.post("http://localhost:8800/login", loginData);
+        
+                if (response.status === 200) {
+                    console.log("Login successful:", response.data.message);
+                    localStorage.setItem('userData', JSON.stringify(response.data.user));
+                }
+            } catch (error) {
+                setEmailUsernameError(true);
+                setPasswordError(true);
+                setEmailUsernameErrorText("* wrong email/username or password");
+                setPasswordErrorText("* wrong email/username or password");
+            }
+        }
+    }
+
     return (
-        <div className="login-component">
-            <div className="login-container">
-                <div className="login-title">
-                    <h1>Welcome back to Harmony</h1>
-                    <h3>We're so excited to see you again!</h3>
+        <div className='login-component'>
+            <div className='login-container'>
+                <div className='login-title'>
+                    <h1>welcome to <span>harmony</span></h1>
+                    <h3>we're so excited to see you!</h3>
                 </div>
                 <div className="login-form">
-                    <label htmlFor="login-emailOrUsername">Email or Username</label>
-                    <input 
-                        type="text" 
-                        id="login-emailOrUsername" 
-                        value={emailOrUsername} 
-                        onChange={(e) => setEmailOrUsername(e.target.value)}
-                    />
-                    <label htmlFor="login-password">Password</label>
-                    <input 
-                        type={showPassword ? "text" : "password"}
-                        id="login-password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div className="show-password">
-                        <input 
-                            type="checkbox" 
-                            id="show-password" 
-                            checked={showPassword}
-                            onChange={(e) => setShowPassword(e.target.checked)}
-                        />
-                        <label htmlFor="show-password">Show Password</label>
+                    <div className="login-form-email-username">
+                        <label htmlFor='login-form-email-username'>enter your email or username</label>
+                        <p id='signup-form-email-username-error' style={{visibility: emailUsernameError ? 'visible' : 'hidden', display: emailUsernameError ? 'block' : 'none'}}>{emailUsernameErrorText}</p>
+                        <input type='text' id='login-form-email-username' name="emailOrUsername" onChange={handleChange}/>
                     </div>
-                    {error && <div className="login-error">{error}</div>}
-                    <button onClick={loginUser}>Login</button>
+                    <div className="login-form-password">
+                        <label htmlFor='login-form-password'>enter your password</label>
+                        <p id='signup-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: [passwordError] ? 'block' : 'none'}}>{passwordErrorText}</p>
+                        <input type='password' id='login-form-password' name="password" onChange={handleChange}/>
+                        <div className='login-form-password-checkbox'>
+                            <div className="login-form-password-checkbox-col1">
+                                <input type='checkbox'id='login-form-password-checkbox' />
+                            </div>
+                            <div className="login-form-password-checkbox-col2">
+                                <label htmlFor='login-form-password-checkbox'>show password</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="login-form-button">
+                        <button type="submit" onClick={handleClick}>login</button>
+                    </div>
                 </div>
-                <div className="signup-link">
-                    <p>Don't have an account? <a href="/signup">Sign up</a></p>
+                <div className='signup-page-link'>
+                    <a href='/signup'>don't have an account? click here to signup!</a>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default Login;
-                                                            
