@@ -32,6 +32,7 @@ client/node_modules/.cache/
 # Ignore specific cache files
 **/.cache/.eslintcache
 **/.cache/default-development/*.pack
+**/.cache/default-development/1.pack
 
 # Other typical directories to ignore
 *.log
