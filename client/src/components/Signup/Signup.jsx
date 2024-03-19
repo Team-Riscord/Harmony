@@ -288,7 +288,7 @@ const Signup = () => {
                         <input type='email' id='signup-form-email' name="email" onChange={handleChange}/>
                     </div>
                     <div className="signup-form-password">
-                        <label htmlFor='signup-form-password'>enter your password</label>
+                        <label htmlFor='signup-form-password'>enter a password</label>
                         <p id='signup-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: passwordError ? 'block' : 'none'}}>{passwordErrorText}</p>
                         <input type='password' id='signup-form-password' name="password" onChange={handleChange}/>
                         <div className='signup-form-password-checkbox'>
