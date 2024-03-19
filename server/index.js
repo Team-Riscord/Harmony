@@ -10,112 +10,87 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "default",
+  database: "Harmony"
 });
 
-db.connect((err) => {
+db.connect(err => {
   if (err) throw err;
-
   db.query("create database if not exists Harmony", (err, result) => {
-    if (err) throw err;
-    console.log("Database 'Harmony' created or already exists");
+      if (err) throw err;
+      console.log("Database 'Harmony' created or already exists");
   });
-
   db.query("USE Harmony", (err, result) => {
-    if (err) throw err;
-    console.log("Using Harmony database");
+      if (err) throw err;
+      console.log("Using Harmony database");
   });
-
   const createUserTableQuery = `create table if not exists Users (
-        id int not null unique auto_increment primary key,
-        name varchar(100) not null,
-        email varchar(100) not null unique,
-        password varchar(100) not null,
-        username varchar(10) not null unique,
-        image text
-    )`;
-
+      id int not null unique auto_increment primary key,
+      name varchar(100) not null,
+      email varchar(100) not null unique,
+      password varchar(100) not null,
+      username varchar(10) not null unique,
+      image text
+  )`;
   db.query(createUserTableQuery, (err, result) => {
-    if (err) throw err;
-    console.log("Users table created or already exists");
+      if (err) throw err;
+      console.log("Users table created or already exists");
   });
 });
 
-app.get("/userdata", (req, res) => {
-  const query = "SELECT * FROM Users";
+app.get('/userdata', (req, res) => {
+  const query = "select * from Users";
   db.query(query, (err, data) => {
-    if (err) return res.status(500).send("Internal Server Error");
-
-    if (data.length === 0) {
-      return res.send("No Data Available");
-    }
-
-    let tableHTML =
-      "<style>" +
-      "body {" +
-      "   background-color: black;" +
-      "}" +
-      "table {" +
-      "    width: 100%;" +
-      "    border-collapse: collapse;" +
-      "}" +
-      "th, td {" +
-      "    border: 1px solid #dddddd;" +
-      "    padding: 8px;" +
-      "    text-align: center;" +
-      "   color: black" +
-      "}" +
-      "td {" +
-      "   color: white;" +
-      "}" +
-      "th {" +
-      "    background-color: #f2f2f2;" +
-      "   border: 1px solid black;" +
-      "}" +
-      "</style>";
-
-    tableHTML += "<table>";
-    tableHTML += "<tr>";
-    Object.keys(data[0]).forEach((key) => {
-      tableHTML += "<th>" + key + "</th>";
-    });
-    tableHTML += "</tr>";
-
-    data.forEach((row) => {
-      tableHTML += "<tr>";
-      Object.values(row).forEach((value) => {
-        tableHTML += "<td>" + value + "</td>";
+      if (err) return res.status(500).send('Internal Server Error');
+      if (data.length === 0) {
+          return res.send('No Data Available');
+      }
+      let tableHTML = '<style>body { background-color: black; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #dddddd; padding: 8px; text-align: center; color: black } td { color: white; } th { background-color: #f2f2f2; border: 1px solid black; }</style>';
+      tableHTML += '<table><tr>';
+      Object.keys(data[0]).forEach(key => {
+          tableHTML += '<th>' + key + '</th>';
       });
-      tableHTML += "</tr>";
-    });
-
-    tableHTML += "</table>";
-
-    res.send(tableHTML);
+      tableHTML += '</tr>';
+      data.forEach(row => {
+          tableHTML += '<tr>';
+          Object.keys(row).forEach(key => {
+              tableHTML += '<td>' + row[key] + '</td>';
+          });
+          tableHTML += '</tr>';
+      });
+      tableHTML += '</table>';
+      res.send(tableHTML);
   });
 });
 
 app.post("/userdata", (req, res) => {
-  const query =
-    "INSERT INTO Users(`name`, `email`, `password`, `username`, `image`) VALUES (?, ?, ?, ?, ?)";
-
-  const values = [
-    req.body.name,
-    req.body.email,
-    req.body.password,
-    req.body.username,
-    req.body.image,
-  ];
-
+  const query = "insert into Users(`name`, `email`, `password`, `username`, `image`) values (?, ?, ?, ?, ?)";
+  const values = [req.body.name, req.body.email, req.body.password, req.body.username, req.body.image];
   db.query(query, values, (err, data) => {
-    if (err) return res.send(err);
-    return res.json(data);
+      if (err) return res.send(err);
+      return res.json(data);
+  });
+});
+app.post('/login', (req, res) => {
+  const { emailOrUsername, password } = req.body;
+  const query = "SELECT * FROM Users WHERE email = ? OR username = ? LIMIT 1";
+  db.query(query, [emailOrUsername, emailOrUsername], (err, results) => {
+      if (err) {
+          return res.status(500).json({ message: "Server error" });
+      }
+      if (results.length === 0) {
+          return res.status(401).json({ message: "Incorrect email/username or password" });
+      }
+      const user = results[0];
+      const isMatch = password === user.password;
+      if (!isMatch) {
+          return res.status(401).json({ message: "Incorrect email/username or password" });
+      }
+      res.json({ message: "Login successful", user });
   });
 });
 
 app.post("/addFriend", async (req, res) => {
   const { userKey, friendUsername } = req.body;
-
-  //checks if friend username exists
   const friendQuery = "SELECT id FROM Users WHERE username = ?";
   db.query(friendQuery, [friendUsername], (err, friendResult) => {
     if (err) {
@@ -126,42 +101,29 @@ app.post("/addFriend", async (req, res) => {
       res.status(404).send("Friend username not found");
       return;
     }
-
     const friendId = friendResult[0].id;
-
-    // Check if a friend request already exists
-    const existingRequestQuery =
-      "SELECT id FROM FriendRequests WHERE (senderId = ? AND receiverId = ?) OR (senderId = ? AND receiverId = ?)";
-    db.query(
-      existingRequestQuery,
-      [userKey, friendId, friendId, userKey],
-      (err, requestResult) => {
+    const existingRequestQuery = "SELECT id FROM FriendRequests WHERE (senderId = ? AND receiverId = ?) OR (senderId = ? AND receiverId = ?)";
+    db.query(existingRequestQuery, [userKey, friendId, friendId, userKey], (err, requestResult) => {
+      if (err) {
+        res.status(500).send("Internal Server Error");
+        return;
+      }
+      if (requestResult.length > 0) {
+        res.status(409).send("Friend request already exists");
+        return;
+      }
+      const insertQuery = "INSERT INTO FriendRequests (senderId, receiverId, status) VALUES (?, ?, 'PENDING')";
+      db.query(insertQuery, [userKey, friendId], (err, insertResult) => {
         if (err) {
           res.status(500).send("Internal Server Error");
           return;
         }
-        if (requestResult.length > 0) {
-          res.status(409).send("Friend request already exists");
-          return;
-        }
-
-        // Insert new friend request
-        const insertQuery =
-          "INSERT INTO FriendRequests (senderId, receiverId, status) VALUES (?, ?, 'PENDING')";
-        db.query(insertQuery, [userKey, friendId], (err, insertResult) => {
-          if (err) {
-            res.status(500).send("Internal Server Error");
-            return;
-          }
-          res
-            .status(200)
-            .send({ success: true, message: "Friend request sent" });
-        });
-      }
-    );
+        res.status(200).send({ success: true, message: "Friend request sent" });
+      });
+    });
   });
 });
 
 app.listen(8800, () => {
-  console.log("Connected to Server 👾");
+  console.log("Server is running on port 8800");
 });

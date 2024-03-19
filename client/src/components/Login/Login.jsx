@@ -5,6 +5,7 @@ import axios from 'axios';
 const Login = () => {
     const [emailOrUsername, setEmailOrUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // State to handle password visibility
     const [error, setError] = useState('');
 
     const loginUser = async () => {
@@ -46,11 +47,20 @@ const Login = () => {
                     />
                     <label htmlFor="login-password">Password</label>
                     <input 
-                        type="password" 
+                        type={showPassword ? "text" : "password"}
                         id="login-password" 
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <div className="show-password">
+                        <input 
+                            type="checkbox" 
+                            id="show-password" 
+                            checked={showPassword}
+                            onChange={(e) => setShowPassword(e.target.checked)}
+                        />
+                        <label htmlFor="show-password">Show Password</label>
+                    </div>
                     {error && <div className="login-error">{error}</div>}
                     <button onClick={loginUser}>Login</button>
                 </div>
@@ -63,3 +73,4 @@ const Login = () => {
 };
 
 export default Login;
+                                                            
