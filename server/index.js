@@ -31,7 +31,9 @@ db.connect(err => {
         email varchar(100) not null unique,
         password varchar(100) not null,
         username varchar(10) not null unique,
-        image text
+        image text,
+        createdAt datetime not null,
+        updatedAt datetime not null
     )`;
 
     db.query(createUserTableQuery, (err, result) => {
@@ -99,7 +101,7 @@ app.get('/userdata', (req, res) => {
 
 
 app.post("/userdata", (req, res) => {
-    const query = "insert into Users(`name`, `email`, `password`, `username`, `image`) values (?, ?, ?, ?, ?)";
+    const query = "insert into Users(`name`, `email`, `password`, `username`, `image`, `createdAt`, `updatedAt`) values (?, ?, ?, ?, ?, ?, ?)";
 
     const image = req.body.image ? req.body.image : null;
   
@@ -108,7 +110,9 @@ app.post("/userdata", (req, res) => {
       req.body.email,
       req.body.password,
       req.body.username,
-      image
+      image,
+      new Date().toISOString().slice(0, 19).replace('T', ' '),
+      new Date().toISOString().slice(0, 19).replace('T', ' ')
     ];
   
     db.query(query, values, (err, data) => {
@@ -117,55 +121,24 @@ app.post("/userdata", (req, res) => {
     });
 });
 
-app.post("/addFriend", async (req, res) => {
-  const { userKey, friendUsername } = req.body;
+app.post("/login", (req, res) => {
+    const { emailOrUsername, password } = req.body;
 
-  //checks if friend username exists
-  const friendQuery = "SELECT id FROM Users WHERE username = ?";
-  db.query(friendQuery, [friendUsername], (err, friendResult) => {
-    if (err) {
-      res.status(500).send("Internal Server Error");
-      return;
-    }
-    if (friendResult.length === 0) {
-      res.status(404).send("Friend username not found");
-      return;
-    }
-
-    const friendId = friendResult[0].id;
-
-    // Check if a friend request already exists
-    const existingRequestQuery =
-      "SELECT id FROM FriendRequests WHERE (senderId = ? AND receiverId = ?) OR (senderId = ? AND receiverId = ?)";
-    db.query(
-      existingRequestQuery,
-      [userKey, friendId, friendId, userKey],
-      (err, requestResult) => {
+    const query = "select * from Users where (email = ? or username = ?) AND password = ?";
+    db.query(query, [emailOrUsername, emailOrUsername, password], (err, result) => {
         if (err) {
-          res.status(500).send("Internal Server Error");
-          return;
-        }
-        if (requestResult.length > 0) {
-          res.status(409).send("Friend request already exists");
-          return;
+            console.error("Error while querying database:", err);
+            return res.status(500).send("Internal Server Error");
         }
 
-        // Insert new friend request
-        const insertQuery =
-          "INSERT INTO FriendRequests (senderId, receiverId, status) VALUES (?, ?, 'PENDING')";
-        db.query(insertQuery, [userKey, friendId], (err, insertResult) => {
-          if (err) {
-            res.status(500).send("Internal Server Error");
-            return;
-          }
-          res
-            .status(200)
-            .send({ success: true, message: "Friend request sent" });
-        });
-      }
-    );
-  });
+        if (result.length === 0) {
+            return res.status(404).send("User not found or incorrect credentials");
+        }
+
+        return res.status(200).json({ success: true, message: "Login successful", user: result[0] });
+    });
 });
+
 
 app.listen(8800, () => {
   console.log("Connected to Server 👾");

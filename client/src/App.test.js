@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  //add test content
+describe('App Component', () => {
+  it('renders without crashing [App]', () => {
+    render(<App />);
+  });
 });

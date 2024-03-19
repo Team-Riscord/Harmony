@@ -55,7 +55,7 @@ describe('Signup Component', () => {
 
   test('displays error message for email longer than 100 characters [Signup]', async () => {
     const { getByLabelText, getByText } = render(<Signup />);
-    fireEvent.change(getByLabelText('enter your email'), { target: { value: 'a'.repeat(101) + '@gmail.com' } });
+    fireEvent.change(getByLabelText('enter your email'), { target: { value: 'a'.repeat(101) + '@example.com' } });
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
       expect(getByText('* email cannot be longer than 100 characters')).toBeInTheDocument();

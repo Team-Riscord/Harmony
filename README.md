@@ -187,28 +187,38 @@ This project follows the Test-Driven Development approach. The listed features/f
 <br />
 
 ### Users
-- **id**: string
-- **name**: string
+- **userID**: string
+- **fullname**: string
 - **profileImage**: string
 - **username**: string
 - **email**: string
 - **password**: string
 - **createdAt**: datetime
 - **updatedAt**: datetime
-- **friends**: [string] (Array of user IDs)
-- **friendRequests**: [string] (Array of user IDs)
 - **isOnline**: boolean
 
+### Friends
+- **friendshipID**: string
+- **friend_1_ID**: string (Reference to User id)
+- **friend_2_ID**: string (Reference to User id)
+- **createdAt**: datetime
+
+### FriendRequests
+- **friendRequestID**: string
+- **senderID**: string (Reference to User id)
+- **serverID**: string (Reference to Server id)
+- **createdAt**: datetime
+
 ### Servers
-- **id**: string
-- **name**: string
+- **serverID**: string
+- **serverName**: string
 - **serverIcon**: string
-- **serverAdmin**: string (Reference to User id)
+- **userID**: string (Reference to User id)
 - **createdAt**: datetime
 - **updatedAt**: datetime
 
 ### Members
-- **id**: string
+- **membershipID**: string
 - **role**: enum (ADMIN, MODERATOR, GUEST)
 - **userID**: string (Reference to User id)
 - **serverId**: string (Reference to Server id)
@@ -216,26 +226,26 @@ This project follows the Test-Driven Development approach. The listed features/f
 - **updatedAt**: datetime
 
 ### Channels
-- **id**: string
-- **name**: string
+- **channelID**: string
+- **channelName**: string
 - **type**: enum (TEXT, AUDIO, VIDEO)
-- **profileId**: string (Reference to User id)
-- **serverId**: string (Reference to Server id)
+- **userID**: string (Reference to User id)
+- **serverID**: string (Reference to Server id)
 - **createdAt**: datetime
 - **updatedAt**: datetime
 
 ### ServerMessages
-- **id**: string
-- **senderId**: string (Reference to User id)
-- **serverId**: string (Reference to Server id)
+- **serverMessageID**: string
+- **senderID**: string (Reference to User id)
+- **serverID**: string (Reference to Server id)
 - **message**: string
 - **createdAt**: datetime
 - **updatedAt**: datetime
 
 ### DirectMessages
-- **id**: string
-- **senderId**: string (Reference to User id)
-- **receiverId**: string (Reference to User id)
+- **directMessageID**: string
+- **senderID**: string (Reference to User id)
+- **receiverID**: string (Reference to User id)
 - **message**: string
 - **createdAt**: datetime
 - **updatedAt**: datetime

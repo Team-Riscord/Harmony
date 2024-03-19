@@ -1,0 +1,192 @@
+.login-component {
+    --oxford-blue: #01133Dff;
+    --blue-green: rgb(11, 166, 209);
+    --oxford-blue-2: #02113Aff;
+    --oxford-blue-3: #030F36ff;
+    --indigo-dye: #154A7Fff;
+    --berkeley-blue: #072D53ff;
+    --oxford-blue-4: #00204Bff;
+    --oxford-blue-5: #01133Aff;
+    --oxford-blue-6: #001943ff;
+    --oxford-blue-7: #030C31ff;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-radial-gradient(circle at center in hsl shorter hue, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.login-container {
+    position: fixed;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    background-color: var(--blue-green);
+    border: 10px solid var(--blue-green);
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
+    padding: 20px;
+    padding-top: 0;
+    display: block;
+}
+
+.login-title {
+    width: 100%;
+    display: block;
+    margin-top: 5px;
+}
+
+.login-title h1, .login-title h3 {
+    text-align: center;
+    color: var(--oxford-blue-7);
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-title h3 {
+    margin-top: 10px;
+    text-transform: capitalize;
+    font-size: 30px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.login-title span {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: var(--oxford-blue-7);
+    color: rgb(120, 215, 180);
+}
+
+.login-title h1 {
+    margin: 0;
+    font-size: 45px;
+}
+
+.login-form {
+    width: 100%;
+    height: auto;
+    display: grid;
+    margin-top: 50px;
+}
+
+.login-form-password, .login-form-button {
+    margin-top: 50px;
+}
+
+.login-form label, .login-form h3 {
+    color: white;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.login-form p {
+    color: var(--oxford-blue-4);
+    text-align: center;
+    margin: 0;
+    text-transform: lowercase;
+    font-size: 17px;
+    margin-top: 5px;
+    margin-bottom: -10px;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 80%;
+    justify-self: center;
+    height: 40px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 20px;
+    outline: none;
+    font-weight: bold;
+    border: 3px solid var(--oxford-blue-7);
+    margin-top: 10px;
+    color: var(--oxford-blue-7)
+}
+
+.login-form-password-checkbox {
+    display: grid;
+    grid-template-columns: 5% 25%;
+    margin: auto;
+    justify-content: center;
+}
+
+.login-form-password-checkbox-col1 {
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-password-checkbox-col2 {
+    grid-column: 2;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+#login-form-password-checkbox {
+    height: 15px;
+    cursor: pointer;
+}
+
+#login-form-password-checkbox:checked {
+    accent-color: var(--oxford-blue-7);
+}
+
+.login-form-password-checkbox label {
+    text-transform: capitalize;
+    font-size: 15px;
+    margin-bottom: 0;
+    margin-top: 7px;
+}
+
+.login-form button {
+    width: 30%;
+    height: 40px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: var(--oxford-blue-7);
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.login-form button:active {
+    background-color: white;
+    color: var(--oxford-blue-7);
+}
+
+.signup-page-link {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.signup-page-link a {
+    color: var(--oxford-blue-7);
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.signup-page-link a:active {
+    color: var(--indigo-dye);
+}
+
+@media only screen and (max-width: 570px) {
+    .signup-page-link {
+        margin-top: -40px;
+    }    
+}
