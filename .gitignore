@@ -29,6 +29,10 @@ yarn-error.log*
 .cache/
 client/node_modules/.cache/
 
+# Ignore specific cache files
+**/.cache/.eslintcache
+**/.cache/default-development/*.pack
+
 # Other typical directories to ignore
 *.log
 *.cache
