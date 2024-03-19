@@ -66,22 +66,22 @@
     cursor: pointer;
     margin-left: 20px;
     padding: 15px 30px;
-    font-size: 1.5rem; /* Larger font size for better readability */
+    font-size: 1.5rem; 
     border-radius: 20px;
     border: none;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for both background and text color */
-    background-color: var(--blue-green); /* Primary button color */
-    color: var(--oxford-blue); /* Text color */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add shadow for better depth */
-    font-weight: bold; /* Make text bold */
+    transition: background-color 0.3s, color 0.3s; 
+    background-color: var(--blue-green); 
+    color: var(--oxford-blue);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+    font-weight: bold; 
 }
 
 .signup-btn:hover,
 .login-btn:hover {
-    background-color: var(--oxford-blue-7); /* Change background color on hover for better interaction */
-    color: #FFFFFF; /* Change text color to white for better visibility */
-    transform: translateY(-2px); /* Slight move to indicate button press */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Enhance shadow on hover for more depth */
+    background-color: var(--oxford-blue-7);
+    color: #FFFFFF; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
 }
 
 .homepage-icon {
