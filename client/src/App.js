@@ -1,5 +1,7 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signup from "./components/Signup/Signup";
+import AddFriend from "./components/AddFriend/AddFriend";
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 
@@ -10,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} /> 
+          <Route path="/addfriend" element={<AddFriend />} />
         </Routes>
       </BrowserRouter>
     </div>
