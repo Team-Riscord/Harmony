@@ -7,9 +7,9 @@ app.use(express.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "AnitejPhambytex@8503"
+  host: "localhost",
+  user: "root",
+  password: "default",
 });
 
 db.connect(err => {
@@ -97,6 +97,7 @@ app.get('/userdata', (req, res) => {
     });
 });
 
+
 app.post("/userdata", (req, res) => {
     const query = "insert into Users(`name`, `email`, `password`, `username`, `image`) values (?, ?, ?, ?, ?)";
 
@@ -114,8 +115,58 @@ app.post("/userdata", (req, res) => {
       if (err) return res.send(err);
       return res.json(data);
     });
+});
+
+app.post("/addFriend", async (req, res) => {
+  const { userKey, friendUsername } = req.body;
+
+  //checks if friend username exists
+  const friendQuery = "SELECT id FROM Users WHERE username = ?";
+  db.query(friendQuery, [friendUsername], (err, friendResult) => {
+    if (err) {
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+    if (friendResult.length === 0) {
+      res.status(404).send("Friend username not found");
+      return;
+    }
+
+    const friendId = friendResult[0].id;
+
+    // Check if a friend request already exists
+    const existingRequestQuery =
+      "SELECT id FROM FriendRequests WHERE (senderId = ? AND receiverId = ?) OR (senderId = ? AND receiverId = ?)";
+    db.query(
+      existingRequestQuery,
+      [userKey, friendId, friendId, userKey],
+      (err, requestResult) => {
+        if (err) {
+          res.status(500).send("Internal Server Error");
+          return;
+        }
+        if (requestResult.length > 0) {
+          res.status(409).send("Friend request already exists");
+          return;
+        }
+
+        // Insert new friend request
+        const insertQuery =
+          "INSERT INTO FriendRequests (senderId, receiverId, status) VALUES (?, ?, 'PENDING')";
+        db.query(insertQuery, [userKey, friendId], (err, insertResult) => {
+          if (err) {
+            res.status(500).send("Internal Server Error");
+            return;
+          }
+          res
+            .status(200)
+            .send({ success: true, message: "Friend request sent" });
+        });
+      }
+    );
   });
+});
 
 app.listen(8800, () => {
-    console.log("Connected to Server 👾");
+  console.log("Connected to Server 👾");
 });
