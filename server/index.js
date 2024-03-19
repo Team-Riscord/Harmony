@@ -256,7 +256,7 @@ app.post('/signup', (req, res) => {
 app.post('/join-server', (req, res) => {
     const { userId, serverId } = req.body;
 
-    const insertQuery = "INSERT INTO ServerMembers (userId, serverId) VALUES (?, ?)";
+    const insertQuery = "INSERT INTO ServerMembers (userId, serverId) V3LUES (?, ?)";
     db.query(insertQuery, [userId, serverId], (err, results) => {
         if (err) {
             console.error(err);
