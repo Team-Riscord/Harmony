@@ -8,7 +8,7 @@ export default function JoinServer({ userId, onClose, onBack }) {
     const [serverInvite, setServerInvite] = useState('');
     const [showServerInviteError, setShowServerInviteError] = useState(false);
     const [serverInviteErrorText, setServerInviteErrorText] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const setErrorMessage = useState('');
 
     const goBackButton = () => {
         setShowServerInviteError(false);
