@@ -12,20 +12,20 @@ const db = mysql.createConnection({
   password: "default",
 });
 
-db.connect((err) => {
-  if (err) throw err;
-
-  db.query("create database if not exists Harmony", (err, result) => {
+db.connect(err => {
     if (err) throw err;
-    console.log("Database 'Harmony' created or already exists");
-  });
 
-  db.query("USE Harmony", (err, result) => {
-    if (err) throw err;
-    console.log("Using Harmony database");
-  });
+    db.query("create database if not exists Harmony", (err, result) => {
+        if (err) throw err;
+        console.log("Database 'Harmony' created or already exists");
+    });
 
-  const createUserTableQuery = `create table if not exists Users (
+    db.query("USE Harmony", (err, result) => {
+        if (err) throw err;
+        console.log("Using Harmony database");
+    });
+
+    const createUserTableQuery = `create table if not exists Users (
         id int not null unique auto_increment primary key,
         name varchar(100) not null,
         email varchar(100) not null unique,
@@ -34,82 +34,87 @@ db.connect((err) => {
         image text
     )`;
 
-  db.query(createUserTableQuery, (err, result) => {
-    if (err) throw err;
-    console.log("Users table created or already exists");
-  });
+    db.query(createUserTableQuery, (err, result) => {
+        if (err) throw err;
+        console.log("Users table created or already exists");
+    });
 });
 
-app.get("/userdata", (req, res) => {
-  const query = "SELECT * FROM Users";
-  db.query(query, (err, data) => {
-    if (err) return res.status(500).send("Internal Server Error");
+app.get('/userdata', (req, res) => {
+    const query = "select * from Users";
+    db.query(query, (err, data) => {
+        if(err) return res.status(500).send('Internal Server Error');
+        
+        if(data.length === 0) {
+            return res.send('No Data Available');
+        }
+        
+        let tableHTML = '<style>' +
+                        'body {' +
+                        '   background-color: black;' +
+                        '}' +
+                        'table {' +
+                        '    width: 100%;' +
+                        '    border-collapse: collapse;' +
+                        '}' +
+                        'th, td {' +
+                        '    border: 1px solid #dddddd;' +
+                        '    padding: 8px;' +
+                        '    text-align: center;' +
+                        '   color: black' +
+                        '}' +
+                        'td {' +
+                        '   color: white;' +
+                        '}' +
+                        'th {' +
+                        '    background-color: #f2f2f2;' +
+                        '   border: 1px solid black;' +
+                        '}' +
+                        '</style>';
+        
+        tableHTML += '<table>';
+        tableHTML += '<tr>';
+        Object.keys(data[0]).forEach(key => {
+            tableHTML += '<th>' + key + '</th>';
+        });
+        tableHTML += '</tr>';
 
-    if (data.length === 0) {
-      return res.send("No Data Available");
-    }
+        data.forEach(row => {
+            tableHTML += '<tr>';
+            Object.keys(row).forEach(key => {
+                if (key === 'image') {
+                    tableHTML += `<td><img src="${Buffer.from(row[key])}" style="width:50px;height:50px;" alt="User Image"/></td>`;
+                } else {
+                    tableHTML += '<td>' + row[key] + '</td>';
+                }
+            });
+            tableHTML += '</tr>';
+        });
 
-    let tableHTML =
-      "<style>" +
-      "body {" +
-      "   background-color: black;" +
-      "}" +
-      "table {" +
-      "    width: 100%;" +
-      "    border-collapse: collapse;" +
-      "}" +
-      "th, td {" +
-      "    border: 1px solid #dddddd;" +
-      "    padding: 8px;" +
-      "    text-align: center;" +
-      "   color: black" +
-      "}" +
-      "td {" +
-      "   color: white;" +
-      "}" +
-      "th {" +
-      "    background-color: #f2f2f2;" +
-      "   border: 1px solid black;" +
-      "}" +
-      "</style>";
-
-    tableHTML += "<table>";
-    tableHTML += "<tr>";
-    Object.keys(data[0]).forEach((key) => {
-      tableHTML += "<th>" + key + "</th>";
+        tableHTML += '</table>';
+        
+        res.send(tableHTML);
     });
-    tableHTML += "</tr>";
-
-    data.forEach((row) => {
-      tableHTML += "<tr>";
-      Object.values(row).forEach((value) => {
-        tableHTML += "<td>" + value + "</td>";
-      });
-      tableHTML += "</tr>";
-    });
-
-    tableHTML += "</table>";
-
-    res.send(tableHTML);
-  });
 });
+
 
 app.post("/userdata", (req, res) => {
-  const query =
-    "INSERT INTO Users(`name`, `email`, `password`, `username`, `image`) VALUES (?, ?, ?, ?, ?)";
+    const query = "insert into Users(`name`, `email`, `password`, `username`, `image`) values (?, ?, ?, ?, ?)";
 
-  const values = [
-    req.body.name,
-    req.body.email,
-    req.body.password,
-    req.body.username,
-    req.body.image,
-  ];
-
-  db.query(query, values, (err, data) => {
-    if (err) return res.send(err);
-    return res.json(data);
-  });
+    const image = req.body.image ? req.body.image : null;
+  
+    const values = [
+      req.body.name,
+      req.body.email,
+      req.body.password,
+      req.body.username,
+      image
+    ];
+  
+    db.query(query, values, (err, data) => {
+      if (err) return res.send(err);
+      return res.json(data);
+    });
 });
 
 app.post("/addFriend", async (req, res) => {
