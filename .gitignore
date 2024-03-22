@@ -19,7 +19,7 @@
 *.sass-cache
 node_modules/
 .tmp/
-.vs
+.vsg
 
 # testing
 /coverage
