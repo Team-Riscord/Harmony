@@ -10,19 +10,23 @@
     --oxford-blue-6: #001943ff;
     --oxford-blue-7: #030C31ff;
     position: fixed;
-    width: 100vw;
+    width: 101vw;
     height: 100vh;
     background: repeating-radial-gradient(circle at center in hsl shorter hue, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green));
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
+    overflow-y: auto;
+}
+
+.signup-component::-webkit-scrollbar {
+    display: none;
 }
 
 .signup-container {
     position: fixed;
-    width: auto;
-    height: 95vh;
+    width: 650px;
+    height: 900px;
     border-radius: 20px;
     background-color: var(--blue-green);
     border: 10px solid var(--blue-green);
@@ -35,6 +39,7 @@
 
 .signup-title {
     width: 100%;
+    height: 12%;
     display: block;
     margin-top: 5px;
 }
@@ -70,7 +75,7 @@
     width: 100%;
     height: 80%;
     display: grid;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .signup-form-image-input-icon {
@@ -179,6 +184,7 @@
     color: white;
     cursor: pointer;
     border: none;
+    margin-top: 30px;
 }
 
 .signup-form button:active {
@@ -188,11 +194,10 @@
 
 .login-page-link {
     width: 100%;
-    height: auto;
+    height: 6%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+    align-items: flex-end;
 }
 
 .login-page-link a {
