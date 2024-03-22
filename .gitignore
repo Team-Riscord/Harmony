@@ -33,6 +33,7 @@ client/node_modules/.cache/
 **/.cache/.eslintcache
 **/.cache/default-development/*.pack
 **/.cache/default-development/1.pack
+../client/node_modules/.cache/default-development/*.pack
 
 # Other typical directories to ignore
 *.log
