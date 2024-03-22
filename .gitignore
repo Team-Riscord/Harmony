@@ -2,8 +2,24 @@
 
 # dependencies
 /node_modules
+/client/node_modules
+/server/node_modules
 /.pnp
 .pnp.js
+
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+node_modules/
+.tmp/
+.vsg
 
 # testing
 /coverage
@@ -33,6 +49,11 @@ client/node_modules/.cache/
 **/.cache/.eslintcache
 **/.cache/default-development/*.pack
 **/.cache/default-development/1.pack
+../client/node_modules/.cache/default-development/1.pack
+../client/node_modules/.cache/default-development/2.pack
+../client/node_modules/.cache/default-development/3.pack
+../client/node_modules/.cache/default-development/4.pack
+../client/node_modules/.cache/default-development/5.pack
 
 # Other typical directories to ignore
 *.log
