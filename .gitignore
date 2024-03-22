@@ -7,6 +7,20 @@
 /.pnp
 .pnp.js
 
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+node_modules/
+.tmp/
+.vs
+
 # testing
 /coverage
 
