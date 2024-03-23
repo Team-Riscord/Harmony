@@ -12,7 +12,7 @@
     position: fixed;
     width: 101vw;
     height: 100vh;
-    background: repeating-radial-gradient(circle at center in hsl shorter hue, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green));
+    background: repeating-radial-gradient(circle at center, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7));
     display: flex;
     justify-content: center;
     align-items: center;
