@@ -6,11 +6,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use(express.static('../client/src/images/'));
+
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "default",
-  database: "Harmony"
+  database: "Harmony"g
 });
 
 db.connect(err => {
@@ -40,6 +42,31 @@ db.connect(err => {
     db.query(createUserTableQuery, (err, result) => {
         if (err) throw err;
         console.log("Users table created or already exists");
+    });
+
+    const testUsers = [
+        { name: 'Test User 1', email: 'test1@example.com', password: 'testpassword1', username: 'testuser1', image: '/default-profile-image.png' },
+        { name: 'Test User 2', email: 'test2@example.com', password: 'testpassword2', username: 'testuser2', image: '/default-profile-image.png' },
+        { name: 'Test User 3', email: 'test3@example.com', password: 'testpassword3', username: 'testuser3', image: '/default-profile-image.png' },
+        { name: 'Test User 4', email: 'test4@example.com', password: 'testpassword4', username: 'testuser4', image: '/default-profile-image.png' },
+        { name: 'Test User 5', email: 'test5@example.com', password: 'testpassword5', username: 'testuser5', image: '/default-profile-image.png' }
+    ];
+    
+    const createTestUsersQuery = `insert ignore into Users (name, email, password, username, image, createdAt, updatedAt) values ?`;
+
+    const values = testUsers.map(user => [
+        user.name,
+        user.email,
+        user.password,
+        user.username,
+        user.image,
+        new Date().toISOString().slice(0, 19).replace('T', ' '),
+        new Date().toISOString().slice(0, 19).replace('T', ' ')
+    ]);
+    
+    db.query(createTestUsersQuery, [values], (err, result) => {
+        if (err) throw err;
+        console.log("Test users created or already exists");
     });
 });
 
