@@ -1,0 +1,20 @@
+.homepage-component {
+    --oxford-blue: #01133Dff;
+    --blue-green: rgb(11, 166, 209);
+    --oxford-blue-2: #02113Aff;
+    --oxford-blue-3: #030F36ff;
+    --indigo-dye: #154A7Fff;
+    --berkeley-blue: #072D53ff;
+    --oxford-blue-4: #00204Bff;
+    --oxford-blue-5: #01133Aff;
+    --oxford-blue-6: #001943ff;
+    --oxford-blue-7: #030C31ff;
+    position: fixed;
+    width: 101vw;
+    height: 100vh;
+    background: repeating-radial-gradient(circle at center, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
