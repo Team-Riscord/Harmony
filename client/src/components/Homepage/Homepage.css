@@ -115,17 +115,23 @@
     font-weight: bold;
     background-color: white;
     border: 3px solid white;
-    color: rgb(125, 44, 195);
+    color: rgb(247, 25, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(65, 0, 122);
     cursor: pointer;
 }
 
 .homepage-button button:hover {
     background-color: transparent;
     color: white;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: white;
 }
 
 .homepage-button button:active {
     background-color: transparent;
     color: rgb(247, 25, 255);
     border: 3px solid rgb(247, 25, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(247, 25, 255);
 }
