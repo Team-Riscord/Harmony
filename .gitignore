@@ -48,7 +48,6 @@ client/node_modules/.cache/
 # Ignore specific cache files
 **/.cache/.eslintcache
 **/.cache/default-development/*.pack
-**/.cache/default-development/1.pack
 ../client/node_modules/.cache/default-development/1.pack
 ../client/node_modules/.cache/default-development/2.pack
 ../client/node_modules/.cache/default-development/3.pack

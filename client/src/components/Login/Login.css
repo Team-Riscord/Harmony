@@ -27,7 +27,7 @@
     position: fixed;
     width: 650px;
     height: 650px;
-    border-radius: 20px;
+    border-radius: 30px;
     background-color: var(--blue-green);
     border: 10px solid var(--blue-green);
     box-sizing: border-box;
@@ -155,15 +155,21 @@
 
 .login-form button {
     width: 30%;
-    height: 40px;
-    border-radius: 20px;
-    text-transform: uppercase;
+    height: 50px;
+    border-radius: 25px;
+    text-transform: capitalize;
     font-size: 25px;
     font-weight: bold;
+    background-color: var(--blue-green);
+    border: 3px solid var(--oxford-blue-7);
+    color: var(--oxford-blue-7);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-form button:hover {
     background-color: var(--oxford-blue-7);
     color: white;
-    cursor: pointer;
-    border: none;
 }
 
 .login-form button:active {
