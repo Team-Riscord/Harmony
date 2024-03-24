@@ -1,18 +1,10 @@
 .homepage-component {
-    --oxford-blue: #01133Dff;
-    --blue-green: rgb(11, 166, 209);
-    --oxford-blue-2: #02113Aff;
-    --oxford-blue-3: #030F36ff;
-    --indigo-dye: #154A7Fff;
-    --berkeley-blue: #072D53ff;
-    --oxford-blue-4: #00204Bff;
-    --oxford-blue-5: #01133Aff;
-    --oxford-blue-6: #001943ff;
-    --oxford-blue-7: #030C31ff;
     position: fixed;
     width: 101vw;
     height: 100vh;
-    background: repeating-radial-gradient(circle at center, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7));
+    background: url('../../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,15 +17,16 @@
 
 .homepage-container {
     position: fixed;
-    width: 900px;
-    height: 700px;
+    width: 1000px;
+    height: auto;
     border-radius: 30px;
-    background-color: var(--blue-green);
-    border: 10px solid var(--blue-green);
+    background-color: transparent;
+    border: 10px solid transparent;
     box-sizing: border-box;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 100px 0 rgba(0, 0, 0, 1), 0 6px 100px 0 rgba(0, 0, 0, 1);
     padding: 20px;
     padding-top: 0;
+    padding-bottom: 10px;
     display: block;
 }
 
@@ -46,7 +39,7 @@
 
 .homepage-title h1, .homepage-title h3 {
     text-align: center;
-    color: var(--oxford-blue-7);
+    color: white;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -62,8 +55,10 @@
 .homepage-title span {
     padding: 5px 10px;
     border-radius: 15px;
-    background-color: var(--oxford-blue-7);
-    color: rgb(120, 215, 180);
+    background-color: rgb(75, 166, 244);
+    color: rgb(247, 25, 255);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(65, 0, 122);
 }
 
 .homepage-title h1 {
@@ -77,7 +72,9 @@
     display: grid;
     grid-template-rows: auto auto;
     background-color: whitesmoke;
-    margin-top: 50px;
+    margin-top: 30px;
+    border-radius: 5px;
+    padding: 10px 0;
 }
 
 .homepage-description div {
@@ -90,8 +87,45 @@
     font-size: 25px;
     text-align: center;
     margin: auto;
-    color: var(--oxford-blue-7); 
-    /* color: white; */
+    color: black; 
     font-family: monospace;
     font-weight: bold;
+}
+
+.homepage-buttons {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 40px;
+}
+
+.homepage-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-button button {
+    width: 50%;
+    height: 60px;
+    border-radius: 30px;
+    text-transform: capitalize;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: white;
+    border: 3px solid white;
+    color: rgb(125, 44, 195);
+    cursor: pointer;
+}
+
+.homepage-button button:hover {
+    background-color: transparent;
+    color: white;
+}
+
+.homepage-button button:active {
+    background-color: transparent;
+    color: rgb(247, 25, 255);
+    border: 3px solid rgb(247, 25, 255);
 }
