@@ -1,12 +1,15 @@
 import './Login.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({
         emailOrUsername: "",
         password: ""
     });
+
+    const navigate = useNavigate();
 
     const [emailUsernameError, setEmailUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -73,7 +76,7 @@ const Login = () => {
                 if (response.status === 200) {
                     console.log("Login successful:", response.data.message);
                     localStorage.setItem('userData', JSON.stringify(response.data.user));
-                    localStorage.setItem('isUserLoggedIn', true);
+                    navigate('/harmony');
                 }
             } catch (error) {
                 setEmailUsernameError(true);
