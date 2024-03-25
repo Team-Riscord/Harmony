@@ -73,6 +73,7 @@ const Login = () => {
                 if (response.status === 200) {
                     console.log("Login successful:", response.data.message);
                     localStorage.setItem('userData', JSON.stringify(response.data.user));
+                    localStorage.setItem('isUserLoggedIn', true);
                 }
             } catch (error) {
                 setEmailUsernameError(true);
