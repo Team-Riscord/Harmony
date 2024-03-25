@@ -28,10 +28,10 @@ describe('Signup Component', () => {
     const { getByText } = render(<Signup />);
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
-      expect(getByText('* please enter your name')).toBeInTheDocument();
-      expect(getByText('* please enter your email')).toBeInTheDocument();
-      expect(getByText('* please enter a password')).toBeInTheDocument();
-      expect(getByText('* please choose a username for yourself')).toBeInTheDocument();
+      expect(getByText('please enter your name')).toBeInTheDocument();
+      expect(getByText('please enter your email')).toBeInTheDocument();
+      expect(getByText('please enter a password')).toBeInTheDocument();
+      expect(getByText('please choose a username')).toBeInTheDocument();
     });
   });
 
@@ -40,7 +40,7 @@ describe('Signup Component', () => {
     fireEvent.change(getByLabelText('enter your email'), { target: { value: 'invalidemail' } });
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
-      expect(getByText('* please enter a valid email')).toBeInTheDocument();
+      expect(getByText('please enter a valid email')).toBeInTheDocument();
     });
   });
 
@@ -49,7 +49,7 @@ describe('Signup Component', () => {
     fireEvent.change(getByLabelText('enter your full name'), { target: { value: 'a'.repeat(101) } });
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
-      expect(getByText('* name cannot be longer than 100 characters')).toBeInTheDocument();
+      expect(getByText('name cannot be longer than 100 characters')).toBeInTheDocument();
     });
   });
 
@@ -58,7 +58,7 @@ describe('Signup Component', () => {
     fireEvent.change(getByLabelText('enter your email'), { target: { value: 'a'.repeat(101) + '@example.com' } });
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
-      expect(getByText('* email cannot be longer than 100 characters')).toBeInTheDocument();
+      expect(getByText('email cannot be longer than 100 characters')).toBeInTheDocument();
     });
   });
 
@@ -67,7 +67,7 @@ describe('Signup Component', () => {
     fireEvent.change(getByLabelText('enter a password'), { target: { value: 'a'.repeat(101) } });
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
-      expect(getByText('* password cannot be longer than 100 characters')).toBeInTheDocument();
+      expect(getByText('password cannot be longer than 100 characters')).toBeInTheDocument();
     });
   });
 
@@ -76,7 +76,7 @@ describe('Signup Component', () => {
     fireEvent.change(getByLabelText('choose a username'), { target: { value: 'a'.repeat(11) } });
     fireEvent.click(getByText('sign up'));
     await waitFor(() => {
-      expect(getByText('* username cannot be longer than 10 characters')).toBeInTheDocument();
+      expect(getByText('username cannot be longer than 10 characters')).toBeInTheDocument();
     });
   });
 
@@ -111,8 +111,8 @@ describe('Signup Component', () => {
     fireEvent.click(getByText('sign up'));
   
     await waitFor(() => {
-      expect(getByText('* email already exists')).toBeInTheDocument();
-      expect(getByText('* username already exists')).toBeInTheDocument();
+      expect(getByText('email already exists')).toBeInTheDocument();
+      expect(getByText('username already exists')).toBeInTheDocument();
     });
   });
 
