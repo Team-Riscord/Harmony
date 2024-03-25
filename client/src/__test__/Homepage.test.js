@@ -1,26 +1,45 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import '@testing-library/jest-dom';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import { useNavigate } from 'react-router-dom';
 import Homepage from '../components/Homepage/Homepage';
 
-const renderWithRouter = (ui, { route = '/' } = {}) => {
-  window.history.pushState({}, 'Test page', route);
-  return render(ui, { wrapper: BrowserRouter });
-};
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
-describe('Homepage navigation', () => {
-  test('navigates to the signup page when the sign up button is clicked', () => {
-    renderWithRouter(<Homepage />);
-    const signupButton = screen.getByRole('button', { name: /sign up/i });
-    fireEvent.click(signupButton);
-    expect(window.location.pathname).toBe('/signup');
+describe('Homepage Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  test('navigates to the login page when the login button is clicked', () => {
-    renderWithRouter(<Homepage />);
-    const loginButton = screen.getByRole('button', { name: /login/i });
-    fireEvent.click(loginButton);
-    expect(window.location.pathname).toBe('/login');
+  test('renders Homepage component [Homepage]', async () => {
+    const { container } = render(<Homepage />);    
+    await waitFor(() => {
+        expect(container.querySelector('.homepage-title')).toBeInTheDocument();
+        expect(container.querySelector('.homepage-title')).toHaveTextContent('welcome to');
+        
+        const harmonySpan = container.querySelector('.homepage-title span');
+        expect(harmonySpan).toBeInTheDocument();
+        expect(harmonySpan.textContent).toBe('harmony');
+      });
+  });
+
+  test('navigates to signup page when Sign Up button is clicked [Homepage]', () => {
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+    
+    const { getByText } = render(<Homepage />);
+    fireEvent.click(getByText('Sign Up'));
+    expect(navigate).toHaveBeenCalledWith('/signup');
+  });
+
+  test('navigates to login page when Login button is clicked [Homepage]', () => {
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+
+    const { getByText } = render(<Homepage />);
+    fireEvent.click(getByText('Login'));
+    expect(navigate).toHaveBeenCalledWith('/login');
   });
 });

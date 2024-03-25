@@ -1,91 +1,137 @@
-:root {
-    --oxford-blue: #01133D;
-    --blue-green: rgb(11, 166, 209);
-    --oxford-blue-2: #02113A;
-    --oxford-blue-3: #030F36;
-    --indigo-dye: #154A7F;
-    --berkeley-blue: #072D53;
-    --oxford-blue-4: #00204B;
-    --oxford-blue-5: #01133A;
-    --oxford-blue-6: #001943;
-    --oxford-blue-7: #030C31;
-}
-
-.homepage {
+.homepage-component {
     position: fixed;
-    width: 100vw;
+    width: 101vw;
     height: 100vh;
-    background: repeating-radial-gradient(circle at center, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7));
+    background: url('../../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
-.welcome-container {
-    border-radius: 20px;
-    background-color: var(--blue-green);
-    border: 10px solid var(--blue-green);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
+.homepage-component::-webkit-scrollbar {
+    display: none;
+}
+
+.homepage-container {
+    position: fixed;
+    width: 1000px;
+    height: auto;
+    border-radius: 30px;
+    background-color: transparent;
+    border: 10px solid transparent;
+    box-sizing: border-box;
+    box-shadow: 0 4px 100px 0 rgba(0, 0, 0, 1), 0 6px 100px 0 rgba(0, 0, 0, 1);
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    padding-top: 0;
+    padding-bottom: 10px;
+    display: block;
 }
 
-.homepage h1, .homepage p {
-    color: var(--oxford-blue-7);
+.homepage-title {
+    width: 100%;
+    height: 21%;
+    display: block;
+    margin-top: 5px;
+}
+
+.homepage-title h1, .homepage-title h3 {
     text-align: center;
-}
-
-.homepage h1 {
-    margin: 0;
-    font-size: 45px;
+    color: white;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.homepage p {
-    font-size: 1.25rem;
-    max-width: 600px;
+.homepage-title h3 {
     margin-top: 10px;
+    text-transform: capitalize;
+    font-size: 30px;
+    margin-bottom: 0;
     font-style: italic;
-    text-transform: none;
-    color: white; /* Adjust if needed */
+}
+
+.homepage-title span {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: rgb(75, 166, 244);
+    color: rgb(247, 25, 255);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(65, 0, 122);
+}
+
+.homepage-title h1 {
+    margin: 0;
+    font-size: 45px;
+}
+
+.homepage-description {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto auto;
+    background-color: whitesmoke;
+    margin-top: 30px;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.homepage-description div {
+    width: 90%;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.homepage-description p {
+    font-size: 25px;
+    text-align: center;
+    margin: auto;
+    color: black; 
+    font-family: monospace;
+    font-weight: bold;
 }
 
 .homepage-buttons {
-    display: flex;
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.signup-btn,
-.login-btn {
-    cursor: pointer;
-    margin-left: 20px;
-    padding: 15px 30px;
-    font-size: 1.5rem; 
-    border-radius: 20px;
-    border: none;
-    transition: background-color 0.3s, color 0.3s; 
-    background-color: var(--blue-green); 
-    color: var(--oxford-blue);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
-    font-weight: bold; 
-}
-
-.signup-btn:hover,
-.login-btn:hover {
-    background-color: var(--oxford-blue-7);
-    color: #FFFFFF; 
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
-}
-
-.homepage-icon {
-    width: 120px;
+    width: 100%;
     height: auto;
-    border-radius: 60%;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 40px;
+}
+
+.homepage-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-button button {
+    width: 50%;
+    height: 60px;
+    border-radius: 30px;
+    text-transform: capitalize;
+    font-size: 25px;
+    font-weight: bold;
+    background-color: white;
+    border: 3px solid white;
+    color: rgb(247, 25, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(65, 0, 122);
+    cursor: pointer;
+}
+
+.homepage-button button:hover {
+    background-color: transparent;
+    color: white;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: white;
+}
+
+.homepage-button button:active {
+    background-color: transparent;
+    color: rgb(247, 25, 255);
+    border: 3px solid rgb(247, 25, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(247, 25, 255);
 }
