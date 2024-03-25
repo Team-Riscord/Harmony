@@ -1,7 +1,7 @@
 import "./FriendsList.css";
 
 import axios from "axios";
-import profileImage from "../images/default-profile-image.png";
+import profileImage from "../../images/default-profile-image.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,12 +16,13 @@ export default function FriendsList({ onClose }) {
         const userDataFromLocalStorage = JSON.parse(
           localStorage.getItem("userData")
         );
-        if (!userDataFromLocalStorage || !userDataFromLocalStorage.userKey) {
-          console.error("User data or user key not found in local storage.");
+        console.log(userDataFromLocalStorage);
+        if (!userDataFromLocalStorage) {
+          console.error("User data not found in local storage.");
           return;
         }
         const response = await axios.get(
-          `http://localhost:8800/friends-list/${userDataFromLocalStorage.userKey}`
+          `http://localhost:8800/friends-list/${userDataFromLocalStorage.id}`
         );
         if (response.data) {
           setFriendsList(
@@ -38,6 +39,7 @@ export default function FriendsList({ onClose }) {
 
     fetchData();
   }, []);
+
   return (
     <div className="friends-list-component">
       <div className="friends-list-title">

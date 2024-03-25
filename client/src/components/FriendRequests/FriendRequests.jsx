@@ -14,11 +14,14 @@ export default function FriendRequests({ onClose }) {
       const userDataFromLocalStorage = JSON.parse(
         localStorage.getItem("userData")
       );
+      console.log(userDataFromLocalStorage);
       const response = await axios.get(
-        `http://localhost:8800/friend-requests/${userDataFromLocalStorage.userKey}`
+        `http://localhost:8800/friend-requests/${userDataFromLocalStorage.id}`
       );
       if (response.data) {
+        console.log("data fetched succesfully!");
         setFriendRequestsList(response.data);
+        console.log(response.data);
       }
     };
 
@@ -72,6 +75,7 @@ export default function FriendRequests({ onClose }) {
             icon={faXmark}
             id="friend-requests-close-icon"
             onClick={() => {
+              //still have to define onClose yo
               onClose();
             }}
           />
@@ -88,12 +92,12 @@ export default function FriendRequests({ onClose }) {
             </div>
             <div className="friend-requests-button-chat">
               <div className="friend-requests-accept-button">
-                <button onClick={acceptFriendRequest(request.id, index)}>
+                <button onClick={() => acceptFriendRequest(request.id, index)}>
                   <FontAwesomeIcon icon={faCheck} />
                 </button>
               </div>
               <div className="friend-requests-decline-button">
-                <button onClick={declineFriendRequest(request.id, index)}>
+                <button onClick={() => declineFriendRequest(request.id, index)}>
                   <FontAwesomeIcon icon={faXmark} />
                 </button>
               </div>

@@ -11,6 +11,7 @@ export default function AddFriend({ onClose }) {
 
   const userData = JSON.parse(localStorage.getItem("userData"));
 
+  console.log(userData);
   const addFriend = async () => {
     if (friendUsername === "") {
       setErrorText("* Please enter a username to add as a friend");
@@ -25,7 +26,8 @@ export default function AddFriend({ onClose }) {
     }
 
     try {
-      const res = await axios.post("http://localhost:8800/addfriend", {
+      const res = await axios.post("http://localhost:8800/addFriend", {
+        userId: userData.id,
         userUsername: userData.username,
         friendUsername: friendUsername,
       });

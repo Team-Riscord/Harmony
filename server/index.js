@@ -11,7 +11,7 @@ app.use(express.static("../client/src/images/"));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "default",
+  password: "Grateful@369",
 });
 
 db.connect((err) => {
@@ -43,6 +43,7 @@ db.connect((err) => {
     console.log("Users table created or already exists");
   });
 
+  //FriendRequests table creation idhar
   const createFriendRequestsTableQuery = `create table if not exists FriendRequests (
        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     senderId INT NOT NULL,
@@ -258,63 +259,8 @@ app.post("/login", (req, res) => {
   );
 });
 
-app.get("/FriendRequestsData", (req, res) => {
-  const query = "SELECT * FROM FriendRequests";
-  db.query(query, (err, data) => {
-    if (err) return res.status(500).send("Internal Server Error");
-
-    if (data.length === 0) {
-      return res.send("No Data Available");
-    }
-
-    let tableHTML =
-      "<style>" +
-      "body {" +
-      "   background-color: black;" +
-      "}" +
-      "table {" +
-      "    width: 100%;" +
-      "    border-collapse: collapse;" +
-      "}" +
-      "th, td {" +
-      "    border: 1px solid #dddddd;" +
-      "    padding: 8px;" +
-      "    text-align: center;" +
-      "   color: black" +
-      "}" +
-      "td {" +
-      "   color: white;" +
-      "}" +
-      "th {" +
-      "    background-color: #f2f2f2;" +
-      "   border: 1px solid black;" +
-      "}" +
-      "</style>";
-
-    tableHTML += "<table>";
-    tableHTML += "<tr>";
-    Object.keys(data[0]).forEach((key) => {
-      tableHTML += "<th>" + key + "</th>";
-    });
-    tableHTML += "</tr>";
-
-    data.forEach((row) => {
-      tableHTML += "<tr>";
-      Object.values(row).forEach((value) => {
-        tableHTML += "<td>" + value + "</td>";
-      });
-      tableHTML += "</tr>";
-    });
-
-    tableHTML += "</table>";
-
-    res.send(tableHTML);
-  });
-});
-
 app.post("/addFriend", async (req, res) => {
-  const { userKey, friendUsername } = req.body;
-
+  const { userId, userUsername, friendUsername } = req.body;
   //checks if friend username exists
   const friendQuery = "SELECT id FROM Users WHERE username = ?";
   db.query(friendQuery, [friendUsername], (err, friendResult) => {
@@ -329,12 +275,13 @@ app.post("/addFriend", async (req, res) => {
 
     const friendId = friendResult[0].id;
 
+    console.log(friendId);
     // Check if a friend request already exists
     const existingRequestQuery =
       "SELECT id FROM FriendRequests WHERE (senderId = ? AND receiverId = ?) OR (senderId = ? AND receiverId = ?)";
     db.query(
       existingRequestQuery,
-      [userKey, friendId, friendId, userKey],
+      [userId, friendId, friendId, userId],
       (err, requestResult) => {
         if (err) {
           res.status(500).send("Internal Server Error");
@@ -348,8 +295,10 @@ app.post("/addFriend", async (req, res) => {
         // Insert new friend request
         const insertQuery =
           "INSERT INTO FriendRequests (senderId, receiverId, status) VALUES (?, ?, 'PENDING')";
-        db.query(insertQuery, [userKey, friendId], (err, insertResult) => {
+        db.query(insertQuery, [userId, friendId], (err, insertResult) => {
           if (err) {
+            console.log(err.message);
+            console.log("ch3");
             res.status(500).send("Internal Server Error");
             return;
           }
@@ -362,6 +311,7 @@ app.post("/addFriend", async (req, res) => {
   });
 });
 
+//friendRequests things
 //endpoint to fetch all pending friend requests for a user
 app.get("/friend-requests/:userId", (req, res) => {
   const userId = req.params.userId;
