@@ -11,7 +11,7 @@ app.use(express.static("../client/src/images/"));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Grateful@369",
+  password: "default",
 });
 
 db.connect((err) => {
