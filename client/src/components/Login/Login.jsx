@@ -21,11 +21,11 @@ const Login = () => {
         switch (name) {
             case 'emailOrUsername':
                 setEmailUsernameError(value.trim() === '' ? true : false);
-                setEmailUsernameErrorText(value.trim() === '' ? "* please enter your email or username" : "");
+                setEmailUsernameErrorText(value.trim() === '' ? "please enter your email or username" : "");
                 break;
             case 'password':
                 setPasswordError(value.trim() === '' ? true : false);
-                setPasswordErrorText(value.trim() === '' ? "* please enter your password" : "");
+                setPasswordErrorText(value.trim() === '' ? "please enter your password" : "");
                 break;
             default:
                 break;
@@ -54,12 +54,12 @@ const Login = () => {
             if(loginData[field] === null || loginData[field] === "") {
                 if(field === "emailOrUsername") {
                     setEmailUsernameError(true);
-                    setEmailUsernameErrorText("* please enter your email or username");
+                    setEmailUsernameErrorText("please enter your email or username");
                 }
 
                 if(field === "password") {
                     setPasswordError(true);
-                    setPasswordErrorText("* please enter your password");
+                    setPasswordErrorText("please enter your password");
                 }
 
                 errorExists = true;
@@ -77,8 +77,8 @@ const Login = () => {
             } catch (error) {
                 setEmailUsernameError(true);
                 setPasswordError(true);
-                setEmailUsernameErrorText("* wrong email/username or password");
-                setPasswordErrorText("* wrong email/username or password");
+                setEmailUsernameErrorText("wrong email/username or password");
+                setPasswordErrorText("wrong email/username or password");
             }
         }
     }

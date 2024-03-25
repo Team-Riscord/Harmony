@@ -26,8 +26,8 @@ describe('Login Component', () => {
     const { getByText } = render(<Login />);
     fireEvent.click(getByText('login'));
     await waitFor(() => {
-      expect(getByText('* please enter your email or username')).toBeInTheDocument();
-      expect(getByText('* please enter your password')).toBeInTheDocument();
+      expect(getByText('please enter your email or username')).toBeInTheDocument();
+      expect(getByText('please enter your password')).toBeInTheDocument();
     });
   });
 
@@ -70,7 +70,7 @@ describe('Login Component', () => {
     fireEvent.click(screen.getByText('login'));
 
     await waitFor(() => {
-      expect(getAllByText('* wrong email/username or password').length).toBeGreaterThanOrEqual(1);
+      expect(getAllByText('wrong email/username or password').length).toBeGreaterThanOrEqual(1);
     });
   });  
 });
