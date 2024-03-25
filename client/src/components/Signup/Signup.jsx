@@ -90,34 +90,34 @@ const Signup = () => {
         switch (name) {
             case 'name':
                 setNameError(value.trim() === '' ? true : false);
-                setNameErrorText(value.trim() === '' ? "* please enter your name" : "");
+                setNameErrorText(value.trim() === '' ? "please enter your name" : "");
                 if (value.trim().length > 100) {
                     setNameError(true);
-                    setNameErrorText("* name cannot be longer than 100 characters");
+                    setNameErrorText("name cannot be longer than 100 characters");
                 }
                 break;
             case 'email':
                 setEmailError(value.trim() === '' ? true : false);
-                setEmailErrorText(value.trim() === '' ? "* please enter your email" : "");
+                setEmailErrorText(value.trim() === '' ? "please enter your email" : "");
                 if (value.trim().length > 100) {
                     setEmailError(true);
-                    setEmailErrorText("* email cannot be longer than 100 characters");
+                    setEmailErrorText("email cannot be longer than 100 characters");
                 }
                 break;
             case 'password':
                 setPasswordError(value.trim() === '' ? true : false);
-                setPasswordErrorText(value.trim() === '' ? "* please enter a password" : "");
+                setPasswordErrorText(value.trim() === '' ? "please enter a password" : "");
                 if (value.trim().length > 100) {
                     setPasswordError(true);
-                    setPasswordErrorText("* password cannot be longer than 100 characters");
+                    setPasswordErrorText("password cannot be longer than 100 characters");
                 }
                 break;
             case 'username':
                 setUsernameError(value.trim() === '' ? true : false);
-                setUsernameErrorText(value.trim() === '' ? "* please choose a username for yourself" : "");
+                setUsernameErrorText(value.trim() === '' ? "please choose a username" : "");
                 if (value.trim().length > 10) {
                     setUsernameError(true);
-                    setUsernameErrorText("* username cannot be longer than 10 characters");
+                    setUsernameErrorText("username cannot be longer than 10 characters");
                 }
                 break;
             default:
@@ -135,52 +135,52 @@ const Signup = () => {
             if(user[field] === null || user[field] === "") {
                 if(field === 'name') {
                     setNameError(true);
-                    setNameErrorText("* please enter your name");
+                    setNameErrorText("please enter your name");
                 }
 
                 if(field === 'email') {
                     setEmailError(true);
-                    setEmailErrorText("* please enter your email");
+                    setEmailErrorText("please enter your email");
                 } else {
                     if(!validateEmail(user['email']) && user['email'] !== '') {
                         setEmailError(true);
-                        setEmailErrorText("* please enter a valid email");
+                        setEmailErrorText("please enter a valid email");
                     }
                 }
 
                 if(field === 'password') {
                     setPasswordError(true);
-                    setPasswordErrorText("* please enter a password");
+                    setPasswordErrorText("please enter a password");
                 }
 
                 if(field === 'username') {
                     setUsernameError(true);
-                    setUsernameErrorText("* please choose a username for yourself");
+                    setUsernameErrorText("please choose a username");
                 }
 
                 errorExists = true;
             } else {
                 if(field === 'name' && user[field].length > 100) {
                     setNameError(true);
-                    setNameErrorText("* name cannot be longer than 100 characters");
+                    setNameErrorText("name cannot be longer than 100 characters");
                     errorExists = true;
                 }
 
                 if(field === 'email' && user[field].length > 100) {
                     setEmailError(true);
-                    setEmailErrorText("* email cannot be longer than 100 characters");
+                    setEmailErrorText("email cannot be longer than 100 characters");
                     errorExists = true;
                 }
 
                 if(field === 'password' && user[field].length > 100) {
                     setPasswordError(true);
-                    setPasswordErrorText("* password cannot be longer than 100 characters");
+                    setPasswordErrorText("password cannot be longer than 100 characters");
                     errorExists = true;
                 }
 
                 if(field === 'username' && user[field].length > 10) {
                     setUsernameError(true);
-                    setUsernameErrorText("* username cannot be longer than 10 characters");
+                    setUsernameErrorText("username cannot be longer than 10 characters");
                     errorExists = true;
                 }
             }
@@ -197,13 +197,13 @@ const Signup = () => {
                     
                     if(existingEmail) {
                         setEmailError(true);
-                        setEmailErrorText("* email already exists");
+                        setEmailErrorText("email already exists");
                         existingDetail = true;
                     }
         
                     if(existingUsername) {
                         setUsernameError(true);
-                        setUsernameErrorText("* username already exists");
+                        setUsernameErrorText("username already exists");
                         existingDetail = true;
                     }
                     

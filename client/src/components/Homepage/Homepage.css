@@ -116,7 +116,7 @@
     background-color: white;
     border: 3px solid white;
     color: rgb(247, 25, 255);
-    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-width: 0.2px;
     -webkit-text-stroke-color: rgb(65, 0, 122);
     cursor: pointer;
 }
