@@ -20,7 +20,7 @@
     width: 1000px;
     height: auto;
     border-radius: 30px;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: transparent;
     border: 10px solid transparent;
     box-sizing: border-box;
     box-shadow: 0 4px 100px 0 rgba(0, 0, 0, 1), 0 6px 100px 0 rgba(0, 0, 0, 1);
