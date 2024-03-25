@@ -1,22 +1,14 @@
 .login-component {
-    --oxford-blue: #01133Dff;
-    --blue-green: rgb(11, 166, 209);
-    --oxford-blue-2: #02113Aff;
-    --oxford-blue-3: #030F36ff;
-    --indigo-dye: #154A7Fff;
-    --berkeley-blue: #072D53ff;
-    --oxford-blue-4: #00204Bff;
-    --oxford-blue-5: #01133Aff;
-    --oxford-blue-6: #001943ff;
-    --oxford-blue-7: #030C31ff;
     position: fixed;
     width: 101vw;
     height: 100vh;
-    background: repeating-radial-gradient(circle at center, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7), var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7));
+    background: url('../../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .login-component::-webkit-scrollbar {
@@ -28,12 +20,13 @@
     width: 650px;
     height: 650px;
     border-radius: 30px;
-    background-color: var(--blue-green);
-    border: 10px solid var(--blue-green);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 10px solid transparent;
     box-sizing: border-box;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
+    box-shadow: 0 4px 100px 0 rgba(0, 0, 0, 1), 0 6px 100px 0 rgba(0, 0, 0, 1);
     padding: 20px;
     padding-top: 0;
+    padding-bottom: 10px;
     display: block;
 }
 
@@ -46,7 +39,7 @@
 
 .login-title h1, .login-title h3 {
     text-align: center;
-    color: var(--oxford-blue-7);
+    color: white;
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -62,8 +55,10 @@
 .login-title span {
     padding: 5px 10px;
     border-radius: 15px;
-    background-color: var(--oxford-blue-7);
-    color: rgb(120, 215, 180);
+    background-color: rgb(75, 166, 244);
+    color: rgb(247, 25, 255);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(65, 0, 122);
 }
 
 .login-title h1 {
@@ -75,7 +70,7 @@
     width: 100%;
     height: 55%;
     display: grid;
-    margin-top: 70px;
+    margin-top: 50px;
 }
 
 .login-form-password, .login-form-button {
@@ -92,14 +87,22 @@
 }
 
 .login-form p {
-    color: var(--oxford-blue-4);
+    color: white;
+    background-color: red;
+    width: 43%;
     text-align: center;
-    margin: 0;
+    margin: auto;
     text-transform: lowercase;
     font-size: 17px;
     margin-top: 5px;
-    margin-bottom: -10px;
+    margin-bottom: -8px;
     font-weight: bold;
+    border-radius: 15px;
+    padding-bottom: 3px;
+}
+
+#signup-form-email-username-error {
+    width: 55%;
 }
 
 .login-form input {
@@ -111,9 +114,9 @@
     font-size: 20px;
     outline: none;
     font-weight: bold;
-    border: 3px solid var(--oxford-blue-7);
+    border: 3px solid white;
     margin-top: 10px;
-    color: var(--oxford-blue-7)
+    color: black;
 }
 
 .login-form-password-checkbox {
@@ -143,7 +146,7 @@
 }
 
 #login-form-password-checkbox:checked {
-    accent-color: var(--oxford-blue-7);
+    accent-color: rgb(104, 184, 236);
 }
 
 .login-form-password-checkbox label {
@@ -160,37 +163,44 @@
     text-transform: capitalize;
     font-size: 25px;
     font-weight: bold;
-    background-color: var(--blue-green);
-    border: 3px solid var(--oxford-blue-7);
-    color: var(--oxford-blue-7);
+    background-color: white;
+    border: 3px solid white;
+    color: rgb(247, 25, 255);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: rgb(65, 0, 122);
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .login-form button:hover {
-    background-color: var(--oxford-blue-7);
+    background-color: transparent;
     color: white;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: white;
 }
 
 .login-form button:active {
-    background-color: white;
-    color: var(--oxford-blue-7);
+    background-color: transparent;
+    color: rgb(247, 25, 255);
+    border: 3px solid rgb(247, 25, 255);
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: rgb(247, 25, 255);
 }
 
 .signup-page-link {
     width: 100%;
-    height: 18%;
+    height: 19%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
 }
 
 .signup-page-link a {
-    color: var(--oxford-blue-7);
+    color: white;
     font-weight: bold;
     text-transform: capitalize;
 }
 
 .signup-page-link a:active {
-    color: var(--indigo-dye);
+    color: rgb(247, 25, 255);
 }
