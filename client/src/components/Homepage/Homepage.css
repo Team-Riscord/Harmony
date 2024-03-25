@@ -1,0 +1,91 @@
+:root {
+    --oxford-blue: #01133D;
+    --blue-green: rgb(11, 166, 209);
+    --oxford-blue-2: #02113A;
+    --oxford-blue-3: #030F36;
+    --indigo-dye: #154A7F;
+    --berkeley-blue: #072D53;
+    --oxford-blue-4: #00204B;
+    --oxford-blue-5: #01133A;
+    --oxford-blue-6: #001943;
+    --oxford-blue-7: #030C31;
+}
+
+.homepage {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-radial-gradient(circle at center, var(--oxford-blue-7), var(--oxford-blue), var(--blue-green), var(--oxford-blue-7));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.welcome-container {
+    border-radius: 20px;
+    background-color: var(--blue-green);
+    border: 10px solid var(--blue-green);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 6px 20px 0 rgba(0, 0, 0, 1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.homepage h1, .homepage p {
+    color: var(--oxford-blue-7);
+    text-align: center;
+}
+
+.homepage h1 {
+    margin: 0;
+    font-size: 45px;
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.homepage p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin-top: 10px;
+    font-style: italic;
+    text-transform: none;
+    color: white; /* Adjust if needed */
+}
+
+.homepage-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.signup-btn,
+.login-btn {
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 15px 30px;
+    font-size: 1.5rem; 
+    border-radius: 20px;
+    border: none;
+    transition: background-color 0.3s, color 0.3s; 
+    background-color: var(--blue-green); 
+    color: var(--oxford-blue);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+    font-weight: bold; 
+}
+
+.signup-btn:hover,
+.login-btn:hover {
+    background-color: var(--oxford-blue-7);
+    color: #FFFFFF; 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+.homepage-icon {
+    width: 120px;
+    height: auto;
+    border-radius: 60%;
+}
