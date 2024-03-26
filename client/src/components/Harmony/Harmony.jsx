@@ -1,6 +1,7 @@
 import './Harmony.css';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Harmony = () => {
     const [userData, setUserData] = useState(null);
@@ -17,7 +18,7 @@ const Harmony = () => {
 
     return (
         <div className='harmony-component'>
-            Sidebar
+            <Sidebar />
         </div>
     )
 }

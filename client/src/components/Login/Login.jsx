@@ -102,7 +102,7 @@ const Login = () => {
                     </div>
                     <div className="login-form-password">
                         <label htmlFor='login-form-password'>enter your password</label>
-                        <p id='signup-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: [passwordError] ? 'block' : 'none'}}>{passwordErrorText}</p>
+                        <p id='signup-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: [passwordError] ? 'block' : 'none', width: passwordErrorText==="please enter your password" ? '43%' : '55%'}}>{passwordErrorText}</p>
                         <input type='password' id='login-form-password' name="password" onChange={handleChange}/>
                         <div className='login-form-password-checkbox'>
                             <div className="login-form-password-checkbox-col1">

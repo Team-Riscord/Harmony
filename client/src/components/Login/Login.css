@@ -89,7 +89,7 @@
 .login-form p {
     color: white;
     background-color: red;
-    width: 43%;
+    width: auto;
     text-align: center;
     margin: auto;
     text-transform: lowercase;
