@@ -66,13 +66,15 @@ const Login = () => {
             }
         }
 
-        if(!errorExists) {
+        if (!errorExists) {
             try {
                 const response = await axios.post("http://localhost:8800/login", loginData);
         
                 if (response.status === 200) {
                     console.log("Login successful:", response.data.message);
                     localStorage.setItem('userData', JSON.stringify(response.data.user));
+                    
+                    window.location.href = '/dashboard';
                 }
             } catch (error) {
                 setEmailUsernameError(true);
@@ -87,17 +89,17 @@ const Login = () => {
         <div className='login-component'>
             <div className='login-container'>
                 <div className='login-title'>
-                    <h1>welcome to <span>harmony</span></h1>
-                    <h3>we're so excited to see you!</h3>
+                    <h1 className='center-text'>welcome to <span>harmony</span></h1>
+                    <h3 className='center-text'>we're so excited to see you!</h3>
                 </div>
                 <div className="login-form">
                     <div className="login-form-email-username">
-                        <label htmlFor='login-form-email-username'>enter your email or username</label>
+                        <label htmlFor='login-form-email-username' className='center-text'>enter your email or username</label>
                         <p id='signup-form-email-username-error' style={{visibility: emailUsernameError ? 'visible' : 'hidden', display: emailUsernameError ? 'block' : 'none'}}>{emailUsernameErrorText}</p>
                         <input type='text' id='login-form-email-username' name="emailOrUsername" onChange={handleChange}/>
                     </div>
                     <div className="login-form-password">
-                        <label htmlFor='login-form-password'>enter your password</label>
+                        <label htmlFor='login-form-password' className='center-text'>enter your password</label>
                         <p id='signup-form-password-error' style={{visibility: passwordError ? 'visible' : 'hidden', display: [passwordError] ? 'block' : 'none'}}>{passwordErrorText}</p>
                         <input type='password' id='login-form-password' name="password" onChange={handleChange}/>
                         <div className='login-form-password-checkbox'>

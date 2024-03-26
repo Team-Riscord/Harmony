@@ -71,6 +71,7 @@
     height: 55%;
     display: grid;
     margin-top: 50px;
+    text-align: center;
 }
 
 .login-form-password, .login-form-button {

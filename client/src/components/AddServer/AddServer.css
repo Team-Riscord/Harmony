@@ -1,0 +1,71 @@
+.add-server-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw; /* Set full width of viewport */
+}
+
+.add-server-container {
+    width: 500px;
+    background-color: #36393f;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    position: fixed; /* Fixed position to ensure it's centered */
+    top: 50%; /* Move the container from the top by 50% of viewport height */
+    left: 50%; /* Move the container from the left by 50% of viewport width */
+    transform: translate(-50%, -50%); /* Translate the container back by 50% of its width and height */
+}
+
+
+.add-server-title {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-server-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-server-form-label {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.add-server-form-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.add-server-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-server-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-server-button:hover {
+    background-color: #7289da;
+}
+
+.add-server-cancel-button {
+    background-color: #f04747;
+    color: #fff;
+}
+
+.add-server-create-button {
+    background-color: #43b581;
+    color: #fff;
+}
