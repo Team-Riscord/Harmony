@@ -276,6 +276,7 @@ app.post("/userdata", (req, res) => {
       return res.json(data);
     });
 });
+
 app.post('/login', (req, res) => {
     const { emailOrUsername, password } = req.body;
     const query = "SELECT * FROM Users WHERE email = ? OR username = ?";
@@ -296,7 +297,6 @@ app.post('/login', (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: "Incorrect email/username or password" });
         }
-
         return res.status(200).json({ success: true, message: "Login successful", user });
     });
 });
@@ -310,6 +310,7 @@ app.get('/dashboard', (req, res) => {
     );
     const dashboardHTML = ReactDOMServer.renderToString(dashboardWithSidebar);
     res.send(dashboardHTML);
+    res.render('dashboard');
 });
 
 
