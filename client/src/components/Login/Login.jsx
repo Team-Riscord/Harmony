@@ -66,13 +66,15 @@ const Login = () => {
             }
         }
 
-        if(!errorExists) {
+        if (!errorExists) {
             try {
                 const response = await axios.post("http://localhost:8800/login", loginData);
         
                 if (response.status === 200) {
                     console.log("Login successful:", response.data.message);
                     localStorage.setItem('userData', JSON.stringify(response.data.user));
+                    
+                    window.location.href = '/dashboard';
                 }
             } catch (error) {
                 setEmailUsernameError(true);

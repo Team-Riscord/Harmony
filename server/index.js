@@ -11,7 +11,7 @@ app.use(express.static('../client/src/images/'));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "default"
+  password: "your_password"
 });
 
 db.connect(err => {
@@ -42,6 +42,135 @@ db.connect(err => {
         if (err) throw err;
         console.log("Users table created or already exists");
     });
+
+    // Friends table
+const createFriendsTableQuery = `
+CREATE TABLE IF NOT EXISTS Friends (
+    friendshipID VARCHAR(255) NOT NULL PRIMARY KEY,
+    friend_1_ID INT NOT NULL,
+    friend_2_ID INT NOT NULL,
+    createdAt DATETIME NOT NULL,
+    FOREIGN KEY (friend_1_ID) REFERENCES Users(id),
+    FOREIGN KEY (friend_2_ID) REFERENCES Users(id)
+)`;
+
+db.query(createFriendsTableQuery, (err, result) => {
+if (err) throw err;
+console.log("Friends table created or already exists");
+});
+
+// Servers table
+const createServersTableQuery = `
+CREATE TABLE IF NOT EXISTS Servers (
+    serverID VARCHAR(255) NOT NULL PRIMARY KEY,
+    serverName VARCHAR(255) NOT NULL,
+    serverIcon VARCHAR(255),
+    userID INT NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
+    FOREIGN KEY (userID) REFERENCES Users(id)
+);`;
+
+db.query(createServersTableQuery, (err, result) => {
+if (err) throw err;
+console.log("Servers table created or already exists");
+});
+
+// FriendRequests table
+const createFriendRequestsTableQuery = `
+CREATE TABLE IF NOT EXISTS FriendRequests (
+    friendRequestID VARCHAR(255) NOT NULL PRIMARY KEY,
+    senderID INT NOT NULL,
+    serverID VARCHAR(255) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    FOREIGN KEY (senderID) REFERENCES Users(id),
+    FOREIGN KEY (serverID) REFERENCES Servers(serverID)
+);
+`;
+
+db.query(createFriendRequestsTableQuery, (err, result) => {
+if (err) throw err;
+console.log("FriendRequests table created or already exists");
+});
+
+// Members table
+const createMembersTableQuery = `
+CREATE TABLE IF NOT EXISTS Members (
+    membershipID VARCHAR(255) NOT NULL PRIMARY KEY,
+    role ENUM('ADMIN', 'MODERATOR', 'GUEST'),
+    userID INT NOT NULL,
+    serverID VARCHAR(255) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
+    FOREIGN KEY (userID) REFERENCES Users(id),
+    FOREIGN KEY (serverID) REFERENCES Servers(serverID)
+);
+`;
+
+db.query(createMembersTableQuery, (err, result) => {
+if (err) throw err;
+console.log("Members table created or already exists");
+});
+
+// Channels table
+const createChannelsTableQuery = `
+CREATE TABLE IF NOT EXISTS Channels (
+    channelID VARCHAR(255) NOT NULL PRIMARY KEY,
+    channelName VARCHAR(255) NOT NULL,
+    type ENUM('TEXT', 'AUDIO', 'VIDEO'),
+    userID INT NOT NULL,
+    serverID VARCHAR(255) NOT NULL,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
+    FOREIGN KEY (userID) REFERENCES Users(id),
+    FOREIGN KEY (serverID) REFERENCES Servers(serverID)
+);
+
+`;
+
+db.query(createChannelsTableQuery, (err, result) => {
+if (err) throw err;
+console.log("Channels table created or already exists");
+});
+
+// ServerMessages table
+const createServerMessagesTableQuery = `
+CREATE TABLE IF NOT EXISTS ServerMessages (
+    serverMessageID VARCHAR(255) NOT NULL PRIMARY KEY,
+    senderID INT NOT NULL,
+    serverID VARCHAR(255) NOT NULL,
+    message TEXT,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
+    FOREIGN KEY (senderID) REFERENCES Users(id),
+    FOREIGN KEY (serverID) REFERENCES Servers(serverID)
+);
+`;
+
+db.query(createServerMessagesTableQuery, (err, result) => {
+if (err) throw err;
+console.log("ServerMessages table created or already exists");
+});
+
+// DirectMessages table
+const createDirectMessagesTableQuery = `
+CREATE TABLE IF NOT EXISTS DirectMessages (
+    directMessageID VARCHAR(255) NOT NULL PRIMARY KEY,
+    senderID INT NOT NULL,
+    receiverID INT NOT NULL,
+    message TEXT,
+    createdAt DATETIME NOT NULL,
+    updatedAt DATETIME NOT NULL,
+    FOREIGN KEY (senderID) REFERENCES Users(id),
+    FOREIGN KEY (receiverID) REFERENCES Users(id)
+)
+`;
+
+db.query(createDirectMessagesTableQuery, (err, result) => {
+if (err) throw err;
+console.log("DirectMessages table created or already exists");
+});
+
 
     const testUsers = [
         { name: 'Test User 1', email: 'test1@example.com', password: 'testpassword1', username: 'testuser1', image: '/default-profile-image.png' },
@@ -147,44 +276,83 @@ app.post("/userdata", (req, res) => {
       return res.json(data);
     });
 });
+
 app.post('/login', (req, res) => {
-  const { emailOrUsername, password } = req.body;
-  const query = "SELECT * FROM Users WHERE email = ? OR username = ? LIMIT 1";
-  db.query(query, [emailOrUsername, emailOrUsername], (err, results) => {
-      if (err) {
-          return res.status(500).json({ message: "Server error" });
-      }
-      if (results.length === 0) {
-          return res.status(401).json({ message: "Incorrect email/username or password" });
-      }
-      const user = results[0];
-      const isMatch = password === user.password;
-      if (!isMatch) {
-          return res.status(401).json({ message: "Incorrect email/username or password" });
-      }
-      res.json({ message: "Login successful", user });
-  });
-});
-
-app.post("/login", (req, res) => {
     const { emailOrUsername, password } = req.body;
-
-    const query = "select * from Users where (email = ? or username = ?) AND password = ?";
-    db.query(query, [emailOrUsername, emailOrUsername, password], (err, result) => {
+    const query = "SELECT * FROM Users WHERE email = ? OR username = ?";
+    
+    db.query(query, [emailOrUsername, emailOrUsername], (err, results) => {
         if (err) {
             console.error("Error while querying database:", err);
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).json({ message: "Internal Server Error" });
         }
 
-        if (result.length === 0) {
-            return res.status(404).send("User not found or incorrect credentials");
+        if (results.length === 0) {
+            return res.status(404).json({ message: "User not found or incorrect credentials" });
         }
 
-        return res.status(200).json({ success: true, message: "Login successful", user: result[0] });
+        const user = results[0];
+        const isMatch = password === user.password;
+        
+        if (!isMatch) {
+            return res.status(401).json({ message: "Incorrect email/username or password" });
+        }
+        return res.status(200).json({ success: true, message: "Login successful", user });
     });
+});
+
+
+// Route that the user sees after successful login
+app.get('/dashboard', (req, res) => {
+    const dashboardWithSidebar = React.createElement(Dashboard, null,
+        React.createElement(SideBar, null),
+        React.createElement(AddServer, null)
+    );
+    const dashboardHTML = ReactDOMServer.renderToString(dashboardWithSidebar);
+    res.send(dashboardHTML);
+    res.render('dashboard');
 });
 
 
 app.listen(8800, () => {
   console.log("Server is running on port 8800");
+});
+
+app.get('/servers', (req, res) => {
+    const userId = req.query.userId;
+    const query = "SELECT serverID as id, serverName as name, serverIcon as icon FROM Servers WHERE userID = ?";
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error fetching servers');
+        }
+        res.json(results);
+    });
+});
+
+// Route for user signup
+app.post('/signup', (req, res) => {
+    const { name, email, password, username, image } = req.body;
+    const insertQuery = "INSERT INTO Users (name, email, password, username, image) VALUES (?, ?, ?, ?, ?)";
+    db.query(insertQuery, [name, email, password, username, image], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error creating user');
+        }
+        res.status(201).send({ message: 'User created successfully', userId: results.insertId });
+    });
+});
+
+// Route for a user to join a server
+app.post('/join-server', (req, res) => {
+    const { userId, serverId } = req.body;
+
+    const insertQuery = "INSERT INTO ServerMembers (userId, serverId) VALUES (?, ?)";
+    db.query(insertQuery, [userId, serverId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error joining server');
+        }
+        res.status(201).send({ message: 'Successfully joined the server' });
+    });
 });
