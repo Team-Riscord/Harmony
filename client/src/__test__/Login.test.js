@@ -36,8 +36,8 @@ describe('Login Component', () => {
     renderLoginComponent();
     fireEvent.click(screen.getByText('login'));
     await waitFor(() => {
-      expect(screen.getByText('* please enter your email or username')).toBeInTheDocument();
-      expect(screen.getByText('* please enter your password')).toBeInTheDocument();
+      expect(getByText('please enter your email or username')).toBeInTheDocument();
+      expect(getByText('please enter your password')).toBeInTheDocument();
     });
   });
 
@@ -73,7 +73,7 @@ describe('Login Component', () => {
     fireEvent.change(screen.getByLabelText('enter your password'), { target: { value: 'test password' } });
     fireEvent.click(screen.getByText('login'));
     await waitFor(() => {
-      expect(screen.queryAllByText('* wrong email/username or password').length).toBeGreaterThanOrEqual(1);
+      expect(getAllByText('wrong email/username or password').length).toBeGreaterThanOrEqual(1);
     });
   });
 });
