@@ -46,6 +46,27 @@ export default function Sidebar() {
         }
     };
 
+    const handleAddServer = async (formData) => {
+        try {
+            const userData = JSON.parse(localStorage.getItem("userData"));
+            formData.append('userId', userData.id); // Append user ID to FormData
+            const res = await axios.post('http://localhost:8800/add-server', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            fetchData();
+            alert(res.data.message);
+    
+            // Update server list with new server icon
+            setServerList(prevServerList => [...prevServerList, res.data.serverData]); // Add new server to server list
+            setIsAddServerVisible(false);
+        } catch (error) {
+            console.error("Error adding server:", error);
+        }
+    };
+    
+
     return (
         <div className='sidebar-component'>
             <div className='sidebar-top-icons'>
@@ -64,15 +85,16 @@ export default function Sidebar() {
     
             {error && <div className="error-message">{error}</div>}
     
-            {serverList.map((server, index) => (
-                <div key={index} className='sidebar-icon-container' onClick={() => joinServer(server.id)}>
-                    <div className='sidebar-icon user-icon' style={{ backgroundImage: `url(${server.icon || 'default_icon_path'})` }}>
-                    </div>
-                    {}
+            {serverList.map((server) => (
+                <div key={server.id} className='sidebar-icon-container' onClick={() => joinServer(server.id)}>
+                    <div
+                        className='sidebar-icon user-icon'
+                        style={{ backgroundImage: `url(${server.icon || '/default_icon_path'})` }}
+                    ></div>
                 </div>
             ))}
     
-            {isAddServerVisible && <AddServer onClose={() => setIsAddServerVisible(false)} />}
+            {isAddServerVisible && <AddServer onAdd={handleAddServer} onClose={() => setIsAddServerVisible(false)} />}
             {isDownloadAppsVisible && <DownloadApps onClose={() => setIsDownloadAppsVisible(false)} />}
         </div>
     );

@@ -1,0 +1,250 @@
+.join-server-component {
+    position: fixed;
+    z-index: 2;
+    width: 400px;
+    height: 440px;
+    background-color: rgb(49, 51, 56);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    padding: 15px 15px;
+    border-radius: 5px;
+}
+
+.join-server-close-icon-container {
+    color: rgb(116, 119, 124);
+    font-size: 25px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: right;
+}
+
+#join-server-close-icon {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#join-server-close-icon:hover {
+    color: white;
+}
+
+.join-server-title {
+    margin-top: -10px;
+    margin-bottom: 5px;
+    width: 100%;
+    height: auto;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join-server-title h1 {
+    margin: 0;
+    text-transform: capitalize;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.join-server-subtitle {
+    width: 90%;
+    height: auto;
+    color: rgb(182, 186, 192);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.join-server-subtitle p {
+    text-align: center;
+    margin: 0;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.join-server-form {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.join-server-form p {
+    margin: 0;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.join-server-form a {
+    color: rgb(74, 160, 237);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.join-server-form-invite-input {
+    width: 100%;
+    height: auto;
+    display: grid;
+    margin-top: 20px;
+}
+
+.join-server-form-invite-input label {
+    color: rgb(182, 186, 192);
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.join-server-form-invite-input input {
+    height: 30px;
+    background-color: rgb(30, 31, 34);
+    border: none;
+    outline: none;
+    color: white;
+    padding: 5px 7px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.join-server-form-invite-input-label {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 20% 60%;
+    margin: 0;
+}
+
+.join-server-form-invite-input-label p {
+    color: red;
+    margin: 0;
+    margin-top: -5px;
+    text-transform: lowercase;
+    font-weight: bold;
+}
+
+.join-server-invite-example {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.join-server-invite-example h3 {
+    margin: 0;
+    color: rgb(182, 186, 192);
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.join-server-invite-example p {
+    color: white;
+    font-size: 12px;
+    text-transform: lowercase;
+    margin: 0;
+    margin-bottom: 2px;
+}
+
+.join-server-discover-servers-button {
+    width: 100%;
+    height: 70px;
+    margin-top: 40px;
+    border-radius: 10px;
+    background-color: rgb(43, 45, 49);
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 20% 70% 10%;
+}
+
+.join-server-discover-servers-button:hover {
+    background-color: rgb(58, 59, 62);
+}
+
+.join-server-discover-servers-button:active {
+    background-color: rgb(75, 76, 80);
+}
+
+.join-server-discover-servers-button-icon {
+    color: rgb(80, 163, 97);
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.join-server-discover-servers-button-text {
+    display: grid;
+    color: white;
+}
+
+.join-server-discover-servers-button-text h3 {
+    font-size: 15px;
+}
+
+.join-server-discover-servers-button-text p {
+    font-size: 10px;
+    margin: 0;
+    margin-top: -20px;
+}
+
+.join-server-discover-servers-button-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(116, 119, 124);
+    font-size: 20px;
+}
+
+.join-server-button {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.join-server-button div {
+    display: flex;
+    align-items: center;
+}
+
+.join-server-back-button {
+    justify-content: left;
+}
+
+.join-server-join-button {
+    justify-content: right;
+}
+
+.join-server-back-button p {
+    color: white;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.join-server-join-button button {
+    background-color: rgb(90, 100, 234);
+    text-transform: capitalize;
+    border: none;
+    height: 35px;
+    width: 100px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.join-server-join-button button:hover {
+    background-color: rgb(71, 82, 229);
+}
+
+.join-server-join-button button:active {
+    background-color: rgb(58, 66, 185);
+}

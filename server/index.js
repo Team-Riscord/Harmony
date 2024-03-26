@@ -1,18 +1,32 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
+//import formidable from 'formidable';
+import fs from 'fs';
+import path from 'path';
 
 const app = express();
-app.use(express.json());
 app.use(cors());
-
 app.use(express.static('../client/src/images/'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "your_password"
 });
+
+function generateServerID() {
+    // Generate a random string for the server ID
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = 10;
+    let serverID = '';
+    for (let i = 0; i < length; i++) {
+        serverID += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return serverID;
+}
 
 db.connect(err => {
     if (err) throw err;
@@ -302,25 +316,13 @@ app.post('/login', (req, res) => {
 });
 
 
-// Route that the user sees after successful login
-app.get('/dashboard', (req, res) => {
-    const dashboardWithSidebar = React.createElement(Dashboard, null,
-        React.createElement(SideBar, null),
-        React.createElement(AddServer, null)
-    );
-    const dashboardHTML = ReactDOMServer.renderToString(dashboardWithSidebar);
-    res.send(dashboardHTML);
-    res.render('dashboard');
-});
-
-
 app.listen(8800, () => {
   console.log("Server is running on port 8800");
 });
 
 app.get('/servers', (req, res) => {
     const userId = req.query.userId;
-    const query = "SELECT serverID as id, serverName as name, serverIcon as icon FROM Servers WHERE userID = ?";
+    const query = "SELECT serverID as id, serverName as name, serverIcon as icon FROM Servers WHERE userID = ? ORDER BY createdAt DESC"; // Order by creation date
     db.query(query, [userId], (err, results) => {
         if (err) {
             console.error(err);
@@ -345,14 +347,133 @@ app.post('/signup', (req, res) => {
 
 // Route for a user to join a server
 app.post('/join-server', (req, res) => {
-    const { userId, serverId } = req.body;
+    const { userId, inviteLink } = req.body;
+    if (!inviteLink || inviteLink === '') {
+        return res.status(400).json({ error: 'Please enter an invite link' });
+    }
 
-    const insertQuery = "INSERT INTO ServerMembers (userId, serverId) VALUES (?, ?)";
-    db.query(insertQuery, [userId, serverId], (err, results) => {
+    const inviteLinkPattern = /^(https?:\/\/)?(www\.)?riscord\.gg\/[a-zA-Z0-9]+$/;
+
+    if (!inviteLinkPattern.test(inviteLink)) {
+        return res.status(400).json({ error: 'Invalid invitation link format' });
+    }
+
+    const serverID = inviteLink.split('/').pop();
+    const serverExistsQuery = "SELECT * FROM Servers WHERE serverID = ?";
+    db.query(serverExistsQuery, [serverID], (err, results) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Error joining server');
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
-        res.status(201).send({ message: 'Successfully joined the server' });
+
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Server not found' });
+        }
+
+        const userAlreadyMemberQuery = "SELECT * FROM Members WHERE userID = ? AND serverID = ?";
+        db.query(userAlreadyMemberQuery, [userId, serverID], (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
+
+            if (results.length > 0) {
+                return res.status(400).json({ error: 'You are already a member of this server' });
+            }
+
+            
+            const addMemberQuery = "INSERT INTO Members (membershipID, role, userID, serverID, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)";
+            const membershipID = generateMembershipID();
+            const role = 'GUEST'; 
+            const createdAt = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            const updatedAt = createdAt;
+            db.query(addMemberQuery, [membershipID, role, userId, serverID, createdAt, updatedAt], (err, results) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Internal Server Error' });
+                }
+                return res.status(200).json({ message: 'Successfully joined the server' });
+            });
+        });
     });
 });
+
+
+// Route for a user to join a server
+app.get('/join-server', (req, res) => {
+    const jsx = React.createElement(JoinServer, { userId: 'yourUserId', onClose: () => {}, onBack: () => {} });
+    const reactDom = ReactDOMServer.renderToString(jsx);
+    
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(reactDom);
+});
+
+// Route to handle adding a server
+app.post('/add-server', (req, res) => {
+    let body = '';
+
+    req.on('data', chunk => {
+        body += chunk.toString(); // Accumulate chunks of the request body
+    });
+
+    req.on('end', () => {
+        try {
+            const { serverName, serverImage } = parseFormData(body);
+
+            if (!serverName || !serverImage) {
+                res.status(400).json({ error: 'Server name and image are required' });
+                return;
+            }
+
+            const serverID = generateServerID();
+            const imagePath = `/server-images/${serverID}.${getFileType(serverImage)}`;
+            const newPath = path.join(__dirname, 'server-images', `${serverID}.${getFileType(serverImage)}`);
+
+            fs.writeFile(newPath, serverImage, err => {
+                if (err) {
+                    console.error('Error saving file:', err);
+                    res.status(500).json({ error: 'Error saving file' });
+                    return;
+                }
+
+                // Insert server data into the database
+                const insertServerQuery = `INSERT INTO Servers (serverID, serverName, serverIcon, userID, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)`;
+                const values = [serverID, serverName, imagePath, /* userID */, new Date(), new Date()];
+
+                db.query(insertServerQuery, values, (err, result) => {
+                    if (err) {
+                        console.error('Error inserting server data:', err);
+                        res.status(500).json({ error: 'Error inserting server data' });
+                        return;
+                    }
+
+                    res.status(201).json({ message: 'Server added successfully', serverID });
+                });
+            });
+        } catch (error) {
+            console.error('Error parsing form data:', error);
+            res.status(400).json({ error: 'Error parsing form data' });
+        }
+    });
+});
+
+// Helper function to parse form data
+function parseFormData(formData) {
+    const data = {};
+    const items = formData.split('&');
+    for (const item of items) {
+        const [key, value] = item.split('=');
+        data[key] = decodeURIComponent(value.replace(/\+/g, ''));
+    }
+    return data;
+}
+
+// Helper function to get file type (extension)
+function getFileType(fileData) {
+    const match = fileData.match(/^data:image\/(\w+);base64,/);
+    if (match) {
+        return match[1];
+    } else {
+        throw new Error('Invalid file data');
+    }
+}
