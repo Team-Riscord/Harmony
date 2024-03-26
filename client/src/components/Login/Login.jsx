@@ -1,13 +1,14 @@
 import './Login.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({
         emailOrUsername: "",
         password: ""
     });
-
+    const navigate = useNavigate();
     const [emailUsernameError, setEmailUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
@@ -16,7 +17,7 @@ const Login = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setLoginData({ ...loginData, [name]: value });
+        setLoginData({ ...loginData, [name]: value.trim() });
 
         switch (name) {
             case 'emailOrUsername':
@@ -73,6 +74,7 @@ const Login = () => {
                 if (response.status === 200) {
                     console.log("Login successful:", response.data.message);
                     localStorage.setItem('userData', JSON.stringify(response.data.user));
+                    navigate('/messages');
                 }
             } catch (error) {
                 setEmailUsernameError(true);
